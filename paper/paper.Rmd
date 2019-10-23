@@ -1,0 +1,117 @@
+---
+title             : "The ``Standard Model'' of Early Language Learning"
+shorttitle        : "Standard Model of Language Learning"
+
+author: 
+  - name          : "George Kachergis"
+    affiliation   : "1"
+    corresponding : no 
+    address       : "420 Serra Mall"
+    email         : "kachergis@stanford.edu"
+  - name          : "Michael C. Frank"
+    affiliation   : "1"
+    corresponding : yes 
+    address       : "420 Serra Mall"
+    email         : "mcfrank@stanford.edu"
+
+affiliation:
+  - id            : "1"
+    institution   : "Stanford University"
+
+authornote: |
+  Department of Psychology
+
+abstract: |
+  One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
+  
+  Two to three sentences of **more detailed background**, comprehensible  to scientists in related disciplines.
+  
+  One sentence clearly stating the **general problem** being addressed by  this particular study.
+  
+  One sentence summarizing the main result (with the words "**here we show**" or their equivalent).
+  
+  Two or three sentences explaining what the **main result** reveals in direct comparison to what was thought to be the case previously, or how the  main result adds to previous knowledge.
+  
+  One or two sentences to put the results into a more **general context**.
+  
+  Two or three sentences to provide a **broader perspective**, readily comprehensible to a scientist in any discipline.
+  
+  
+keywords          : "keywords"
+wordcount         : "X"
+
+bibliography      : ["r-references.bib"]
+
+floatsintext      : no
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+linenumbers       : yes
+mask              : no
+draft             : no
+
+documentclass     : "apa6"
+classoption       : "man"
+output            : papaja::apa6_pdf
+---
+
+```{r setup, include = FALSE}
+library("papaja")
+```
+
+```{r analysis-preferences}
+# Seed for random number generation
+set.seed(42)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+```
+
+In physics, the "Standard Model" is a widely-accepted theory completed in the 1970s that describes all known elementary particles, along with three of the four known fundamental forces in the universe, explaining a wide variety of empirical phenomena. 
+What fundamental building blocks and mechanisms are needed to construct an analogous standard model of early language learning?
+
+Understanding children's language environment has been of central interest to both theoretical and applied and research on early language learning.
+In particular, word learning has come to be viewed as central to measuring and influencing language learning.
+Important applied area, interest in sociodemographic variation
+
+Word learning is one of the rare areas in developmental work in which the construct of individual differences is also seen as an epistemic construct: 
+
+
+# The Standard Model
+
+To build a "standard model", we begin by specifying the minimal assumptions made by any model of word learning.
+First, assume that words accumulate through repeated exposure at a rate controlled by a variety of factors, including 1) learning rate, 2) frequency of exposure, 3) diversity of exposure, and 4) leveraged learning.
+
+Combine to create a "macro-economics of early language" 
+Input distributional patterns that match corpus dynamics (Montag etc)
+Identify critical uptake patterns to aim for (CDI quartiles?)
+
+## Extensions
+ambiguity and disambiguation
+Cross-situational extensions (Smith, Blythe) - most word learning situations are ambiguous and require disambiguation across time (using mechanisms of learning and memory)
+Socio-pragmatic extensions - most word learning instances are disambiguated by social and pragmatic cues (and are unambiguous)
+Experimental evidence from the “associations vs. hypotheses” debate
+
+
+# Procedure
+
+## Data analysis
+We used `r cite_r("r-references.bib")` for all our analyses.
+
+
+# Results
+
+# Discussion
+
+
+\newpage
+
+# References
+```{r create_r-references}
+r_refs(file = "r-references.bib")
+```
+
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+
+<div id = "refs"></div>
+\endgroup
