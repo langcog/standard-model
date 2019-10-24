@@ -88,7 +88,7 @@ Identify critical uptake patterns to aim for (CDI quartiles?)
 ambiguity and disambiguation
 Cross-situational extensions (Smith, Blythe) - most word learning situations are ambiguous and require disambiguation across time (using mechanisms of learning and memory)
 Socio-pragmatic extensions - most word learning instances are disambiguated by social and pragmatic cues (and are unambiguous)
-Experimental evidence from the “associations vs. hypotheses” debate
+Experimental evidence from the "associations vs. hypotheses" debate
 
 
 # Procedure
