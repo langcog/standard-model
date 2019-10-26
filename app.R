@@ -17,15 +17,15 @@ ui <- fluidPage(
                         list("Zipfian" = "zipf", 
                              "Uniform" = "uniform")),
             sliderInput("vocab_size", "Vocabulary size:", 
-                        min=200, max=10000, value=5000, step=200),
+                        min=500, max=10000, value=5000, step=500),
             sliderInput("n_learners", "Number of learners:", 
                         min=10, max=500, value=100, step=10),
             sliderInput("input_rate", "Input rate (words/day):", 
-                        min=0, max=10000, value=1000, step=100),
+                        min=100, max=10000, value=1000, step=100),
             sliderInput("threshold", "Number of occurrences needed to learn a word:", 
                         min=0, max=1000, value=100, step=10),
             sliderInput("max_age", "Age range (months):", 
-                        min=0, max=48, value=24, step=3),
+                        min=0, max=48, value=36, step=3),
             sliderInput("learning_rate", "Mean learning rate:", 
                         min = 1, max = 10, value = 1, step= 1),
             sliderInput("proc_speed", "Mean processing speed:", 
@@ -72,7 +72,7 @@ simulate <- function(vocab_size, distro, input_rate, n_learners, threshold, max_
     }
     # return per individual per month 
     # reshape to long
-    known_words = cbind(rep(0,s), known_words)
+    known_words = cbind(rep(0,n_learners), known_words)
     known_words = data.frame(known_words)
     names(known_words) = 0:max_age
     known_words$id = 1:nrow(known_words)
@@ -90,7 +90,7 @@ server <- function(input, output) {
         #sim = simulate(5000, "uniform", 500, 10, 15, 12, 1)
         gd <- sim %>% group_by(month, id) %>% summarise(mean=mean(words), sd=sd(words))
         qs <- c(0.10,0.25,0.50,0.75,0.90)
-        ggplot(sim, aes(x=month, y=words)) + geom_jitter(width=.1, alpha=.2) + geom_point(alpha=.2) + # position="jitter", 
+        ggplot(sim, aes(x=month, y=words)) + geom_jitter(width=.1, alpha=.2) + geom_point(alpha=.2) +  
             geom_quantile(quantiles=qs, formula=y ~ poly(x, 2), aes(colour = as.factor(..quantile..))) + 
             labs(colour="Quantile") +
             geom_abline(intercept=0, slope=input$vocab_size/input$max_age, linetype="dashed", color="grey", size=1) + 
