@@ -1,0 +1,13 @@
+name: standard-model
+title: standard-model
+username:
+account: kachergis
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1382367
+bundleId: 2537198
+url: https://kachergis.shinyapps.io/standard-model/
+when: 1572048726.47393
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: paper/paper.Rmd
