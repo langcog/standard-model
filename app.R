@@ -16,17 +16,17 @@ ui <- fluidPage(
             selectInput("distro", "Word frequency distribution:",
                         list("Zipfian" = "zipf", 
                              "Uniform" = "uniform")),
-            sliderInput("vocab_size", "Vocabulary size:", 
+            sliderInput("vocab_size", "Total vocabulary size:", 
                         min=500, max=10000, value=5000, step=500),
             sliderInput("n_learners", "Number of learners:", 
-                        min=10, max=500, value=100, step=10),
-            sliderInput("input_rate", "Input rate (words/day):", 
-                        min=100, max=10000, value=1000, step=100),
+                        min=10, max=200, value=50, step=10),
+            sliderInput("input_rate", "Input rate (tokens/day):", # HR welfare: 616, prof: 2153
+                        min=100, max=6000, value=1000, step=100),
             sliderInput("threshold", "Number of occurrences needed to learn a word:", 
                         min=0, max=1000, value=100, step=10),
             sliderInput("max_age", "Age range (months):", 
                         min=0, max=48, value=36, step=3),
-            sliderInput("learning_rate", "Mean learning rate:", 
+            sliderInput("learning_rate", "Mean learning rate (scales value of occurrence; truncated at .1):", 
                         min = 1, max = 10, value = 1, step= 1),
             sliderInput("proc_speed", "Mean processing speed:", 
                         min = 0, max = 1, value = 0.5, step= 0.1),
@@ -47,7 +47,7 @@ sigmoid <- function(x) {
 # need to add proc_speed term and proc_facilitates interaction term
 simulate <- function(vocab_size, distro, input_rate, n_learners, threshold, max_age, mean_learning_rate) {
     learning_rate = rnorm(n_learners, mean=mean_learning_rate, sd=1) # individual learning rates
-    learning_rate[which(learning_rate<0)] = 0.00001 # >0
+    learning_rate[which(learning_rate<0)] = 0.1 # >0
     if(distro=="zipf") {
         probs = 1:vocab_size / sum(1:vocab_size)
     } else if(distro=="uniform") {
@@ -90,9 +90,9 @@ server <- function(input, output) {
         #sim = simulate(5000, "uniform", 500, 10, 15, 12, 1)
         gd <- sim %>% group_by(month, id) %>% summarise(mean=mean(words), sd=sd(words))
         qs <- c(0.10,0.25,0.50,0.75,0.90)
-        ggplot(sim, aes(x=month, y=words)) + geom_jitter(width=.1, alpha=.2) + geom_point(alpha=.2) +  
+        ggplot(sim, aes(x=month, y=words)) + geom_jitter(width=.1, alpha=.1) + geom_point(alpha=.1) +  
             geom_quantile(quantiles=qs, formula=y ~ poly(x, 2), aes(colour = as.factor(..quantile..))) + 
-            labs(colour="Quantile") +
+            labs(colour="Quantile") + geom_smooth() + 
             geom_abline(intercept=0, slope=input$vocab_size/input$max_age, linetype="dashed", color="grey", size=1) + 
             xlab("Age (months") + ylab("Vocabulary Size") + theme_bw() + 
             ylim(0,input$vocab_size) + xlim(0, input$max_age) 
