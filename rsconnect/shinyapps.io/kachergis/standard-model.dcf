@@ -5,9 +5,9 @@ account: kachergis
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1382367
-bundleId: 2537260
+bundleId: 2545526
 url: https://kachergis.shinyapps.io/standard-model/
-when: 1572051886.12801
+when: 1572299650.75836
 asMultiple: FALSE
 asStatic: FALSE
 ignoredFiles: paper/paper.Rmd
