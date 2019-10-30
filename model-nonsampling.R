@@ -1,3 +1,10 @@
+# without loss of generality parameters (fixed):
+n_learners = 100
+max_age = 48 # months
+vocab_size = 10000
+max_tokens_per_day = 6000 # maximum reasonable input rate
+waking_hours_per_day = 12
+
 
 sigmoid <- function(x) {
   return( 1 / (1 + exp(-x)) )
@@ -22,10 +29,9 @@ make_long_df <- function(df, n_learners, max_age) {
 # consolidate learning rate and threshold ?
 #  variability in # effective instances to learn
 
-# load generated tokens
 
 # need to add proc_speed term and proc_facilitates interaction term
-simulate <- function(vocab_size=10000, distro, input_rate, n_learners=100, threshold, max_age=48, mean_learning_rate, threshold_sd, proc_facilitates, proc_speed_dev) {
+simulate <- function(vocab_size=10000, distro, input_rate, n_learners=100, threshold, max_age=48, mean_learning_rate, learning_rate_sd, threshold_sd, proc_facilitates, proc_speed_dev) {
   #probs = wf_distros[[distro]] # "zipf" or "uniform"
   if(distro=="uniform") {
     probs = rep(1/vocab_size, vocab_size)
@@ -35,9 +41,10 @@ simulate <- function(vocab_size=10000, distro, input_rate, n_learners=100, thres
     probs = sample(probs, length(probs)) 
   }
   
-  # maybe learning_rate should be beta-distributed?
-  learning_rate = rnorm(n_learners, mean=mean_learning_rate, sd=1) # individual learning rates
-  learning_rate[which(learning_rate<0)] = 0.1 # >0
+  
+  learning_rate = rnorm(n_learners, mean=mean_learning_rate, sd=learning_rate_sd) # individual learning rates
+  learning_rate[which(learning_rate<.1)] = 0.1 # truncate
+  # maybe beta-distributed?
   
   # fixed threshold for all words, or normal distribution over word difficulty (like McMurray 2007)
   #if(threshold_varies) threshold = rnorm(vocab_size, mean=threshold, sd=20)
@@ -53,24 +60,19 @@ simulate <- function(vocab_size=10000, distro, input_rate, n_learners=100, thres
   b = 1.04 # multiplier for the (infant) intercept
   c = proc_speed_dev #rate of development (0.72 in Frank, Lewis, & MacDonald, 2016)
   
-  tokens_per_mo = round(input_rate*30.42)*n_learners # tokens/day * days/month 
-  # (should be: tokens/hour * waking hours/day * days/month)
-  tokens = sample(1:vocab_size, tokens_per_mo*48, prob=probs, replace=T)
+  tokens_per_mo = round(input_rate*waking_hours_per_day*30.42) # tokens/hour * waking hours/day * days/month)
   for(t in 1:max_age) {
-    # sample 1 month of tokens for all learners
-    #tokens_mo = matrix(sample(1:vocab_size, tokens_per_mo, prob=probs, replace=T), nrow=n_learners) # 3340ms
-    tok_i = (t-1)*tokens_per_mo + 1 # for t=1, 1:tokens_per_mo, for t=2, tokens_per_mo
-    #tokens_mo = matrix(tokens[[distro]][tok_i:(t*tokens_per_mo)], nrow=n_learners) # if using generate_tokens.R
-    tokens_mo = matrix(tokens[tok_i:(t*tokens_per_mo)], nrow=n_learners)
-    mo_word_occs = apply(tokens_mo, 1, tabulate, nbins=vocab_size) # for sampling version (1020ms)
+    # expected occurences of each word this month per subject (column)
+    mo_word_occs = probs*tokens_per_mo # no sampling -- just expected tokens per mo
+    mo_word_occs = matrix(rep(mo_word_occs, n_learners), byrow=F, ncol=n_learners)
     
-    proc_speed[,t] = a + rowSums(b*exp(-c*log(cumulative_word_occs+1))) / vocab_size # 930ms
+    proc_speed[,t] = a + rowSums(b*exp(-c*log(cumulative_word_occs+1))) / vocab_size 
     
     # learning rate scales value of occurrences
     if(proc_facilitates) { # further scale value of word occurrences by processing speed
-      cumulative_word_occs = cumulative_word_occs + (3-proc_speed[,t])*learning_rate*t(mo_word_occs) # 380ms
+      cumulative_word_occs = cumulative_word_occs + (3-proc_speed[,t])*learning_rate*t(mo_word_occs) 
     } else {
-      cumulative_word_occs = cumulative_word_occs + learning_rate*t(mo_word_occs) # 360ms accumulate occurrences this month
+      cumulative_word_occs = cumulative_word_occs + learning_rate*t(mo_word_occs) # accumulate occurrences this month
     }
     known_words[,t] = rowSums(cumulative_word_occs>threshold) 
   }
@@ -83,7 +85,7 @@ simulate <- function(vocab_size=10000, distro, input_rate, n_learners=100, thres
 }
 
 # vocab_size, distro, input_rate, n_learners, threshold, max_age, mean_learning_rate, threshold_sd, proc_facilitates, proc_speed_dev)
-#sim = simulate(10000, "uniform", 1000, 100, 100, 48, 2, 10, F, .72)
-#sim$known_words %>% group_by(month) %>% summarise(mean=mean(words), sd=sd(words))
+#sim = simulate(10000, "uniform", 1000, 100, 100, 48, 2, .5, 10, F, .72)
+#sim %>% group_by(month) %>% summarise(mean=mean(words), sd=sd(words))
 
 #}) # profiler
