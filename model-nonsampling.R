@@ -2,12 +2,16 @@
 n_learners = 100
 max_age = 48 # months
 vocab_size = 10000
-max_tokens_per_day = 6000 # maximum reasonable input rate
 waking_hours_per_day = 12
 
 
 sigmoid <- function(x) {
   return( 1 / (1 + exp(-x)) )
+}
+
+acceleration_test <- function(dat) {
+  d = dat$known_words %>% filter(month>11 & month<25) %>% group_by(month) %>% summarize(mean=mean(words)) 
+  return( mean(diff(diff(d$mean))) )
 }
 
 #library(profvis)

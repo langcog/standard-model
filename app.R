@@ -44,7 +44,7 @@ ui <- fluidPage(
         # Show a plot of the generated distribution
         mainPanel(
             tabsetPanel(type = "tabs", id="tabs", 
-                tabPanel("Vocabulary Growth by Age", plotOutput("ageVocab")),
+                tabPanel("Vocabulary Growth by Age", plotOutput("ageVocab"), textOutput("acceleration")),
                 tabPanel("Processing Speed by Age", plotOutput("ageRT")),
                 tabPanel("Vocabulary Growth Table", textOutput("summary"), DT::dataTableOutput("mytable"))
             )
@@ -90,13 +90,16 @@ server <- function(input, output) {
         paste("Mean of cumulative words known per month.") # input$distro
     })
     
-    output$model_preds <- renderText({ 
-        paste("Expected value of ") # input$distro
+    # fit linear and quadratic models to mean words known per month for all months where vocab is not at ceiling
+    # NOT DONE - do we just want to check the r.squared of a model with a quadratic term? or 
+    output$acceleration <- renderText({ 
+        accel = acceleration_test(sim_data()) 
+        paste("Average acceleration in vocabulary growth during the second year: ", round(accel, 2)) # input$distro
     })
     
     output$mytable = DT::renderDataTable({
         sim_data()$known_words %>% group_by(month) %>% 
-            summarise(mean=mean(words), sd=sd(words)) %>%
+            summarise(mean=mean(words), sd=sd(words)) %>% 
             mutate(cumulative_tokens=input$input_rate*waking_hours_per_day*30.42*month) %>%
             datatable(options = list(lengthMenu = c(12, 24, 36), pageLength=49)) %>% 
             formatRound(columns=c("mean","sd"), digits=0)
