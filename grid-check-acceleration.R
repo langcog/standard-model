@@ -30,6 +30,13 @@ acceleration_test <- function(dat) {
   return( mean(diff(diff(d$mean))) )
 }
 
+# quick testing parms
+#input_rates = c(500, 1000)
+#thresholds = c(500, 1000)
+#threshold_sds = c(0, 10)
+#learning_rates = c(1)
+#learning_rate_sds = c(0)
+
 do_grid <- function(distro, processing_facilitates) {
   dat = data.frame(distro=NA, input_rate=NA, threshold=NA, 
                    threshold_sd=NA, learning_rate=NA, learning_rate_sd=NA, proc_facilitates=NA, proc_speed=NA, acceleration=NA)
@@ -54,7 +61,7 @@ do_grid <- function(distro, processing_facilitates) {
       }
     }
   }
-  return(na.omit(dat))
+  return(dat[2:nrow(dat),])
 }
 
 grid_uniform = do_grid("uniform", F)
@@ -71,7 +78,26 @@ ggplot(subset(all, proc_facilitates==T & distro=="zipf"), aes(input_rate, thresh
   facet_grid(rows=vars(input_rate), cols=vars(threshold)) + scale_colour_gradient2()
 
 ggplot(all, aes(input_rate, threshold)) + geom_tile(aes(fill = acceleration), colour = "white") + 
+  facet_grid(rows=vars(input_rate), cols=vars(threshold)) + scale_colour_gradient2()
+
+ggplot(all, aes(input_rate, threshold)) + geom_tile(aes(fill = acceleration), colour = "white") + 
    facet_grid(rows=vars(input_rate), cols=vars(distro)) + scale_colour_gradient2()
 
 ggplot(subset(all, proc_facilitates==F & distro=="zipf"), aes(learning_rate, threshold)) + geom_tile(aes(fill = acceleration), colour = "white") + 
   facet_grid(rows=vars(learning_rate), cols=vars(threshold)) + scale_colour_gradient2()
+
+acc = subset(all, acceleration>1)
+table(acc$distro)
+table(acc$input_rate, acc$threshold)
+table(acc$input_rate, acc$proc_speed)
+table(acc$proc_facilitates)
+subset(acc, proc_facilitates==F)
+
+summary(acc$acceleration)
+# median = 9, max=54
+
+dim(subset(all, acceleration>9)) # 1578 
+
+View(subset(all, acceleration>30))
+
+

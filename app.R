@@ -15,29 +15,29 @@ ui <- fluidPage(
     sidebarLayout(
         sidebarPanel(
             selectInput("distro", "Word frequency distribution:",
-                        list("Zipfian" = "zipf", 
+                        list("Zipfian" = "zipf",
+                             "log(Zipfian)" = "logzipf",
                              "Uniform" = "uniform")),
-            #sliderInput("vocab_size", "Total vocabulary size:", 
-            #            min=500, max=10000, value=5000, step=500),
-            #sliderInput("n_learners", "Number of learners:", 
-            #            min=10, max=200, value=50, step=10),
             sliderInput("input_rate", "Input rate (tokens/hour):", 
                         min=100, max=6000, value=1000, step=100), 
+            sliderInput("input_rate_sd", "Standard deviation of input rate:", 
+                        min=0, max=1000, value=100, step=10), 
             helpText("e.g., Hart & Risley low SES: 616/hr; high SES: 2153/hr, and let's assume 12 waking hours per day"),
             sliderInput("threshold", "Mean occurrences needed to learn a word:", 
                         min=100, max=6000, value=1000, step=100),
-            #checkboxInput("threshold_varies", "Threshold varies (i.e., word difficulty normally distributed)"),
             sliderInput("threshold_sd", "Standard deviation of threshold distribution:", 
                         min=0, max=1000, value=300, step=20),
             helpText("McMurray (2007) used a mean of 4000 and a large SD."),
-            #sliderInput("max_age", "Age range (months):", 
-            #            min=0, max=48, value=36, step=3),
-            sliderInput("learning_rate", "Mean learning rate (scales value of occurrence; truncated at .1):", 
-                        min = .5, max = 10, value = 1, step=.5),
-            sliderInput("learning_rate_sd", "Standard deviation of learning rate distribution:", 
-                        min = 0, max = 10, value = .5, step=.1),
-            sliderInput("proc_speed_dev", "Mean processing speed rate of development:", 
+            #sliderInput("learning_rate", "Mean learning rate (scales value of occurrence; truncated at .1):", 
+            #            min = .5, max = 10, value = 1, step=.5),
+            sliderInput("learning_rate", "Mean adult processing speed asymptote (a; scales value of occurrence; truncated at .01):", 
+                        min = .01, max = 1, value = .56, step=.01),
+            sliderInput("learning_rate_sd", "Standard deviation of a distribution:", 
+                        min = 0, max = 1, value = .1, step=.01),
+            sliderInput("proc_speed_dev", "Mean processing speed rate of development (c):", 
                         min = 0, max = 1, value = 0.72, step= 0.02),
+            sliderInput("proc_speed_dev_sd", "Standard deviation of c distribution:",
+                        min = 0, max = 1, value = .1, step=.01),
             checkboxInput("proc_facilitates", "Processing facilitates acquisition", FALSE)
         ),
 
@@ -55,12 +55,26 @@ ui <- fluidPage(
 
 # server logic
 server <- function(input, output) {
+    print(input)
     sim_data = reactive({
         # fix: vocab_size=10000, n_learners=100, max_age=48
-        simulate(vocab_size, input$distro, input$input_rate, 
-            n_learners, input$threshold, max_age, 
-            input$learning_rate, input$learning_rate_sd, input$threshold_sd, 
-            input$proc_facilitates, input$proc_speed_dev)
+        parms = list(distro=input$distro,
+                     input_rate = input$input_rate,
+                     input_rate_sd = input$input_rate_sd,
+                     threshold = input$threshold,
+                     threshold_sd = input$threshold_sd,
+                     mean_learning_rate = input$learning_rate,
+                     learning_rate_sd = input$learning_rate_sd,
+                     proc_facilitates = input$proc_facilitates,
+                     proc_speed_dev = input$proc_speed_dev, 
+                     proc_speed_dev_sd = input$proc_speed_dev_sd
+                )
+        print(parms)
+        simulate(parms)
+        #simulate(vocab_size=vocab_size, distro=input$distro, input_rate=input$input_rate, input_rate_sd=input$input_rate_sd,
+        #    n_learners=n_learners, threshold=input$threshold, max_age=max_age, 
+        #    mean_learning_rate=input$learning_rate, learning_rate_sd=input$learning_rate_sd, threshold_sd=input$threshold_sd, 
+        #    proc_faciliates=input$proc_facilitates, proc_speed_dev=input$proc_speed_dev, proc_speed_dev_sd=input$proc_speed_dev_sd)
     })
     
     output$ageVocab <- renderPlot({

@@ -34,49 +34,68 @@ make_long_df <- function(df, n_learners, max_age) {
 #  variability in # effective instances to learn
 
 
+# function(vocab_size=10000, distro, input_rate, input_rate_sd, n_learners=100, threshold, 
+#  max_age=48, mean_learning_rate, learning_rate_sd, threshold_sd, 
+#  proc_facilitates, proc_speed_dev, proc_speed_dev_sd) {
+
 # need to add proc_speed term and proc_facilitates interaction term
-simulate <- function(vocab_size=10000, distro, input_rate, n_learners=100, threshold, max_age=48, mean_learning_rate, learning_rate_sd, threshold_sd, proc_facilitates, proc_speed_dev) {
+simulate <- function(parms) {
   #probs = wf_distros[[distro]] # "zipf" or "uniform"
-  if(distro=="uniform") {
+  if(parms$distro=="uniform") {
     probs = rep(1/vocab_size, vocab_size)
   } else {
     probs = 1 / (1:vocab_size + 2.7) # f(r) = 1 / (r+beta)^alpha, alpha=1, beta=2.7 (Mandelbrot, 1953, 1962)
     probs = probs/sum(probs)
     probs = sample(probs, length(probs)) 
   }
+  if(parms$distro=="logzipf") {
+    lp = -log(probs)
+    probs = lp / sum(lp) # max=.001, min=.003 (2x min(zipf))
+  }
   
-  
-  learning_rate = rnorm(n_learners, mean=mean_learning_rate, sd=learning_rate_sd) # individual learning rates
-  learning_rate[which(learning_rate<.1)] = 0.1 # truncate
+  input_rate = rnorm(n_learners, mean=parms$input_rate, sd=parms$input_rate_sd) # per-child variability in input rate
+  #learning_rate = rnorm(n_learners, mean=mean_learning_rate, sd=learning_rate_sd) # individual learning rates
+  #learning_rate[which(learning_rate<.1)] = 0.1 # truncate
+  a = rnorm(n_learners, mean=parms$mean_learning_rate, sd=parms$learning_rate_sd) # individual adult asymptotes for proc speed
+  c = rnorm(n_learners, mean=parms$proc_speed_dev, sd=parms$proc_speed_dev_sd) # individual rate of processing speed development
+  # changing learning_rate to be adult processing speed asymptote
+  a[which(a<.01)] = 0.01 # truncate
+  c[which(c<.01)] = 0.01 # truncate
   # maybe beta-distributed?
   
   # fixed threshold for all words, or normal distribution over word difficulty (like McMurray 2007)
   #if(threshold_varies) threshold = rnorm(vocab_size, mean=threshold, sd=20)
-  threshold = rnorm(vocab_size, mean=threshold, sd=threshold_sd)
+  threshold = rnorm(vocab_size, mean=parms$threshold, sd=parms$threshold_sd)
   
   cumulative_word_occs = matrix(0, nrow=n_learners, ncol=vocab_size) # number of times each word has appeared per learner
   known_words = matrix(0, nrow=n_learners, ncol=max_age) # known words per individual (row) per month (col)
   proc_speed = matrix(0, nrow=n_learners, ncol=max_age) # do we want per word instead of per learner?
   
-  # processing speed
+  # processing speed - each of these parameters could have individual variability
   # Kail (1991): RT slopes follow an exponential, such that Y(i) = a + b*exp(−c*i), where Y=predicted var, i=age. 
-  a = 0.56 # eventual (adult) asymptote
-  b = 1.04 # multiplier for the (infant) intercept
-  c = proc_speed_dev #rate of development (0.72 in Frank, Lewis, & MacDonald, 2016)
-  
+  #a = 0.56 # eventual (adult) asymptote VARIABILITY HERE
+  b = 1.04 # multiplier for the (infant) intercept - SES or preemie VARIABILITY HERE
+  #c = proc_speed_dev #rate of development (0.72 in Frank, Lewis, & MacDonald, 2016)
+  # age vs. # of vocab terms as leverage for learning rate
+  # how to model clinically-important variables, e.g., they tell parents to follow-in (e.g., trains not animals for ASD)
+  # can we get a true late-talker by 1) screwing around with input factors, and/or 2) screwing around with child-level variables
+
   tokens_per_mo = round(input_rate*waking_hours_per_day*30.42) # tokens/hour * waking hours/day * days/month)
   for(t in 1:max_age) {
     # expected occurences of each word this month per subject (column)
     mo_word_occs = probs*tokens_per_mo # no sampling -- just expected tokens per mo
     mo_word_occs = matrix(rep(mo_word_occs, n_learners), byrow=F, ncol=n_learners)
     
+    #proc_speed[,t] = a + rowSums(b*exp(-c*log(cumulative_word_occs+1))) / vocab_size 
     proc_speed[,t] = a + rowSums(b*exp(-c*log(cumulative_word_occs+1))) / vocab_size 
     
     # learning rate scales value of occurrences
-    if(proc_facilitates) { # further scale value of word occurrences by processing speed
-      cumulative_word_occs = cumulative_word_occs + (3-proc_speed[,t])*learning_rate*t(mo_word_occs) 
+    if(parms$proc_facilitates) { # further scale value of word occurrences by processing speed
+      #cumulative_word_occs = cumulative_word_occs + (3-proc_speed[,t])*learning_rate*t(mo_word_occs) 
+      cumulative_word_occs = cumulative_word_occs + (1/proc_speed[,t])*t(mo_word_occs) 
     } else {
-      cumulative_word_occs = cumulative_word_occs + learning_rate*t(mo_word_occs) # accumulate occurrences this month
+      #cumulative_word_occs = cumulative_word_occs + learning_rate*t(mo_word_occs) # accumulate occurrences this month
+      cumulative_word_occs = cumulative_word_occs + 1*t(mo_word_occs)
     }
     known_words[,t] = rowSums(cumulative_word_occs>threshold) 
   }
@@ -93,3 +112,17 @@ simulate <- function(vocab_size=10000, distro, input_rate, n_learners=100, thres
 #sim %>% group_by(month) %>% summarise(mean=mean(words), sd=sd(words))
 
 #}) # profiler
+
+ex_parms = list(distro="uniform",
+             input_rate = 1000,
+             input_rate_sd = 100,
+             threshold = 1000,
+             threshold_sd = 100,
+             mean_learning_rate = .5,
+             learning_rate_sd = .1,
+             proc_facilitates = T,
+             proc_speed_dev = .72, 
+             proc_speed_dev_sd = .1
+  )
+
+simulate(ex_parms)
