@@ -38,6 +38,31 @@ make_long_df <- function(df, n_learners, max_age) {
 #  max_age=48, mean_learning_rate, learning_rate_sd, threshold_sd, 
 #  proc_facilitates, proc_speed_dev, proc_speed_dev_sd) {
 
+get_proc_speed <- function(print_plot=F) {
+  a = rnorm(n_learners, mean=.56, sd=.1) # individual adult asymptotes for proc speed
+  c = rnorm(n_learners, mean=.72, sd=.1)
+  b = 1.04
+  proc_speed = matrix(0, nrow=n_learners, ncol=max_age)
+  #proc_speed = apply(get_proc_speed)
+  for(t in 1:max_age) {
+    proc_speed[,t] = a + b*exp(-c*log(t+1)) #/ vocab_size 
+  }
+
+  if(print_plot) {
+    proc_speed_long = make_long_df(proc_speed, n_learners, max_age)
+    gg <- ggplot(proc_speed_long, aes(x=month, y=words)) + 
+      geom_line(aes(group=id), alpha=.1) +  
+      labs(colour="Quantile") + geom_smooth() + 
+      xlab("Age (months)") + ylab("Response Time (seconds)") 
+    print(gg)
+  }
+  
+  return(proc_speed)
+}
+
+#get_proc_speed(print_plot=T)
+
+
 # need to add proc_speed term and proc_facilitates interaction term
 simulate <- function(parms) {
   #probs = wf_distros[[distro]] # "zipf" or "uniform"
@@ -72,7 +97,7 @@ simulate <- function(parms) {
   proc_speed = matrix(0, nrow=n_learners, ncol=max_age) # do we want per word instead of per learner?
   
   # processing speed - each of these parameters could have individual variability
-  # Kail (1991): RT slopes follow an exponential, such that Y(i) = a + b*exp(−c*i), where Y=predicted var, i=age. 
+  # Kail (1991): RT slopes follow an exponential, such that Y(i) = a + b*exp(−c*i), where Y=predicted var, i=age (mos? year?). 
   #a = 0.56 # eventual (adult) asymptote VARIABILITY HERE
   b = 1.04 # multiplier for the (infant) intercept - SES or preemie VARIABILITY HERE
   #c = proc_speed_dev #rate of development (0.72 in Frank, Lewis, & MacDonald, 2016)
@@ -87,7 +112,8 @@ simulate <- function(parms) {
     mo_word_occs = matrix(rep(mo_word_occs, n_learners), byrow=F, ncol=n_learners)
     
     #proc_speed[,t] = a + rowSums(b*exp(-c*log(cumulative_word_occs+1))) / vocab_size 
-    proc_speed[,t] = a + rowSums(b*exp(-c*log(cumulative_word_occs+1))) / vocab_size 
+    #proc_speed[,t] = a + rowSums(b*exp(-c*log(cumulative_word_occs+1))) / vocab_size 
+    proc_speed[,t] = a + b*exp(-c*log(t+1)) #/ vocab_size 
     
     # learning rate scales value of occurrences
     if(parms$proc_facilitates) { # further scale value of word occurrences by processing speed
@@ -106,6 +132,7 @@ simulate <- function(parms) {
   proc_speed_l = make_long_df(proc_speed, n_learners, max_age)
   return(list(known_words=known_words_l, proc_speed=proc_speed_l))
 }
+
 
 # vocab_size, distro, input_rate, n_learners, threshold, max_age, mean_learning_rate, threshold_sd, proc_facilitates, proc_speed_dev)
 #sim = simulate(10000, "uniform", 1000, 100, 100, 48, 2, .5, 10, F, .72)

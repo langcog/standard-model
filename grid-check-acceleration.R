@@ -8,22 +8,40 @@
 #  mean_learning_rate, threshold_sd, proc_facilitates, proc_speed_dev)
 source("model-nonsampling.R")
 
-start_t = Sys.time()
-dat = simulate(vocab_size=10000, distro="zipf", 1000, n_learners=100, 500, max_age=24, 1, .5, 10, F, .72)
-stop_t = Sys.time()
-stop_t - start_t # 1.2s
+ex_parms = list(distro="uniform",
+                input_rate = 1000,
+                input_rate_sd = 100,
+                threshold = 1000,
+                threshold_sd = 100,
+                mean_learning_rate = .5, # proc_speed_asymp
+                learning_rate_sd = .1,
+                proc_facilitates = T,
+                proc_speed_dev = .72, 
+                proc_speed_dev_sd = .1
+              )
 
-input_rates = c(500, 1000, 1500, 2000, 2500, 3000)
-thresholds = c(500, 1000, 1500, 2000, 2500, 3000, 4000)
-threshold_sds = c(0, 10, 100, 200, 300)
-learning_rates = c(.5, 1, 2, 3)
-learning_rate_sds = c(0, .5, 1, 2, 3)
+start_t = Sys.time()
+dat = simulate(ex_parms)
+stop_t = Sys.time()
+stop_t - start_t # 1.1s
+
+input_rates = seq(500, 3000, 500)
+thresholds = seq(500, 6000, 1000)
+threshold_sds = c(0, 100)
+#learning_rates = c(.5, 1, 2, 3)
+#learning_rate_sds = c(0, .5, 1, 2, 3)
+proc_speed_asymps = c(.3, .6, .9) # adult = .56
+proc_speed_asymp_sds = c(.1)
 # distro="uniform" / "zipf"
 # processing_facilitates T / F (if T: 
-proc_speeds = seq(.1,1,.2)
+proc_speed_devs = c(.4, .7, 1) # .72
+proc_speed_dev_sds = c(.1)
 
-length(input_rates)*length(thresholds)*length(learning_rates)*length(threshold_sds)*length(learning_rate_sds)
-# 4200 * 2 * 2 = 16800 * 1.2 / 60 = 336
+length(input_rates)*
+  length(thresholds)*length(threshold_sds)*
+  length(proc_speed_asymps)*length(proc_speed_asymp_sds)*
+  length(proc_speed_devs)*length(proc_speed_dev_sds)
+# 648 * 2 * 2 = 2592 * 1.1 / 60 = 47.5/60 = .79hrs
 
 acceleration_test <- function(dat) {
   d = dat$known_words %>% filter(month>11) %>% group_by(month) %>% summarize(mean=mean(words)) 
@@ -42,20 +60,26 @@ do_grid <- function(distro, processing_facilitates) {
                    threshold_sd=NA, learning_rate=NA, learning_rate_sd=NA, proc_facilitates=NA, proc_speed=NA, acceleration=NA)
   for(i in input_rates) {
     for(t in thresholds) {
-      for(lr in learning_rates) {
+      for(lr in proc_speed_asymps) { 
         for(t_sd in threshold_sds) {
-          for(lr_sd in learning_rate_sds) {
-            if(processing_facilitates) {
-              for(ps in proc_speeds) {
-                sim = simulate(vocab_size=10000, distro, lr, n_learners=100, t, max_age=24, lr, t_sd, lr_sd, T, ps)
+          for(lr_sd in proc_speed_asymp_sds) {
+              for(ps in proc_speed_devs) {
+                parms = list(distro=distro,
+                     input_rate = i,
+                     input_rate_sd = 100, 
+                     threshold = t,
+                     threshold_sd = t_sd,
+                     mean_learning_rate = lr, # proc_speed_asymp
+                     learning_rate_sd = lr_sd,
+                     proc_facilitates = processing_facilitates,
+                     proc_speed_dev = ps, 
+                     proc_speed_dev_sd = .1
+                )
+                sim = simulate(parms)
+                #sim = simulate(vocab_size=10000, distro, lr, n_learners=100, t, max_age=24, lr, t_sd, lr_sd, T, ps)
                 accel = acceleration_test(sim)
                 dat = rbind(dat, c(distro, i, t, t_sd, lr, lr_sd, T, ps, accel))
               }
-            } else {
-              sim = simulate(vocab_size=10000, distro, lr, n_learners=100, t, max_age=24, lr, t_sd, lr_sd, F, .72)
-              accel = acceleration_test(sim)
-              dat = rbind(dat, c(distro, i, t, t_sd, lr, lr_sd, F, NA, accel))
-            }
           }
         }
       }

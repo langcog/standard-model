@@ -2,3 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+*.log
+*.tex
+paper/paper.pdf
+paper/r-references.bib

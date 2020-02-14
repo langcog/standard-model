@@ -3,7 +3,7 @@ library(shiny)
 library(tidyverse)
 library(quantreg)
 library(DT)
-
+library(shinyWidgets)
 
 source("model-nonsampling.R")
 
@@ -18,26 +18,37 @@ ui <- fluidPage(
                         list("Zipfian" = "zipf",
                              "log(Zipfian)" = "logzipf",
                              "Uniform" = "uniform")),
-            sliderInput("input_rate", "Input rate (tokens/hour):", 
+            chooseSliderSkin("Modern"),
+            setSliderColor(c("DarkSlateGrey", "DarkSlateGrey", # Input
+                             "DeepSkyBlue", "DeepSkyBlue", # Word Threshold
+                             "DeepPink", "DeepPink", # Proc Speed Adult Asymptote
+                             "DarkRed", "DarkRed"), # Proc Speed Rate of Development
+                           c(1,2, 3,4, 5,6, 7,8)), # color code param means and SDs
+            sliderInput("input_rate", "Input rate mean (tokens/hour):", 
                         min=100, max=6000, value=1000, step=100), 
-            sliderInput("input_rate_sd", "Standard deviation of input rate:", 
+            sliderInput("input_rate_sd", "Input rate standard deviation (SD):", 
                         min=0, max=1000, value=100, step=10), 
-            helpText("e.g., Hart & Risley low SES: 616/hr; high SES: 2153/hr, and let's assume 12 waking hours per day"),
-            sliderInput("threshold", "Mean occurrences needed to learn a word:", 
+            helpText("e.g., Hart & Risley low SES: 616/hr; high SES: 2153/hr; we assume 12 waking hours/day"),
+            
+            sliderInput("threshold", "Threshold mean (occurrences needed to learn a word):", 
                         min=100, max=6000, value=1000, step=100),
-            sliderInput("threshold_sd", "Standard deviation of threshold distribution:", 
+            sliderInput("threshold_sd", "Threshold standard deviation:", 
                         min=0, max=1000, value=300, step=20),
             helpText("McMurray (2007) used a mean of 4000 and a large SD."),
+            
             #sliderInput("learning_rate", "Mean learning rate (scales value of occurrence; truncated at .1):", 
             #            min = .5, max = 10, value = 1, step=.5),
-            sliderInput("learning_rate", "Mean adult processing speed asymptote (a; scales value of occurrence; truncated at .01):", 
+            
+            sliderInput("proc_speed_asymp", div(HTML("Adult processing speed asymptote mean (<em>a</em>; scales value of occurrence; truncated at .01):")), 
                         min = .01, max = 1, value = .56, step=.01),
-            sliderInput("learning_rate_sd", "Standard deviation of a distribution:", 
+            sliderInput("proc_speed_asymp_sd", div(HTML("Adult processing speed <em>a</em> SD:")), 
                         min = 0, max = 1, value = .1, step=.01),
-            sliderInput("proc_speed_dev", "Mean processing speed rate of development (c):", 
+            
+            sliderInput("proc_speed_dev", "Processing speed rate of development mean (c):", 
                         min = 0, max = 1, value = 0.72, step= 0.02),
-            sliderInput("proc_speed_dev_sd", "Standard deviation of c distribution:",
+            sliderInput("proc_speed_dev_sd", "Processing speed rate SD:",
                         min = 0, max = 1, value = .1, step=.01),
+            
             checkboxInput("proc_facilitates", "Processing facilitates acquisition", FALSE)
         ),
 
@@ -63,8 +74,8 @@ server <- function(input, output) {
                      input_rate_sd = input$input_rate_sd,
                      threshold = input$threshold,
                      threshold_sd = input$threshold_sd,
-                     mean_learning_rate = input$learning_rate,
-                     learning_rate_sd = input$learning_rate_sd,
+                     mean_learning_rate = input$proc_speed_asymp, # ToDo: re-name param in model-nonsampling.R
+                     learning_rate_sd = input$proc_speed_asymp_sd, # ToDo: re-name param in model-nonsampling.R
                      proc_facilitates = input$proc_facilitates,
                      proc_speed_dev = input$proc_speed_dev, 
                      proc_speed_dev_sd = input$proc_speed_dev_sd
@@ -97,7 +108,8 @@ server <- function(input, output) {
             labs(colour="Quantile") + geom_smooth() + 
             #geom_abline(intercept=0, slope=input$vocab_size/input$max_age, linetype="dashed", color="grey", size=1) + 
             xlab("Age (months)") + ylab("Response Time (seconds)") + 
-            xlim(1, max_age) + ylim(0,2)
+            xlim(1, max_age) + ylim(0,1.5)
+        #print(sim_data()$proc_speed)
     })
     
     output$summary <- renderText({ 
