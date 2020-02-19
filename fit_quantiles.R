@@ -23,7 +23,7 @@ ex_parms = list(distro="uniform",
 )
 
 
-fitSSE <- function(parms, proc_facilitates=T, graph=F) {
+fitSSE <- function(parms, proc_facilitates=T, graph="") {
   full_parms = list(distro="logzipf",
                   input_rate = parms[1],
                   input_rate_sd = parms[2],
@@ -43,31 +43,30 @@ fitSSE <- function(parms, proc_facilitates=T, graph=F) {
         tibble::enframe()
     }) %>% spread(name, value)
   
-  if(graph) {
+  if(graph!="") {
     theme_set(theme_classic())
     ggplot(simdat, aes(x=month, y=words)) + geom_line(aes(group=id), alpha=.05) +  
       geom_quantile(quantiles=qs, formula=y ~ poly(x, 2), aes(colour = as.factor(..quantile..))) + 
       labs(colour="Quantile") + xlab("Age (months)") + ylab("Vocabulary Size") + xlim(1, max_age) 
-    ggsave("model_quantiles.pdf", width=6, height=5)
+    ggsave(paste0(graph,".pdf"), width=6, height=5)
   }
   
   return(sum((sim_quants[8:max_age,] - quants)^2))
 }
 
-set.seed(1234)
-fit <- DEoptim(fitSSE, lower=c(1, 1, 1, 1, .01, .01, .01, .01), 
-               upper=c(9000, 9000, 9000, 9000, 1, 2, 1, 2), 
-        control = DEoptim.control(NP = 80, itermax = 100)) # , F = 1.2, CR = 0.7
-# 256282.537500 bestmemit:  
-pars = c(377.67, 2091.39, 8034.29, 2638.25, 0.402713, 0.015136, 0.627340, 0.109277)
-fitSSE(pars, graph=T) # SSE= 265834
-#fitSSE(fit$optim$bestmem, graph=T) 
 
-# fix the processing speed parameters
-fit2 <- DEoptim(fitSSE, lower=c(1, 1, 1, 1, .555, .01, .715, .01), 
-               upper=c(9000, 9000, 9000, 9000, .564, 2, .724, 2), 
-               control = DEoptim.control(NP = 80, itermax = 100))
+#set.seed(1234)
+#fit <- DEoptim(fitSSE, lower=c(1, 1, 1, 1, .01, .01, .01, .01), upper=c(9000, 9000, 9000, 9000, 1, 2, 1, 2), 
+#               control = DEoptim.control(NP = 80, itermax = 200)) # , F = 1.2, CR = 0.7
+# 256282.537500 bestmemit:  
+#pars = c(377.67, 2091.39, 8034.29, 2638.25, 0.402713, 0.015136, 0.627340, 0.109277)
+#fitSSE(pars, graph=T) # SSE= 265834
+#fitSSE(fit$optim$bestmem, graph="unconstrained_proc_facil_TRUE") 
+
+
+#fit2 <- DEoptim(fitSSE, lower=c(1, 1, 1, 1, .555, .01, .715, .01), upper=c(9000, 9000, 9000, 9000, .564, 2, .724, 2), 
+#                control = DEoptim.control(NP = 80, itermax = 200))
 # SSE=254416.43
-pars2 = c(111.33, 2886.68, 7965.46, 2340.04, 0.56, 0.011, 0.716244, 0.129518)
-fitSSE(pars2, graph=T) # 224546.4
-#fitSSE(fit2$optim$bestmem, graph=T)
+#pars2 = c(111.33, 2886.68, 7965.46, 2340.04, 0.56, 0.011, 0.716244, 0.129518)
+#fitSSE(pars2, graph=T) # 224546.4
+#fitSSE(fit2$optim$bestmem, graph="constrained_proc_facil_TRUE")
