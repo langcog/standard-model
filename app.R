@@ -108,7 +108,7 @@ server <- function(input, output) {
             labs(colour="Quantile") + geom_smooth() + 
             #geom_abline(intercept=0, slope=input$vocab_size/input$max_age, linetype="dashed", color="grey", size=1) + 
             xlab("Age (months)") + ylab("Response Time (seconds)") + 
-            xlim(1, max_age) + ylim(0,1.5)
+            xlim(1, max_age) + ylim(0,1.7)
         #print(sim_data()$proc_speed)
     })
     

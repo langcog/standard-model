@@ -5,9 +5,9 @@ account: kachergis
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1382367
-bundleId: 2660750
+bundleId: 2803366
 url: https://kachergis.shinyapps.io/standard-model/
-when: 1576118747.35727
+when: 1581795260.17422
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: acceleration-grid.RData|app-sampling.R|generate_tokens.R|grid-check-acceleration.R|model.R|word_difficulty_distro.pdf|paper/paper.Rmd
+ignoredFiles: acceleration-grid.RData|app-sampling.R|generate_tokens.R|grid-check-acceleration.R|word_difficulty_distro.pdf|paper/paper.log|paper/paper.pdf

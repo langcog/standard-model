@@ -76,7 +76,7 @@ First, assume that words accumulate through repeated exposure at a rate controll
 
 Combine to create a "macro-economics of early language" 
 Input distributional patterns that match corpus dynamics (Montag etc)
-Identify critical uptake patterns to aim for (CDI quartiles?)
+Identify critical uptake patterns to aim for (CDI quantiles?)
 
 ## Extensions
 ambiguity and disambiguation

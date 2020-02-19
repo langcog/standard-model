@@ -25,23 +25,23 @@ dat = simulate(ex_parms)
 stop_t = Sys.time()
 stop_t - start_t # 1.1s
 
-input_rates = seq(500, 3000, 500)
-thresholds = seq(500, 6000, 1000)
+input_rates = seq(500, 4000, 500)
+thresholds = seq(500, 7000, 1000)
 threshold_sds = c(0, 100)
 #learning_rates = c(.5, 1, 2, 3)
 #learning_rate_sds = c(0, .5, 1, 2, 3)
-proc_speed_asymps = c(.3, .6, .9) # adult = .56
+proc_speed_asymps = c(.1, .3, .6, .9) # adult = .56
 proc_speed_asymp_sds = c(.1)
 # distro="uniform" / "zipf"
 # processing_facilitates T / F (if T: 
-proc_speed_devs = c(.4, .7, 1) # .72
+proc_speed_devs = c(.1, .4, .7, 1) # .72
 proc_speed_dev_sds = c(.1)
 
 length(input_rates)*
   length(thresholds)*length(threshold_sds)*
   length(proc_speed_asymps)*length(proc_speed_asymp_sds)*
   length(proc_speed_devs)*length(proc_speed_dev_sds)
-# 648 * 2 * 2 = 2592 * 1.1 / 60 = 47.5/60 = .79hrs
+# 1792 * 2 * 3 = 10752 * 1.1 / 60 = 132 mins 
 
 acceleration_test <- function(dat) {
   d = dat$known_words %>% filter(month>11) %>% group_by(month) %>% summarize(mean=mean(words)) 
@@ -57,7 +57,9 @@ acceleration_test <- function(dat) {
 
 do_grid <- function(distro, processing_facilitates) {
   dat = data.frame(distro=NA, input_rate=NA, threshold=NA, 
-                   threshold_sd=NA, learning_rate=NA, learning_rate_sd=NA, proc_facilitates=NA, proc_speed=NA, acceleration=NA)
+                   threshold_sd=NA, proc_speed_asymp=NA, 
+                   proc_speed_asymp_sd=NA, proc_facilitates=NA, 
+                   proc_speed_dev=NA, proc_speed_dev_sd=NA, acceleration=NA)
   for(i in input_rates) {
     for(t in thresholds) {
       for(lr in proc_speed_asymps) { 
@@ -78,7 +80,9 @@ do_grid <- function(distro, processing_facilitates) {
                 sim = simulate(parms)
                 #sim = simulate(vocab_size=10000, distro, lr, n_learners=100, t, max_age=24, lr, t_sd, lr_sd, T, ps)
                 accel = acceleration_test(sim)
-                dat = rbind(dat, c(distro, i, t, t_sd, lr, lr_sd, T, ps, accel))
+                dat = rbind(dat, c(distro, i, t, 
+                                   t_sd, lr, lr_sd, 
+                                   processing_facilitates, ps, .1, accel))
               }
           }
         }
@@ -90,24 +94,30 @@ do_grid <- function(distro, processing_facilitates) {
 
 grid_uniform = do_grid("uniform", F)
 grid_zipf = do_grid("zipf", F)
+grid_logzipf = do_grid("logzipf", F)
 
 grid_uniform_proc = do_grid("uniform", T)
 grid_zipf_proc = do_grid("zipf", T)
+grid_logzipf_proc = do_grid("logzipf", T)
 
-all = rbind(grid_uniform, grid_zipf, grid_uniform_proc, grid_zipf_proc)
-for(c in 2:ncol(all)) all[,c] = as.numeric(all[,c])
+all = rbind(grid_uniform, grid_zipf, grid_logzipf,
+            grid_uniform_proc, grid_zipf_proc, grid_logzipf_proc)
+cols = c(2:6, 8:10)
+for(c in cols) all[,c] = as.numeric(all[,c]) # messes up proc_facilitates T/F column
 save(all, file="acceleration-grid.RData")
 
-ggplot(subset(all, proc_facilitates==T & distro=="zipf"), aes(input_rate, threshold)) + geom_tile(aes(fill = acceleration), colour = "white") + 
-  facet_grid(rows=vars(input_rate), cols=vars(threshold)) + scale_colour_gradient2()
+
+ggplot(all, aes(input_rate, threshold)) + geom_tile(aes(fill = acceleration), colour = "white") +
+  facet_grid(rows=vars(distro), cols=vars(proc_facilitates)) 
+ggsave("acceleration_by_input_rate_and_threshold.pdf")
+
+ggplot(all, aes(input_rate, threshold)) + geom_tile(aes(fill = acceleration), colour = "white") #+ 
+  #facet_grid(rows=vars(input_rate), cols=vars(threshold)) + scale_colour_gradient2()
 
 ggplot(all, aes(input_rate, threshold)) + geom_tile(aes(fill = acceleration), colour = "white") + 
-  facet_grid(rows=vars(input_rate), cols=vars(threshold)) + scale_colour_gradient2()
+   facet_grid(rows=vars(proc_speed_asymp), cols=vars(distro)) + scale_colour_gradient2()
 
-ggplot(all, aes(input_rate, threshold)) + geom_tile(aes(fill = acceleration), colour = "white") + 
-   facet_grid(rows=vars(input_rate), cols=vars(distro)) + scale_colour_gradient2()
-
-ggplot(subset(all, proc_facilitates==F & distro=="zipf"), aes(learning_rate, threshold)) + geom_tile(aes(fill = acceleration), colour = "white") + 
+ggplot(subset(all, proc_facilitates==F & distro=="zipf"), aes(proc_speed_dev, threshold)) + geom_tile(aes(fill = acceleration), colour = "white") + 
   facet_grid(rows=vars(learning_rate), cols=vars(threshold)) + scale_colour_gradient2()
 
 acc = subset(all, acceleration>1)

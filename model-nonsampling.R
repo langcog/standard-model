@@ -152,4 +152,4 @@ ex_parms = list(distro="uniform",
              proc_speed_dev_sd = .1
   )
 
-simulate(ex_parms)
+#simulate(ex_parms)

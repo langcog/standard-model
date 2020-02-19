@@ -6,3 +6,4 @@
 *.tex
 paper/paper.pdf
 paper/r-references.bib
+.DS_Store
