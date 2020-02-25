@@ -15,9 +15,9 @@ ui <- fluidPage(
     sidebarLayout(
         sidebarPanel(
             selectInput("distro", "Word frequency distribution:",
-                        list("Zipfian" = "zipf",
-                             "log(Zipfian)" = "logzipf",
-                             "Uniform" = "uniform")),
+                        list("log(Zipfian)" = "logzipf",
+                             "Uniform" = "uniform",
+                             "Zipfian" = "zipf")),
             chooseSliderSkin("Modern"),
             setSliderColor(c("DarkSlateGrey", "DarkSlateGrey", # Input
                              "DeepSkyBlue", "DeepSkyBlue", # Word Threshold
@@ -25,15 +25,16 @@ ui <- fluidPage(
                              "DarkRed", "DarkRed"), # Proc Speed Rate of Development
                            c(1,2, 3,4, 5,6, 7,8)), # color code param means and SDs
             sliderInput("input_rate", "Input rate mean (tokens/hour):", 
-                        min=100, max=6000, value=1000, step=100), 
-            sliderInput("input_rate_sd", "Input rate standard deviation (SD):", 
-                        min=0, max=1000, value=100, step=10), 
+                        min=100, max=2500, value=1000, step=100), 
             helpText("e.g., Hart & Risley low SES: 616/hr; high SES: 2153/hr; we assume 12 waking hours/day"),
+            sliderInput("input_rate_sd", "Input rate standard deviation (SD):", 
+                        min=0, max=1000, value=300, step=50), 
+            helpText("Gilkerson et al. 2017 daily SD range: 4,100-8,200"),
             
             sliderInput("threshold", "Threshold mean (occurrences needed to learn a word):", 
-                        min=100, max=6000, value=1000, step=100),
+                        min=50, max=1200, value=600, step=50),
             sliderInput("threshold_sd", "Threshold standard deviation:", 
-                        min=0, max=1000, value=300, step=20),
+                        min=0, max=1000, value=300, step=50),
             helpText("McMurray (2007) used a mean of 4000 and a large SD."),
             
             #sliderInput("learning_rate", "Mean learning rate (scales value of occurrence; truncated at .1):", 

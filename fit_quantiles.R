@@ -22,9 +22,31 @@ ex_parms = list(distro="uniform",
                 proc_speed_dev_sd = .1
 )
 
+fit_loglik <- function(parms, proc_facilitates=T, distro="logzipf", graph="") {
+  full_parms = list(distro=distro,
+                    input_rate = parms[1],
+                    input_rate_sd = parms[2],
+                    threshold = parms[3],
+                    threshold_sd = parms[4],
+                    mean_learning_rate = parms[5], # proc_speed_asymp
+                    learning_rate_sd = parms[6],
+                    proc_facilitates = proc_facilitates,
+                    proc_speed_dev = parms[7], 
+                    proc_speed_dev_sd = parms[8]
+  )
+  simdat = simulate(full_parms)$known_words
+  
+  # log(L) = sum log( Model(data | parms) )
+  # for a given age, need probability of match between data and model
+  # make an empirical observed and model predicted distribution: words x month,
+  # (likelihood of observing the data given the model parameters);
+  # so if observed = predicted, L=1; and at minimum L=0
+  # estimate a density for empirical (per month) as well as for observed??
+  #density()
+}
 
-fitSSE <- function(parms, proc_facilitates=T, graph="") {
-  full_parms = list(distro="logzipf",
+fitSSE <- function(parms, proc_facilitates=T, distro="logzipf", graph="") {
+  full_parms = list(distro=distro,
                   input_rate = parms[1],
                   input_rate_sd = parms[2],
                   threshold = parms[3],

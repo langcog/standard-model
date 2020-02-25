@@ -1,7 +1,7 @@
 # without loss of generality parameters (fixed):
 n_learners = 100
 max_age = 48 # months
-vocab_size = 10000
+vocab_size = 20000
 waking_hours_per_day = 12
 
 
@@ -152,4 +152,16 @@ ex_parms = list(distro="uniform",
              proc_speed_dev_sd = .1
   )
 
-#simulate(ex_parms)
+start_time = Sys.time()
+simulate(ex_parms) 
+stop_time = Sys.time()
+
+stop_time - start_time  
+
+# 100 learners: (48 mos)
+#  10k words = 1.4s
+#  30k words = 3.5 s
+
+# 500 learners:
+#  10k words = 4.9 s
+#  30k words = 23.9 s
