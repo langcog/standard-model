@@ -1,7 +1,7 @@
 # without loss of generality parameters (fixed):
 n_learners = 100
 max_age = 48 # months
-vocab_size = 20000
+vocab_size = 10000
 waking_hours_per_day = 12
 
 
@@ -77,8 +77,9 @@ simulate <- function(parms) {
     lp = -log(probs)
     probs = lp / sum(lp) # max=.001, min=.003 (2x min(zipf))
   }
-  
+  start_age = parms$start_age # age (months) at which words start accumulating 
   input_rate = rnorm(n_learners, mean=parms$input_rate, sd=parms$input_rate_sd) # per-child variability in input rate
+  input_rate[which(input_rate<10)] = 10 # minimum 10 words/hour..
   #learning_rate = rnorm(n_learners, mean=mean_learning_rate, sd=learning_rate_sd) # individual learning rates
   #learning_rate[which(learning_rate<.1)] = 0.1 # truncate
   a = rnorm(n_learners, mean=parms$mean_learning_rate, sd=parms$learning_rate_sd) # individual adult asymptotes for proc speed
@@ -91,7 +92,7 @@ simulate <- function(parms) {
   # fixed threshold for all words, or normal distribution over word difficulty (like McMurray 2007)
   #if(threshold_varies) threshold = rnorm(vocab_size, mean=threshold, sd=20)
   threshold = rnorm(vocab_size, mean=parms$threshold, sd=parms$threshold_sd)
-  
+  threshold[which(threshold<1)] = 1 # minimum 1 occurrence to learn
   cumulative_word_occs = matrix(0, nrow=n_learners, ncol=vocab_size) # number of times each word has appeared per learner
   known_words = matrix(0, nrow=n_learners, ncol=max_age) # known words per individual (row) per month (col)
   proc_speed = matrix(0, nrow=n_learners, ncol=max_age) # do we want per word instead of per learner?
@@ -106,7 +107,7 @@ simulate <- function(parms) {
   # can we get a true late-talker by 1) screwing around with input factors, and/or 2) screwing around with child-level variables
 
   tokens_per_mo = round(input_rate*waking_hours_per_day*30.42) # tokens/hour * waking hours/day * days/month)
-  for(t in 1:max_age) {
+  for(t in start_age:max_age) {
     # expected occurences of each word this month per subject (column)
     mo_word_occs = probs*tokens_per_mo # no sampling -- just expected tokens per mo
     mo_word_occs = matrix(rep(mo_word_occs, n_learners), byrow=F, ncol=n_learners)
@@ -149,7 +150,8 @@ ex_parms = list(distro="uniform",
              learning_rate_sd = .1,
              proc_facilitates = T,
              proc_speed_dev = .72, 
-             proc_speed_dev_sd = .1
+             proc_speed_dev_sd = .1,
+             start_age = 6 # age at which words start accumulating
   )
 
 start_time = Sys.time()

@@ -18,8 +18,8 @@ set.seed(1234)
 
 start_time <- Sys.time()
 
-fit <- DEoptim(fitSSE, lower=c(1, 1, 1, 1, .01, .01, .01, .01), 
-               upper=c(9000, 9000, 9000, 9000, 1, 2, 1, 2), 
+fit <- DEoptim(fitSSE, lower=c(1, 1, 1, 1, .01, .01, .01, .01, 1), 
+               upper=c(9000, 9000, 9000, 9000, 1, 2, 1, 2, 9), 
                proc_facilitates=F, distro="uniform",
                control = DEoptim.control(NP = 80, itermax = 100)) 
 

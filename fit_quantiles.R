@@ -19,7 +19,8 @@ ex_parms = list(distro="uniform",
                 learning_rate_sd = .1,
                 proc_facilitates = T,
                 proc_speed_dev = .72, 
-                proc_speed_dev_sd = .1
+                proc_speed_dev_sd = .1,
+                start_age = 1
 )
 
 fit_loglik <- function(parms, proc_facilitates=T, distro="logzipf", graph="") {
@@ -32,7 +33,8 @@ fit_loglik <- function(parms, proc_facilitates=T, distro="logzipf", graph="") {
                     learning_rate_sd = parms[6],
                     proc_facilitates = proc_facilitates,
                     proc_speed_dev = parms[7], 
-                    proc_speed_dev_sd = parms[8]
+                    proc_speed_dev_sd = parms[8],
+                    start_age = round(parms[9], 0)
   )
   simdat = simulate(full_parms)$known_words
   
@@ -55,7 +57,8 @@ fitSSE <- function(parms, proc_facilitates=T, distro="logzipf", graph="") {
                   learning_rate_sd = parms[6],
                   proc_facilitates = proc_facilitates,
                   proc_speed_dev = parms[7], 
-                  proc_speed_dev_sd = parms[8]
+                  proc_speed_dev_sd = parms[8],
+                  start_age = round(parms[9], 0) # integer
   )
   simdat = simulate(full_parms)$known_words
   sim_quants <- simdat %>%
@@ -77,17 +80,20 @@ fitSSE <- function(parms, proc_facilitates=T, distro="logzipf", graph="") {
 }
 
 
-#set.seed(1234)
-#fit <- DEoptim(fitSSE, lower=c(1, 1, 1, 1, .01, .01, .01, .01), upper=c(9000, 9000, 9000, 9000, 1, 2, 1, 2), 
-#               control = DEoptim.control(NP = 80, itermax = 200)) # , F = 1.2, CR = 0.7
+set.seed(1234)
+fit <- DEoptim(fitSSE, lower=c(1, 1, 1, 1, .01, .01, .01, .01, 1), 
+               upper=c(9000, 9000, 9000, 9000, 1, 2, 1, 2, 9), 
+               control = DEoptim.control(NP = 80, itermax = 100)) # , F = 1.2, CR = 0.7
 # 256282.537500 bestmemit:  
 #pars = c(377.67, 2091.39, 8034.29, 2638.25, 0.402713, 0.015136, 0.627340, 0.109277)
 #fitSSE(pars, graph=T) # SSE= 265834
 #fitSSE(fit$optim$bestmem, graph="unconstrained_proc_facil_TRUE") 
 
+#pars = c(204, 2436, 6937, 2127, 0.56, 0.03, 0.72, 0.21, 1) # best fit for CDI data.. (start_age=1)
+#fitSSE(pars, graph="constrained_proc_facil_TRUE_start_age1") # SSE=256790
 
 #fit2 <- DEoptim(fitSSE, lower=c(1, 1, 1, 1, .555, .01, .715, .01), upper=c(9000, 9000, 9000, 9000, .564, 2, .724, 2), 
-#                control = DEoptim.control(NP = 80, itermax = 200))
+#                control = DEoptim.control(NP = 80, itermax = 100))
 # SSE=254416.43
 #pars2 = c(111.33, 2886.68, 7965.46, 2340.04, 0.56, 0.011, 0.716244, 0.129518)
 #fitSSE(pars2, graph=T) # 224546.4
