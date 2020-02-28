@@ -11,11 +11,11 @@
 # load the module
 ml R
 
-#R CMD BATCH fit-quantiles.R &
+#R CMD BATCH fit_quantiles.R &
 
 R --no-save << EOF
 
-source("fit-quantiles.R")
+source("fit_quantiles.R")
 set.seed(1234)
 
 start_time <- Sys.time()

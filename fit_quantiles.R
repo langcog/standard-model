@@ -81,13 +81,14 @@ fitSSE <- function(parms, proc_facilitates=T, distro="logzipf", graph="") {
 
 
 set.seed(1234)
-fit <- DEoptim(fitSSE, lower=c(1, 1, 1, 1, .01, .01, .01, .01, 1), 
-               upper=c(9000, 9000, 9000, 9000, 1, 2, 1, 2, 9), 
-               control = DEoptim.control(NP = 80, itermax = 100)) # , F = 1.2, CR = 0.7
+#fit <- DEoptim(fitSSE, lower=c(1, 1, 1, 1, .01, .01, .01, .01, 1), distro="logzipf",
+#               upper=c(9000, 9000, 9000, 9000, 1, 2, 1, 2, 9), 
+#               control = DEoptim.control(NP = 80, itermax = 100)) # , F = 1.2, CR = 0.7
 # 256282.537500 bestmemit:  
 #pars = c(377.67, 2091.39, 8034.29, 2638.25, 0.402713, 0.015136, 0.627340, 0.109277)
 #fitSSE(pars, graph=T) # SSE= 265834
-#fitSSE(fit$optim$bestmem, graph="unconstrained_proc_facil_TRUE") 
+#pars = fit$optim$bestmem
+#fitSSE(pars, graph="unconstrained_logzipf_proc_facil_TRUE") 
 
 #pars = c(204, 2436, 6937, 2127, 0.56, 0.03, 0.72, 0.21, 1) # best fit for CDI data.. (start_age=1)
 #fitSSE(pars, graph="constrained_proc_facil_TRUE_start_age1") # SSE=256790
