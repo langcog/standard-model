@@ -47,6 +47,14 @@ fit_loglik <- function(parms, proc_facilitates=T, distro="logzipf", graph="") {
   #density()
 }
 
+# specify the single value normal probability function
+norm_lik = function(x, m, s){
+  # m = mean, s = sd
+  return( 1 / sqrt(2*pi*s^2) * exp((-1/(2*s^2)) * (x-m)^2) )
+}
+
+#norm_lik(c(-.5, 0, .5), 0, 1)
+
 fitSSE <- function(parms, proc_facilitates=T, distro="logzipf", graph="") {
   full_parms = list(distro=distro,
                   input_rate = parms[1],
