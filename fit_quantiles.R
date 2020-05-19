@@ -83,7 +83,7 @@ fitSSE <- function(parms, proc_facilitates=T, distro="logzipf", graph="") {
     ggplot(simdat, aes(x=month, y=words)) + geom_line(aes(group=id), alpha=.05) +  
       geom_quantile(quantiles=qs, formula=y ~ poly(x, 2), aes(colour = as.factor(..quantile..))) + 
       labs(colour="Quantile") + xlab("Age (months)") + ylab("Vocabulary Size") + xlim(1, max_age) +
-      geom_text(x=1, y=1000, label=paste("MSE =",round(MSE, digits=1)))
+      geom_text(x=2, y=1000, label=paste("MSE =",round(MSE, digits=1)))
     ggsave(paste0(graph,".pdf"), width=6, height=5)
   }
   
