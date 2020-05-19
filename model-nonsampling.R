@@ -107,7 +107,7 @@ simulate <- function(parms) {
   # can we get a true late-talker by 1) screwing around with input factors, and/or 2) screwing around with child-level variables
 
   tokens_per_mo = round(input_rate*waking_hours_per_day*30.42) # tokens/hour * waking hours/day * days/month)
-  for(t in start_age:max_age) {
+  for(t in 1:max_age) {
     # expected occurences of each word this month per subject (column)
     mo_word_occs = probs*tokens_per_mo # no sampling -- just expected tokens per mo
     mo_word_occs = matrix(rep(mo_word_occs, n_learners), byrow=F, ncol=n_learners)
@@ -117,12 +117,14 @@ simulate <- function(parms) {
     proc_speed[,t] = a + b*exp(-c*log(t+1)) #/ vocab_size 
     
     # learning rate scales value of occurrences
-    if(parms$proc_facilitates) { # further scale value of word occurrences by processing speed
-      #cumulative_word_occs = cumulative_word_occs + (3-proc_speed[,t])*learning_rate*t(mo_word_occs) 
-      cumulative_word_occs = cumulative_word_occs + (1/proc_speed[,t])*t(mo_word_occs) 
-    } else {
-      #cumulative_word_occs = cumulative_word_occs + learning_rate*t(mo_word_occs) # accumulate occurrences this month
-      cumulative_word_occs = cumulative_word_occs + 1*t(mo_word_occs)
+    if(t >= start_age) {
+      if(parms$proc_facilitates) { # further scale value of word occurrences by processing speed
+        #cumulative_word_occs = cumulative_word_occs + (3-proc_speed[,t])*learning_rate*t(mo_word_occs) 
+        cumulative_word_occs = cumulative_word_occs + (1/proc_speed[,t])*t(mo_word_occs) 
+      } else {
+        #cumulative_word_occs = cumulative_word_occs + learning_rate*t(mo_word_occs) # accumulate occurrences this month
+        cumulative_word_occs = cumulative_word_occs + 1*t(mo_word_occs)
+      }
     }
     known_words[,t] = rowSums(cumulative_word_occs>threshold) 
   }
