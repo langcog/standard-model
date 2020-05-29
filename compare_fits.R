@@ -1,4 +1,5 @@
 require(tidyverse)
+source("fit_quantiles.R") # for fitSSE function, which also runs the model and generates plot
 
 fits = list.files("fits")
 fl = list()
@@ -10,6 +11,7 @@ for(f in fits) {
   f_ = str_replace(f, ".RData", "")
   fl[[ f_ ]] = fit$optim
   df = rbind(df, c(f_, fit$optim$bestval, fit$optim$bestmem))
+  fitSSE(fit$optim$bestmem, graph=paste0("figures/",f_))
 }
 
 df = na.omit(df)

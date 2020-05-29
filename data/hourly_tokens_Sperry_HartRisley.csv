@@ -1,0 +1,85 @@
+dataset,sample,mother_child_tokens_hr,all_tokens_hr,adult_child_tokens_hr
+Sperry,South Baltimore,830,1508,1094
+Sperry,South Baltimore,726,975,850
+Sperry,South Baltimore,1628,2373,1840
+Sperry,Alabama,1654,4568,4092
+Sperry,Alabama,2440,3642,2962
+Sperry,Alabama,3356,3824,3554
+Sperry,Alabama,2020,2618,2136
+Sperry,Alabama,2302,3420,2892
+Sperry,Alabama,1780,2690,2380
+Sperry,Alabama,706,1966,1404
+Sperry,Alabama,1070,5432,3446
+Sperry,Alabama,1018,1042,1032
+Sperry,Alabama,2998,4012,3374
+Sperry,Alabama,872,2024,1400
+Sperry,Indiana,1362,4146,1892
+Sperry,Indiana,1078,1684,1250
+Sperry,Indiana,1494,3878,1782
+Sperry,Indiana,384,2298,752
+Sperry,Indiana,1518,1572,1538
+Sperry,Indiana,512,1544,946
+Sperry,Indiana,480,1172,686
+Sperry,Indiana,2018,2534,2110
+Sperry,Indiana,2856,4624,3244
+Sperry,Indiana,362,1842,790
+Sperry,Indiana,796,2670,1470
+Sperry,Indiana,558,3496,1186
+Sperry,Indiana,988,1386,1102
+Sperry,Indiana,844,1898,1108
+Sperry,Indiana,468,2614,994
+Sperry,Daly Park,2106,2204,2112
+Sperry,Daly Park,2208,2274,2210
+Sperry,Daly Park,478,1630,582
+Sperry,Daly Park,1086,1506,1086
+Sperry,Daly Park,360,978,648
+Sperry,Daly Park,1170,1678,1250
+Sperry,Daly Park,2046,2492,2202
+Sperry,Longwood,1762,3758,2204
+Sperry,Longwood,998,1574,1412
+Sperry,Longwood,3206,3410,3310
+Sperry,Longwood,470,1536,766
+Sperry,Longwood,648,1692,858
+Sperry,Longwood,1862,3006,2114
+Hart & Risley,KC Professional,3504,NA,NA
+Hart & Risley,KC Professional,2845,NA,NA
+Hart & Risley,KC Professional,2635,NA,NA
+Hart & Risley,KC Professional,2573,NA,NA
+Hart & Risley,KC Professional,2501,NA,NA
+Hart & Risley,KC Professional,2310,NA,NA
+Hart & Risley,KC Professional,2195,NA,NA
+Hart & Risley,KC Professional,2134,NA,NA
+Hart & Risley,KC Professional,1956,NA,NA
+Hart & Risley,KC Professional,1495,NA,NA
+Hart & Risley,KC Professional,1422,NA,NA
+Hart & Risley,KC Professional,1397,NA,NA
+Hart & Risley,KC Professional,1019,NA,NA
+Hart & Risley,KC Middle Class,3618,NA,NA
+Hart & Risley,KC Middle Class,2671,NA,NA
+Hart & Risley,KC Middle Class,1677,NA,NA
+Hart & Risley,KC Middle Class,1468,NA,NA
+Hart & Risley,KC Middle Class,1025,NA,NA
+Hart & Risley,KC Middle Class,930,NA,NA
+Hart & Risley,KC Middle Class,830,NA,NA
+Hart & Risley,KC Middle Class,828,NA,NA
+Hart & Risley,KC Middle Class,808,NA,NA
+Hart & Risley,KC Middle Class,143,NA,NA
+Hart & Risley,KC Working Class,2353,NA,NA
+Hart & Risley,KC Working Class,2088,NA,NA
+Hart & Risley,KC Working Class,1912,NA,NA
+Hart & Risley,KC Working Class,1697,NA,NA
+Hart & Risley,KC Working Class,1221,NA,NA
+Hart & Risley,KC Working Class,948,NA,NA
+Hart & Risley,KC Working Class,862,NA,NA
+Hart & Risley,KC Working Class,828,NA,NA
+Hart & Risley,KC Working Class,826,NA,NA
+Hart & Risley,KC Working Class,805,NA,NA
+Hart & Risley,KC Working Class,526,NA,NA
+Hart & Risley,KC Working Class,443,NA,NA
+Hart & Risley,KC Working Class,268,NA,NA
+Hart & Risley,KC Poor,947,NA,NA
+Hart & Risley,KC Poor,761,NA,NA
+Hart & Risley,KC Poor,752,NA,NA
+Hart & Risley,KC Poor,606,NA,NA
+Hart & Risley,KC Poor,400,NA,NA
+Hart & Risley,KC Poor,231,NA,NA

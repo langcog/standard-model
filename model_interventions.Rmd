@@ -1,0 +1,87 @@
+---
+title: "Modeling Interventions"
+output: html_notebook
+---
+
+
+We'd like to be able to model interventions (both past and proposed) with the standard model. 
+How would that work? Let's consider Gilkerson et al. (2017), in which 72 parents of typically developing children aged 9 to 21 months were assigned to immediate- or delayed-treatment (control) conditions. 
+During treatment, parents were recorded 10 times over a 3-month period while engaging in a web-based intervention offering strategies for increasing talk and interaction. 
+During a 9-month follow-up, parents completed additional recordings and language assessments. 
+Overall, no differences were found in language behaviors between immediate-treatment versus delayed-treatment groups. 
+However, parents who were at first below-average on automated language measures showed significant postintervention increases which held longitudinally, and children showed significant elevations in language ability.
+Problem: Gilkerson 2017 only reports standardized scores (mean = 100 and SD = 15) for AWC (median split: bottom half M=84.09, upper half M=116.01), which are calculated from the original LENA norms (Gilkerson & Richards, 2008), where they report overall M=12,297 (SD=6462) per 12-hour session (so 1025 words/hour).
+
+```{r}
+require(tidyverse)
+source("model-nonsampling.R")
+
+# Gilkerson et al. 2017 Table 2: standardized AWC
+
+# Gilkerson et al. 2018 Table 2: 
+tribble(
+  ~age_mos, ~AWC_mean, ~AWC_sd,
+  "2-17",   14484, 6022,
+  "18-24",  11768, 4159,
+  "25+",   12928, 4342
+) # total sample (N=146): 13218, sd=5079, range 3372-30794
+
+# should look at Ramírez-Esparza, García-Sierra, and Kuhl (2014, 2017)
+# ADS / CDS 30s LENA segments
+
+# on average, Bergelson2018 (North American) children heard
+# 11.36 min of CDS per hour (SD = 4.24)
+# average of 7.3 min of ADS per hour (SD = 6.4)
+# on average 65% of the speech infants heard from adults sounded child directed (SD = 0.22); varied widely, with one infant hearing only 17% CDS while another heard 100% CDS
+# CDS quantity remained largely stable with child age, ADS quantity decreased with child age
+# "Shneidman et al. (2013) finds 69% CDS in North American homes of 14- to 42 month olds while we find 65% on average across 3–20 months"
+
+# Bergelson et al. 2018 Table S1: 
+Bergelson_s1 <- tribble(
+  ~study, ~AWC_mean, ~AWC_sd, ~CDS_mean, ~CDS_sd, ~N, 
+  "Schneidman & Goldin-Meadow 2013", 
+  "Schneidman & Goldin-Meadow 2013", 
+  "Weisleder & Fernald 2013", 
+)
+
+# Table S2: prev studies' LENA results, along with the 59 of 61 recordings in the current dataset that are >8hrs
+Bergelson_s2 <- tribble(
+  ~study, ~AWC_mean, ~AWC_sd, ~CVC_mean, ~CVC_sd, ~N,
+  "Gilkerson et al. 2017", 12709, 4274, 1817, 787, , # these are full-day recordings (12hrs)
+  "Greenwood et al. 2011", 13142, 5562, 1714, 850, , # AWC range: 631-36563, CVC range: 11-5611
+  "Soderstrom & Wittebolle", 10125, 4890, 1744, 1058, ,
+  "Zimmerman et al. 2009", 12800, 4400, NA, NA, ,
+  "Bergelson et al. 2018", 16510, 8718, 1432, 764, 59,
+)
+
+Bergelson_s2 <- Bergelson_s2 %>% mutate(AWChr_mean = AWC_mean / 12,
+                                        AWChr_sd = AWC_sd / 12)
+
+# Sperry et al. Figure 1: HR = Hart & Risley 1995
+# words/hour spoken by primary caregivers to children
+Sperry <- tribble(
+  ~group, ~CDS_mean, ~N, ~AllCaregiverPctIncr, ~AmbientEnvPctIncr, #AllCaregiver_mean, AmbientEnv_mean,
+  "HR: Kansas professionals", 2153, 13, NA, NA, #NA, NA,
+  "Black Belt Poor", 1838, 11, 1.58, 2.02, # NA, 3203,
+  "Longwood Middle Class", 1491, 6, 1.30, 2.04, # 1777, NA
+  "HR: Kansas Middle Class", 1400, 10, NA, NA,
+  "Daly Park Working Class", 1351, 7, 1.17, 1.75,
+  "HR: Kansas Lower Class", 1137, 13, NA, NA,
+  "South Baltimore Poor", 1061, 3, 1.21, 1.54,
+  "Jefferson Working Class", 1048, 15, 1.53, 3.10,
+  "Kansas Welfare", 616, 6, NA, NA
+)
+# final columns from Table 2 let us recreate Figure 2, which breaks down into Primary Caregiver / All Caregivers / Ambient Environment
+# e.g., Black Belt Poor Ambient Env = 1838 * 2.02 should be 3203 words/hr (as reported in text..) but is 3713..
+
+Sperry <- Sperry %>% mutate(AllCaregiver = CDS_mean * AllCaregiverPctIncr,
+                  AmbientEnv = CDS_mean * AmbientEnvPctIncr)
+# "Finally, children in the poor Black Belt community heard an astounding 3,203 words per hour in their ambient environment, a 102% increase over the number of words addressed to them by their primary caregivers."
+```
+
+
+```{r}
+
+```
+
+
