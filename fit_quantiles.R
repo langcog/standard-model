@@ -2,7 +2,8 @@
 require(tidyverse)
 require(DEoptim)
 
-source("model-nonsampling.R")
+#source("model-nonsampling.R")
+source("model-childesfreqs.R")
 load("data/wordbank_quantiles.Rdata") # quantiles from wordbank EN WG+WS productive vocab
 
 max_age = 30 # months
