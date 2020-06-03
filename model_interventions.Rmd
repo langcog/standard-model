@@ -47,10 +47,10 @@ Bergelson_s1 <- tribble(
 # Table S2: prev studies' LENA results, along with the 59 of 61 recordings in the current dataset that are >8hrs
 Bergelson_s2 <- tribble(
   ~study, ~AWC_mean, ~AWC_sd, ~CVC_mean, ~CVC_sd, ~N,
-  "Gilkerson et al. 2017", 12709, 4274, 1817, 787, , # these are full-day recordings (12hrs)
-  "Greenwood et al. 2011", 13142, 5562, 1714, 850, , # AWC range: 631-36563, CVC range: 11-5611
-  "Soderstrom & Wittebolle", 10125, 4890, 1744, 1058, ,
-  "Zimmerman et al. 2009", 12800, 4400, NA, NA, ,
+  "Gilkerson et al. 2017", 12709, 4274, 1817, 787, 72, # these are full-day recordings (12hrs)
+  "Greenwood et al. 2011", 13142, 5562, 1714, 850, 30, # mid- to upper-SES; AWC range: 631-36563, CVC range: 11-5611
+  "Soderstrom & Wittebolle", 10125, 4890, 1744, 1058, 11, # mostly shorter recordings (6-8hrs)
+  "Zimmerman et al. 2009", 12800, 4400, NA, NA, 275, # cross-sectional; only 71 longitudinal
   "Bergelson et al. 2018", 16510, 8718, 1432, 764, 59,
 )
 
@@ -79,9 +79,24 @@ Sperry <- Sperry %>% mutate(AllCaregiver = CDS_mean * AllCaregiverPctIncr,
 # "Finally, children in the poor Black Belt community heard an astounding 3,203 words per hour in their ambient environment, a 102% increase over the number of words addressed to them by their primary caregivers."
 ```
 
+Let's use the hourly rates from individual children from Sperry et al. (2018), Hart & Risley (1995), and Soderstrom & Wittebolle (2013) to estimate the parameters of a normal distribution.
 
 ```{r}
+df <- read.csv("data/hourly_tokens_Sperry_HartRisley.csv")
+df_agg <- df %>% summarise(mean = mean(mother_child_tokens_hr),
+                           sd = sd(df$mother_child_tokens_hr))
+# mean: 1404, sd: 859
+breaks = seq(0, 3650, by = 120) 
+ggplot(df, aes(x = mother_child_tokens_hr)) + 
+    geom_histogram(aes(y =..density..), breaks = breaks, 
+                   color = "black", fill = "gray") +
+    stat_function(fun = dnorm, args = list(mean = df_agg$mean, sd = df_agg$sd)) +
+  geom_vline(xintercept=df_agg$mean, lty="dotted")
+ggsave("figures/CDS_hourly_tokens_Sperry_HartRisley.pdf", width=4.5,height=4)
 
+# but this should actually be a Poisson distribution, not normal
+ggplot(transform(data.frame(x=0:3650), y=dpois(x, df_agg$mean)), aes(x, y)) + 
+    geom_bar(stat="identity")
 ```
 
 

@@ -5,9 +5,9 @@ account: kachergis
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1382367
-bundleId: 2827278
+bundleId: 3225459
 url: https://kachergis.shinyapps.io/standard-model/
-when: 1582616700.36178
+when: 1591219670.22628
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: acceleration_by_input_rate_and_threshold.pdf|acceleration-grid.RData|app-sampling.R|constrained_proc_facil_TRUE_start_age1.pdf|fit_quantiles.R|fitmodel.sbatch|fitmodel2.sbatch.sh|fitmodel3.sbatch.sh|fitmodel4.sbatch.sh|generate_tokens.R|grid-check-acceleration.R|model_quantiles_constrained_proc_speed.pdf|model_quantiles_unconstrained.pdf|word_difficulty_distro.pdf|paper/paper.log|paper/paper.pdf|paper/paper.Rmd|paper/paper.tex|paper/r-references.bib|fits
+ignoredFiles: acceleration-grid.RData|app-sampling.R|CDS_hourly_tokens_Sperry_HartRisley.pdf|CHILDES_word_freq_1-100.pdf|CHILDES_word_freq_101-200.pdf|CHILDES_word_freq_201-300.pdf|CHILDES_word_freq_301-400.pdf|CHILDES_word_freq_401-500.pdf|CHILDES_word_freq_501-600.pdf|CHILDES_word_freq_601-700.pdf|CHILDES_word_freq_701-800.pdf|CHILDES_word_freq_801-900.pdf|CHILDES_word_freq_901-1000.pdf|compare_fits.R|fit_quantiles.R|fit_unif_con_pfT.RData|fitmodel_logzipf.sbatch|fitmodel_zipf.sbatch|fitmodel.sbatch|fitmodel2.sbatch.sh|fitmodel3.sbatch.sh|fitmodel4.sbatch.sh|generate_tokens.R|get_childes_freqs.R|grid-check-acceleration.R|model_interventions.nb.html|model_interventions.Rmd|paper/paper.log|paper/paper.pdf|paper/paper.Rmd|paper/paper.tex|paper/r-references.bib|figures|fits

@@ -1,7 +1,10 @@
 # without loss of generality parameters (fixed):
 n_learners = 100
 max_age = 48 # months
-vocab_size = 10000
+
+wf = read.csv("data/childes_english_word_freq_cleaned.csv")
+
+vocab_size = nrow(wf) # 10190
 waking_hours_per_day = 12
 
 
@@ -69,9 +72,10 @@ simulate <- function(parms) {
   if(parms$distro=="uniform") {
     probs = rep(1/vocab_size, vocab_size)
   } else {
-    probs = 1 / (1:vocab_size + 2.7) # f(r) = 1 / (r+beta)^alpha, alpha=1, beta=2.7 (Mandelbrot, 1953, 1962)
-    probs = probs/sum(probs)
-    probs = sample(probs, length(probs)) 
+    #probs = 1 / (1:vocab_size + 2.7) # f(r) = 1 / (r+beta)^alpha, alpha=1, beta=2.7 (Mandelbrot, 1953, 1962)
+    #probs = probs/sum(probs)
+    #probs = sample(probs, length(probs)) 
+    probs = wf$word_count / sum(wf$word_count) # based on CHILDES WF distro
   }
   if(parms$distro=="logzipf") {
     lp = -log(probs)
@@ -93,7 +97,10 @@ simulate <- function(parms) {
   #if(threshold_varies) threshold = rnorm(vocab_size, mean=threshold, sd=20)
   threshold = rnorm(vocab_size, mean=parms$threshold, sd=parms$threshold_sd)
   threshold[which(threshold<1)] = 1 # minimum 1 occurrence to learn
+  # child x word
   cumulative_word_occs = matrix(0, nrow=n_learners, ncol=vocab_size) # number of times each word has appeared per learner
+  colnames(cumulative_word_occs) = wf$word
+  # child x age
   known_words = matrix(0, nrow=n_learners, ncol=max_age) # known words per individual (row) per month (col)
   proc_speed = matrix(0, nrow=n_learners, ncol=max_age) # do we want per word instead of per learner?
   
@@ -106,14 +113,18 @@ simulate <- function(parms) {
   # how to model clinically-important variables, e.g., they tell parents to follow-in (e.g., trains not animals for ASD)
   # can we get a true late-talker by 1) screwing around with input factors, and/or 2) screwing around with child-level variables
 
+  # tokens per month for each child
   tokens_per_mo = round(input_rate*waking_hours_per_day*30.42) # tokens/hour * waking hours/day * days/month)
   for(t in 1:max_age) {
     # expected occurences of each word this month per subject (column)
-    #mo_word_occs = probs*tokens_per_mo # no sampling -- just expected tokens per mo
-    #mo_word_occs = matrix(rep(mo_word_occs, n_learners), byrow=F, ncol=n_learners)
+    
+    # children (rows) x words (cols)
+    #mo_word_occs = tokens_per_mo %o% probs
     
     # words (rows) x children (cols)
     mo_word_occs = probs %o% tokens_per_mo
+    
+    #mo_word_occs = matrix(rep(mo_word_occs, n_learners), byrow=F, ncol=n_learners)
     
     #proc_speed[,t] = a + rowSums(b*exp(-c*log(cumulative_word_occs+1))) / vocab_size 
     #proc_speed[,t] = a + rowSums(b*exp(-c*log(cumulative_word_occs+1))) / vocab_size 
@@ -146,7 +157,7 @@ simulate <- function(parms) {
 
 #}) # profiler
 
-ex_parms = list(distro="uniform",
+ex_parms = list(distro="zipf",
              input_rate = 1000,
              input_rate_sd = 100,
              threshold = 1000,
@@ -160,7 +171,7 @@ ex_parms = list(distro="uniform",
   )
 
 start_time = Sys.time()
-simulate(ex_parms) 
+ex = simulate(ex_parms) 
 stop_time = Sys.time()
 
 stop_time - start_time  

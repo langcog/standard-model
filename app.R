@@ -4,12 +4,15 @@ library(tidyverse)
 library(quantreg)
 library(DT)
 library(shinyWidgets)
+library(shinythemes)
 
-source("model-nonsampling.R")
+#source("model-nonsampling.R")
+source("model-childesfreqs.R")
 
 theme_set(theme_classic())
 # Define UI
 ui <- fluidPage(
+    theme = shinytheme("spacelab"),
     titlePanel("Standard Model of Early Word Learning"),
 
     sidebarLayout(
@@ -29,10 +32,10 @@ ui <- fluidPage(
                         min=1, max=8, value=1, step=1), 
             # best-fitting parms for start_age=1 logzipf: c(204, 2436, 6937, 2127, 0.56, 0.03, 0.72, 0.21)
             sliderInput("input_rate", "Input rate mean (tokens/hour):", 
-                        min=100, max=2500, value=500, step=100), # 1000 is reasonable
+                        min=0, max=2500, value=1000, step=50), 
             helpText("e.g., Hart & Risley low SES: 616/hr; high SES: 2153/hr; we assume 12 waking hours/day"),
             sliderInput("input_rate_sd", "Input rate standard deviation (SD):", 
-                        min=0, max=3000, value=2000, step=100), 
+                        min=0, max=3000, value=900, step=100), 
             helpText("Gilkerson et al. 2017 daily SD range: 4,100-8,200"),
             
             sliderInput("threshold", "Threshold mean (occurrences needed to learn a word):", 
@@ -60,9 +63,24 @@ ui <- fluidPage(
         # Show a plot of the generated distribution
         mainPanel(
             tabsetPanel(type = "tabs", id="tabs", 
-                tabPanel("Vocabulary Growth by Age", plotOutput("ageVocab"), textOutput("acceleration")),
-                tabPanel("Processing Speed by Age", plotOutput("ageRT")),
-                tabPanel("Vocabulary Growth Table", textOutput("summary"), DT::dataTableOutput("mytable"))
+                tabPanel("Vocabulary Growth", 
+                         plotOutput("ageVocab"), 
+                         br(),
+                         textOutput("acceleration")
+                    ),
+                tabPanel("Processing Speed", 
+                         plotOutput("ageRT")
+                    ),
+                tabPanel("Vocabulary Growth Table", 
+                         textOutput("summary"), 
+                         br(),
+                         downloadButton("download_table", "Download Table",
+                                        class = "btn-default btn-xs"),
+                         br(),
+                         br(),
+                         DT::dataTableOutput("mytable"),
+                         br()
+                    )
             )
         )
     )
@@ -72,7 +90,7 @@ ui <- fluidPage(
 # server logic
 server <- function(input, output) {
     print(input)
-    sim_data = reactive({
+    sim_data <- reactive({
         # fix: vocab_size=10000, n_learners=100, max_age=48
         parms = list(distro=input$distro,
                      input_rate = input$input_rate,
@@ -129,6 +147,7 @@ server <- function(input, output) {
         paste("Average acceleration in vocabulary growth during the second year: ", round(accel, 2)) # input$distro
     })
     
+    # vocabulary growth table
     output$mytable = DT::renderDataTable({
         sim_data()$known_words %>% group_by(month) %>% 
             summarise(mean=mean(words), sd=sd(words)) %>% 
@@ -136,6 +155,16 @@ server <- function(input, output) {
             datatable(options = list(lengthMenu = c(12, 24, 36), pageLength=49)) %>% 
             formatRound(columns=c("mean","sd"), digits=0)
     })
+    
+    # download button
+    output$download_table <- downloadHandler(
+        filename = function() paste0("standard_model_sim", ".csv"), # maybe a version number?
+        content = function(file) {
+            voc_mo <- sim_data()$known_words %>% group_by(month) %>% 
+                summarise(mean=mean(words), sd=sd(words)) %>% 
+                mutate(cumulative_tokens=input$input_rate*waking_hours_per_day*30.42*month)
+            write.csv(voc_mo, file, row.names = FALSE)
+        })
 }
 
 # Run the app
