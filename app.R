@@ -80,7 +80,14 @@ ui <- fluidPage(
                          br(),
                          DT::dataTableOutput("mytable"),
                          br()
-                    )
+                    ),
+                tabPanel("Growth per Word",
+                         plotOutput("ageWord"),
+                         br()), # add selector(s) to show particular words
+                tabPanel("CDI vs. Full Vocab",
+                         plotOutput("cdi_vs_full"),
+                         br() # also show correlation of CDI and full, and mean words outside of CDI known (per age?)
+                         )
             )
         )
     )
@@ -115,14 +122,50 @@ server <- function(input, output) {
     output$ageVocab <- renderPlot({
         qs <- c(0.10,0.25,0.50,0.75,0.90)
         ggplot(sim_data()$known_words, aes(x=month, y=words)) + 
-            geom_line(aes(group = id), alpha = .1) + geom_smooth() + 
+            geom_line(aes(group = id), alpha = .1) + 
+            geom_smooth(aes(x=month, y=words), color="black") + 
             # geom_quantile(quantiles=qs, formula=y ~ poly(x, 2), aes(colour = as.factor(..quantile..))) + 
             # labs(colour="Quantile") + 
             xlab("Age (months)") + 
-            ylab("Vocabulary Size") + 
-            ylim(0, vocab_size) + xlim(1, max_age) 
+            ylab("Vocabulary Size") + #ylim(0, vocab_size) +
+            xlim(1, max_age) +
+            geom_line(aes(x = month, y = cdi_words, group = id), alpha=.1, color = "red") +
+            geom_smooth(aes(x = month, y = cdi_words), color="red")
             # geom_point(alpha=.1) +
             # geom_abline(intercept=0, slope=input$vocab_size/input$max_age, linetype="dashed", color="grey", size=1) 
+    })
+    
+    # show proportion of learners knowing each word over time
+    # (could also create a table of mean AoA per word)
+    output$ageWord <- renderPlot({
+        # maybe make this dataframe in model code..
+        dw <- sim_data()$prop_knowing_word # need to make this long
+        dl = data.frame(dw)
+        names(dl) = 1:max_age
+        dl$word = rownames(dw)
+        dl = gather(dl, "month", "prop_know", 1:max_age) 
+        dl$month = as.numeric(as.character(dl$month))
+        dl$on_cdi = wf$on_cdi
+        
+        # select a small number of words..use selectizeInput ?
+        plot_words = c("you", "the", "have", "wanna", "mommy", 
+                       "daddy", "book", "dog", "boy", "baby")
+        ggplot(subset(dl, is.element(word, plot_words)), 
+               aes(x=month, y=prop_know)) + 
+            geom_line(aes(group = word, color=word), alpha = .8) + 
+            #geom_smooth(aes(x=month, y=words), color="black") + 
+            xlab("Age (months)") + 
+            ylab("Proportion of Learners Knowing Word") +
+            xlim(1, max_age) + ylim(0,1)
+    })
+    
+    output$cdi_vs_full <- renderPlot({
+        dat <- sim_data()$known_words
+        dat$age_group = cut_interval(dat$month, 16)
+        ggplot(dat, aes(x=cdi_words, y=words)) + 
+            xlab("CDI Words Known") + ylab("Total Vocabulary") +
+            #facet_wrap(~ age_group, nrow=4) +
+            geom_line(aes(group=id), alpha=.1) + geom_smooth() # , color=age_group
     })
     
     output$ageRT <- renderPlot({

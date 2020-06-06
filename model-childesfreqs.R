@@ -4,6 +4,9 @@ max_age = 48 # months
 
 wf = read.csv("data/childes_english_word_freq_cleaned.csv")
 
+# indices of CDI items
+cdi_idx = which(wf$on_cdi==1)
+
 vocab_size = nrow(wf) # 10190
 waking_hours_per_day = 12
 
@@ -68,18 +71,16 @@ get_proc_speed <- function(print_plot=F) {
 
 # need to add proc_speed term and proc_facilitates interaction term
 simulate <- function(parms) {
-  #probs = wf_distros[[distro]] # "zipf" or "uniform"
   if(parms$distro=="uniform") {
     probs = rep(1/vocab_size, vocab_size)
-  } else {
+  } else { # "zipf"
     #probs = 1 / (1:vocab_size + 2.7) # f(r) = 1 / (r+beta)^alpha, alpha=1, beta=2.7 (Mandelbrot, 1953, 1962)
     #probs = probs/sum(probs)
     #probs = sample(probs, length(probs)) 
     probs = wf$word_count / sum(wf$word_count) # based on CHILDES WF distro
   }
   if(parms$distro=="logzipf") {
-    lp = -log(probs)
-    probs = lp / sum(lp) # max=.001, min=.003 (2x min(zipf))
+    probs = log(wf$word_count) / sum(log(wf$word_count))
   }
   start_age = parms$start_age # age (months) at which words start accumulating 
   input_rate = rnorm(n_learners, mean=parms$input_rate, sd=parms$input_rate_sd) # per-child variability in input rate
@@ -102,7 +103,12 @@ simulate <- function(parms) {
   colnames(cumulative_word_occs) = wf$word
   # child x age
   known_words = matrix(0, nrow=n_learners, ncol=max_age) # known words per individual (row) per month (col)
+  known_cdi_words = matrix(0, nrow=n_learners, ncol=max_age) # just the CDI words
   proc_speed = matrix(0, nrow=n_learners, ncol=max_age) # do we want per word instead of per learner?
+  
+  # word x age: proportion of children knowing each word per age
+  prop_knowing_word = matrix(0, nrow=vocab_size, ncol=max_age)
+  rownames(prop_knowing_word) = wf$word
   
   # processing speed - each of these parameters could have individual variability
   # Kail (1991): RT slopes follow an exponential, such that Y(i) = a + b*exp(−c*i), where Y=predicted var, i=age (mos? year?). 
@@ -140,14 +146,25 @@ simulate <- function(parms) {
         cumulative_word_occs = cumulative_word_occs + 1*t(mo_word_occs)
       }
     }
-    known_words[,t] = rowSums(cumulative_word_occs>threshold) 
+    # test thresholding
+    #cumulative_word_occs_test = matrix(1:30, nrow=3)
+    #threshold_test = rep(5,10)
+    #rowSums(cumulative_word_occs_test > threshold_test)
+    known_words[,t] = rowSums(cumulative_word_occs>threshold) # does this do colwise comparison??
+    known_cdi_words[,t] = rowSums(cumulative_word_occs[,cdi_idx] > threshold[cdi_idx])
+    prop_knowing_word[,t] = colSums(cumulative_word_occs>threshold) / n_learners
   }
   
   # return known words and mean RT per individual per month 
   # reshape to long
   known_words_l = make_long_df(known_words, n_learners, max_age)
+  known_cdi_words_l = make_long_df(known_cdi_words, n_learners, max_age)
+  known_words_l$cdi_words = known_cdi_words_l$words
+  #known_words_l$noncdi_words = with(known_cdi_words_l, words - cdi_words)
   proc_speed_l = make_long_df(proc_speed, n_learners, max_age)
-  return(list(known_words=known_words_l, proc_speed=proc_speed_l))
+  return(list(known_words = known_words_l,
+              proc_speed = proc_speed_l, 
+              prop_knowing_word = prop_knowing_word))
 }
 
 

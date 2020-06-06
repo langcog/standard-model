@@ -1,7 +1,14 @@
 ---
 title: "Modeling Interventions"
-output: html_notebook
+output:
+  html_document:
+    df_print: paged
 ---
+
+```{r, libraries, include=F}
+require(tidyverse)
+source("model-nonsampling.R")
+```
 
 
 We'd like to be able to model interventions (both past and proposed) with the standard model. 
@@ -12,10 +19,7 @@ Overall, no differences were found in language behaviors between immediate-treat
 However, parents who were at first below-average on automated language measures showed significant postintervention increases which held longitudinally, and children showed significant elevations in language ability.
 Problem: Gilkerson 2017 only reports standardized scores (mean = 100 and SD = 15) for AWC (median split: bottom half M=84.09, upper half M=116.01), which are calculated from the original LENA norms (Gilkerson & Richards, 2008), where they report overall M=12,297 (SD=6462) per 12-hour session (so 1025 words/hour).
 
-```{r}
-require(tidyverse)
-source("model-nonsampling.R")
-
+```{r, summary-tables, echo=F}
 # Gilkerson et al. 2017 Table 2: standardized AWC
 
 # Gilkerson et al. 2018 Table 2: 
@@ -39,9 +43,14 @@ tribble(
 # Bergelson et al. 2018 Table S1: 
 Bergelson_s1 <- tribble(
   ~study, ~AWC_mean, ~AWC_sd, ~CDS_mean, ~CDS_sd, ~N, 
-  "Schneidman & Goldin-Meadow 2013", 
-  "Schneidman & Goldin-Meadow 2013", 
-  "Weisleder & Fernald 2013", 
+  "Schneidman & Goldin-Meadow 2013", 6254, NA, 2063, NA, 15,
+  "Schneidman & Goldin-Meadow 2013", NA, NA, 2404, NA, 15,
+  "Weisleder & Fernald 2013", 1084, 563, 598, 367, 29,
+  "Johnson et al. 2014", 1725, NA, NA, NA, 33, # also a group of 7 with AWC ~1000/hr
+  "Tamis-LeMonda et al. 2017", 2197, NA, NA, NA, 40,
+  "Pancsofar & Vernon-Feagans (2006)", 2239, NA, NA, NA, 92, # averaged together mom (2559) and dad (1919)
+  "Gilkerson et al. 2017", 1059, 356, NA, NA, 329,
+  "Hart & Risley", NA, NA, NA, NA, NA
 )
 
 # Table S2: prev studies' LENA results, along with the 59 of 61 recordings in the current dataset that are >8hrs
@@ -53,6 +62,10 @@ Bergelson_s2 <- tribble(
   "Zimmerman et al. 2009", 12800, 4400, NA, NA, 275, # cross-sectional; only 71 longitudinal
   "Bergelson et al. 2018", 16510, 8718, 1432, 764, 59,
 )
+# from Melanie and Elika and Alex Cristia:
+# N children = 264; N recordings = 851 AWC/hr across the recordings/participants:
+#    0%    25%    50%      75%     100%
+#  33.63  756    1087     1458    3440
 
 Bergelson_s2 <- Bergelson_s2 %>% mutate(AWChr_mean = AWC_mean / 12,
                                         AWChr_sd = AWC_sd / 12)
@@ -77,26 +90,60 @@ Sperry <- tribble(
 Sperry <- Sperry %>% mutate(AllCaregiver = CDS_mean * AllCaregiverPctIncr,
                   AmbientEnv = CDS_mean * AmbientEnvPctIncr)
 # "Finally, children in the poor Black Belt community heard an astounding 3,203 words per hour in their ambient environment, a 102% increase over the number of words addressed to them by their primary caregivers."
+
+print(Bergelson_s2)
 ```
 
-Let's use the hourly rates from individual children from Sperry et al. (2018), Hart & Risley (1995), and Soderstrom & Wittebolle (2013) to estimate the parameters of a normal distribution.
+Let's use the hourly rates from individual children from Sperry et al. (2018), Hart & Risley (1995), Soderstrom & Wittebolle (2013), and Weisleder & Fernald (2013) to estimate the parameters of hourly input rate distributions for both child-directed speech (CDS) and all adult speech. 
 
-```{r}
+```{r, cds, echo=F, warning=F, caption="Distribution of hourly child-directed speech rates heard by individual children."}
 df <- read.csv("data/hourly_tokens_Sperry_HartRisley.csv")
-df_agg <- df %>% summarise(mean = mean(mother_child_tokens_hr),
-                           sd = sd(df$mother_child_tokens_hr))
-# mean: 1404, sd: 859
+cds_agg <- df %>% summarise(mean = mean(mother_child_tokens_hr, na.rm=T),
+                           sd = sd(df$mother_child_tokens_hr, na.rm=T))
+# CDS mean: 1197.5, sd: 840.2
 breaks = seq(0, 3650, by = 120) 
 ggplot(df, aes(x = mother_child_tokens_hr)) + 
     geom_histogram(aes(y =..density..), breaks = breaks, 
                    color = "black", fill = "gray") +
-    stat_function(fun = dnorm, args = list(mean = df_agg$mean, sd = df_agg$sd)) +
-  geom_vline(xintercept=df_agg$mean, lty="dotted")
-ggsave("figures/CDS_hourly_tokens_Sperry_HartRisley.pdf", width=4.5,height=4)
+    stat_function(fun = dnorm, args = list(mean = cds_agg$mean, sd = cds_agg$sd)) +
+  geom_vline(xintercept=cds_agg$mean, lty="dashed") + xlab("Child-directed Speech (Tokens/Hour)") + theme_bw() +
+  annotate("text", x=cds_agg$mean +700, y=.0008, label=paste("Mean =",round(cds_agg$mean,0)))
+ggsave("figures/CDS_hourly_tokens_Sperry_HartRisley_WeislederFernald.pdf", width=4.5,height=4) 
 
-# but this should actually be a Poisson distribution, not normal
-ggplot(transform(data.frame(x=0:3650), y=dpois(x, df_agg$mean)), aes(x, y)) + 
-    geom_bar(stat="identity")
+# should this be a Poisson distribution? not normal
+#ggplot(transform(data.frame(x=0:3650), y=dpois(x, cds_agg$mean)), aes(x, y)) + 
+#    geom_bar(stat="identity")
 ```
 
+```{r, awc, echo=F, warning=F, caption="Distribution of hourly adult speech rates heard by individual children."}
+# all (adult) tokens Sperry + Soderstrom Wittebolle + Weisleder Fernald
+awc_agg <- df %>% summarise(mean = mean(all_tokens_hr, na.rm=T),
+                           sd = sd(df$all_tokens_hr, na.rm=T))
+# AWC: mean: 1797.8 sd=1130.2
+breaks = seq(0, 5450, by = 150) 
+ggplot(df, aes(x = all_tokens_hr)) + 
+    geom_histogram(aes(y =..density..), breaks = breaks, 
+                   color = "black", fill = "gray") + theme_bw() +
+    stat_function(fun = dnorm, args = list(mean = awc_agg$mean, sd = awc_agg$sd)) +
+  geom_vline(xintercept=awc_agg$mean, lty="dashed") + xlab("Adult Word Count (Tokens/Hour)") +
+  annotate("text", x=awc_agg$mean +700, y=.0008, label=paste("Mean =",round(awc_agg$mean,0)))
+ggsave("figures/all_hourly_tokens_Sperry_SoderstromWittebolle_WeislederFernald.pdf", width=5,height=4)
 
+nsubj_cds = sum(!is.na(df$mother_child_tokens_hr)) # 113 children
+nsubj_awc = sum(!is.na(df$all_tokens_hr)) # 83 children
+```
+
+Based on data from `r nsubj_cds` children, the mean number of child-directed tokens heard per hour is `r round(cds_agg$mean,0)` (sd=`r round(cds_agg$sd,0)`).
+Using data from `r nsubj_awc` children, the mean number of all adult tokens heard per hour is `r round(awc_agg$mean,0)` (sd=`r round(awc_agg$sd,0)`).
+
+## References
+
+Gilkerson, J., Richards, J. A., & Topping, K. (2017). Evaluation of a lena-based online intervention for parents of young children. Journal of Early Intervention, 1053815117718490.
+
+Greenwood, C. R., Thiemann-Bourque, K., Walker, D., Buzhardt, J., & Gilkerson, J. (2011). Assessing children’s home language environments using automatic speech recognition technology. Communication Disorders Quarterly, 32(2), 83-92.
+
+Soderstrom, M., & Wittebolle, K. (2013). When do caregivers talk? the influences of activity and time of day on caregiver speech and child vocalizations in two childcare environments. PloS one, 8(11), e80646.
+
+Weisleder, A., & Fernald, A. (2013). Talking to Children Matters: Early Language Experience Strengthens Processing and Builds Vocabulary. Psychological Science, 24(11), 2143–2152.
+
+Zimmerman, F. J., Gilkerson, J., Richards, J. A., Christakis, D. A., Xu, D., Gray, S., & Yapanel, U. (2009). Teaching by listening: The importance of adult-child conversations to language development. Pediatrics, 124(1), 342–349.
