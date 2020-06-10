@@ -56,7 +56,7 @@ norm_lik = function(x, m, s){
 
 #norm_lik(c(-.5, 0, .5), 0, 1)
 
-fitSSE <- function(parms, proc_facilitates=T, distro="logzipf", graph="") {
+fitSSE <- function(parms, proc_facilitates=T, distro="logzipf", graph="", regularize_input_rate=NA) {
   full_parms = list(distro=distro,
                   input_rate = parms[1],
                   input_rate_sd = parms[2],
@@ -69,7 +69,7 @@ fitSSE <- function(parms, proc_facilitates=T, distro="logzipf", graph="") {
                   proc_speed_dev_sd = parms[8],
                   start_age = round(parms[9], 0) # integer
   )
-  simdat = simulate(full_parms)$known_words
+  simdat = simulate(full_parms)$known_cdi_words # known_words
   sim_quants <- simdat %>%
     group_by(month) %>%
     group_modify(~{
@@ -79,6 +79,12 @@ fitSSE <- function(parms, proc_facilitates=T, distro="logzipf", graph="") {
   
   SSE = sum((sim_quants[8:max_age,] - quants)^2)
   MSE = SSE / (nrow(quants)*(ncol(quants)-1))
+  # regularize input rate (mean and sd) - 
+  #  penalize more the farther estimated parm is far from LENA estimates 
+  if(!is.na(regularize_input_rate)) {
+    SSE = SSE + .004*(regularize_input_rate$m - full_parms$input_rate)^2 + 
+                .004*(regularize_input_rate$sd - full_parms$input_rate_sd)^2
+  }
   if(graph!="") {
     theme_set(theme_classic())
     ggplot(simdat, aes(x=month, y=words)) + geom_line(aes(group=id), alpha=.05) +  
@@ -93,11 +99,15 @@ fitSSE <- function(parms, proc_facilitates=T, distro="logzipf", graph="") {
 
 
 set.seed(1234)
+
+regularize_input_rate = list(mean=1797.8, sd=1130.2) # AWC (CDS is lower: mean=1198)
+
 #fit <- DEoptim(fitSSE, lower=c(1, 1, 1, 1, .01, .01, .01, .01, 1), distro="logzipf",
 #               upper=c(9000, 9000, 9000, 9000, 1, 2, 1, 2, 9), 
-#               control = DEoptim.control(NP = 80, itermax = 100)) # , F = 1.2, CR = 0.7
+#               regularize_input_rate = regularize_input_rate, # or NA
+#               control = DEoptim.control(NP = 120, itermax = 100)) # , F = 1.2, CR = 0.7
 # 256282.537500 bestmemit:  
-#pars = c(377.67, 2091.39, 8034.29, 2638.25, 0.402713, 0.015136, 0.627340, 0.109277)
+#pars = c(377.67, 2091.39, 8034.29, 2638.25, 0.402713, 0.warnings(015136, 0.627340, 0.109277)
 #fitSSE(pars, graph=T) # SSE= 265834
 #pars = fit$optim$bestmem
 #fitSSE(pars, graph="unconstrained_logzipf_proc_facil_TRUE") 

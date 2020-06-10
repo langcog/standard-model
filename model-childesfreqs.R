@@ -163,6 +163,7 @@ simulate <- function(parms) {
   #known_words_l$noncdi_words = with(known_cdi_words_l, words - cdi_words)
   proc_speed_l = make_long_df(proc_speed, n_learners, max_age)
   return(list(known_words = known_words_l,
+              known_cdi_words = known_cdi_words_l,
               proc_speed = proc_speed_l, 
               prop_knowing_word = prop_knowing_word))
 }

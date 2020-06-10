@@ -31,8 +31,8 @@ combine_word_counts <- function(wf, sources, target) {
   return(wf)
 }
 
-wf = combine_word_counts(wf, c("Mommy","mom","Mom","mama","momma","Mama","Momma"), "mommy") # 
-wf = combine_word_counts(wf, c("Daddy", "Dad", "dad", "dada", "papa","Papa","Dada"), "daddy")
+wf = combine_word_counts(wf, c("Mommy","mom","Mom","mama","momma","Mama","Momma","Mommy's","mother"), "mommy") # 
+wf = combine_word_counts(wf, c("Daddy", "Dad", "dad", "dada", "papa","Papa","Dada","father", "Daddy's"), "daddy")
 wf = combine_word_counts(wf, c("Grandpa","grandfather","Grandfather","granddaddy"), "grandpa")
 wf = combine_word_counts(wf, c("Grandma","grandmother","Grandmother","granny"), "grandma")
 wf = combine_word_counts(wf, "have_to", "hafta")
@@ -51,7 +51,8 @@ wf = combine_word_counts(wf, "woof_woof", "woof")
 wf = combine_word_counts(wf, "choo_choo", "choo")
 wf = rbind(wf, cbind(word="child's own name", word_count=0)) # add this
 wf$word_count = as.numeric(wf$word_count)
-wf = combine_word_counts(wf, c("Matthew","Adam","Alex","Abe","Eric","Melissa","Michael"), 
+wf = combine_word_counts(wf, c("Matthew","Adam","Alex","Abe","Sarah","William","Naima",
+                               "Eric","Melissa","Michael","Mark","Laura","Ross","Henry"), 
                          "child's own name") # "Child" ?
 
 sum(wf$word_count) # 7,576,872
@@ -197,13 +198,13 @@ plot_childes_word_freq_range <- function(wf, idx) {
 plot_childes_word_freq_range(wf, c(1,2,3,4,5,6, seq(8,100,4))) # .79
 plot_childes_word_freq_range(wf, 100+c(1,seq(4,100,4))) # .49
 plot_childes_word_freq_range(wf, 200+c(1,2,3,seq(4,100,4))) # .61
-plot_childes_word_freq_range(wf, 300+c(1,3,seq(4,100,4))) # .43
+plot_childes_word_freq_range(wf, 300+c(1,3,seq(4,100,4))) # .44
 plot_childes_word_freq_range(wf, 400+c(1,3,seq(4,100,4))) # .45
-plot_childes_word_freq_range(wf, 500+c(1,3,seq(4,100,4))) # .34
-plot_childes_word_freq_range(wf, 600+c(1,3,seq(4,100,4))) # .31
-plot_childes_word_freq_range(wf, 700+c(1,3,seq(4,100,4))) # .32
-plot_childes_word_freq_range(wf, 800+c(1,3,seq(4,100,4))) # .35
-plot_childes_word_freq_range(wf, 900+c(1,3,seq(4,100,4))) # .31
+plot_childes_word_freq_range(wf, 500+c(1,3,seq(4,100,4))) # .35
+plot_childes_word_freq_range(wf, 600+c(1,3,seq(4,100,4))) # .35
+plot_childes_word_freq_range(wf, 700+c(1,3,seq(4,100,4))) # .3
+plot_childes_word_freq_range(wf, 800+c(1,3,seq(4,100,4))) # .33
+plot_childes_word_freq_range(wf, 900+c(1,3,seq(4,100,4))) # .34
 
 #corpus <- get_utterances(collection = "Eng-NA") # also Eng-UK ?
 #types <- get_types(collection = "Eng-NA", type = words) # role = "target_child",
