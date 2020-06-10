@@ -22,7 +22,8 @@ start_time <- Sys.time()
 
 fit <- DEoptim(fitSSE, lower=c(1, 1, 1, 1, .01, .01, .01, .01, 1), 
                upper=c(9000, 9000, 9000, 9000, 1, 2, 1, 2, 9), distro="uniform",
-        control = DEoptim.control(NP = 140, itermax = 140)) 
+               regularize_input_rate = list(mean=1797.8, sd=1130.2),
+        control = DEoptim.control(NP = 150, itermax = 160)) 
 
 end_time <- Sys.time()
 print(end_time - start_time)
