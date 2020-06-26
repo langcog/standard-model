@@ -8,12 +8,9 @@ wf = read.csv("data/childes_english_word_freq_cleaned.csv")
 cdi_idx = which(wf$on_cdi==1)
 
 vocab_size = nrow(wf) # 10190
-waking_hours_per_day = 12
+waking_hours_per_day = 12 # eventually make normally-distributed (if we can find literature on sleeping time)
 
 
-sigmoid <- function(x) {
-  return( 1 / (1 + exp(-x)) )
-}
 
 acceleration_test <- function(dat) {
   d = dat$known_words %>% filter(month>11 & month<25) %>% group_by(month) %>% summarize(mean=mean(words)) 
@@ -44,6 +41,7 @@ make_long_df <- function(df, n_learners, max_age) {
 #  max_age=48, mean_learning_rate, learning_rate_sd, threshold_sd, 
 #  proc_facilitates, proc_speed_dev, proc_speed_dev_sd) {
 
+# call this once whenever proc_speed parms change?
 get_proc_speed <- function(print_plot=F) {
   a = rnorm(n_learners, mean=.56, sd=.1) # individual adult asymptotes for proc speed
   c = rnorm(n_learners, mean=.72, sd=.1)
@@ -73,14 +71,12 @@ get_proc_speed <- function(print_plot=F) {
 simulate <- function(parms) {
   if(parms$distro=="uniform") {
     probs = rep(1/vocab_size, vocab_size)
-  } else { # "zipf"
-    #probs = 1 / (1:vocab_size + 2.7) # f(r) = 1 / (r+beta)^alpha, alpha=1, beta=2.7 (Mandelbrot, 1953, 1962)
-    #probs = probs/sum(probs)
-    #probs = sample(probs, length(probs)) 
+  } else if(parms$distro=="zipf") {
     probs = wf$word_count / sum(wf$word_count) # based on CHILDES WF distro
-  }
-  if(parms$distro=="logzipf") {
+  } else if(parms$distro=="logzipf") {
     probs = log(wf$word_count) / sum(log(wf$word_count))
+  } else {
+    print("error")
   }
   start_age = parms$start_age # age (months) at which words start accumulating 
   input_rate = rnorm(n_learners, mean=parms$input_rate, sd=parms$input_rate_sd) # per-child variability in input rate

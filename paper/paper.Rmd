@@ -78,6 +78,8 @@ Combine to create a "macro-economics of early language"
 Input distributional patterns that match corpus dynamics (Montag etc)
 Identify critical uptake patterns to aim for (CDI quantiles?)
 
+@mcmurray2007 introduced a simple accumulator model of word learning to explain the vocabulary splurt... 
+
 ## Extensions
 ambiguity and disambiguation
 Cross-situational extensions (Smith, Blythe) - most word learning situations are ambiguous and require disambiguation across time (using mechanisms of learning and memory)

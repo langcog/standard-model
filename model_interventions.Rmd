@@ -20,6 +20,9 @@ However, parents who were at first below-average on automated language measures 
 Problem: Gilkerson 2017 only reports standardized scores (mean = 100 and SD = 15) for AWC (median split: bottom half M=84.09, upper half M=116.01), which are calculated from the original LENA norms (Gilkerson & Richards, 2008), where they report overall M=12,297 (SD=6462) per 12-hour session (so 1025 words/hour).
 
 ```{r, summary-tables, echo=F}
+# Table 1 O’Reilly, d’Apice, von Stumm
+# Adult word count N=107 Mean=54065.00 SD=17135.33 Min=15038.02 Max=99684.85 Skew=0.37 Kurtosis=0.05
+
 # Gilkerson et al. 2017 Table 2: standardized AWC
 
 # Gilkerson et al. 2018 Table 2: 
