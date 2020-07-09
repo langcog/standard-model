@@ -3,13 +3,25 @@ n_learners = 100
 max_age = 48 # months
 
 wf = read.csv("data/childes_english_word_freq_cleaned.csv")
+pos = read.csv("data/POSEnglish.csv", sep=';', stringsAsFactors = F)
+pos2<-pos
+pos2$PoS <- as.factor(pos2$PoS)
+pos2$word <- as.factor(pos2$word)
+wf = pos2 %>%
+  right_join(wf, by="word")
 
 # indices of CDI items
 cdi_idx = which(wf$on_cdi==1)
 
+noun_idx = which(wf$PoS=="Noun")
+other_idx = which(wf$PoS=="Other")
+verb_idx = which(wf$PoS=="Verb")
+adj_idx = which(wf$PoS=="Adjective")
+all_idx = which(!is.na(wf$PoS))
+
 vocab_size = nrow(wf) # 10190
 waking_hours_per_day = 12 # eventually make normally-distributed (if we can find literature on sleeping time)
-
+cdi_list = wf%>%filter(on_cdi==1)%>%select(word)
 
 
 acceleration_test <- function(dat) {
@@ -100,6 +112,11 @@ simulate <- function(parms) {
   # child x age
   known_words = matrix(0, nrow=n_learners, ncol=max_age) # known words per individual (row) per month (col)
   known_cdi_words = matrix(0, nrow=n_learners, ncol=max_age) # just the CDI words
+  known_all = matrix(0, nrow=n_learners, ncol=max_age) # known pos words
+  known_other = matrix(0, nrow=n_learners, ncol=max_age) # known other words
+  known_adj = matrix(0, nrow=n_learners, ncol=max_age) # known adjectives
+  known_verb = matrix(0, nrow=n_learners, ncol=max_age) # known verbs
+  known_noun = matrix(0, nrow=n_learners, ncol=max_age) # known nouns
   proc_speed = matrix(0, nrow=n_learners, ncol=max_age) # do we want per word instead of per learner?
   
   # word x age: proportion of children knowing each word per age
@@ -148,6 +165,11 @@ simulate <- function(parms) {
     #rowSums(cumulative_word_occs_test > threshold_test)
     known_words[,t] = rowSums(cumulative_word_occs>threshold) # does this do colwise comparison??
     known_cdi_words[,t] = rowSums(cumulative_word_occs[,cdi_idx] > threshold[cdi_idx])
+    known_verb[,t] = rowSums(cumulative_word_occs[,verb_idx] > threshold[verb_idx])
+    known_noun[,t] = rowSums(cumulative_word_occs[,noun_idx] > threshold[noun_idx])
+    known_other[,t] = rowSums(cumulative_word_occs[,other_idx] > threshold[other_idx])
+    known_adj[,t] = rowSums(cumulative_word_occs[,adj_idx] > threshold[adj_idx])
+    known_all[,t] = rowSums(cumulative_word_occs[,all_idx] > threshold[all_idx])
     prop_knowing_word[,t] = colSums(cumulative_word_occs>threshold) / n_learners
   }
   
@@ -158,10 +180,41 @@ simulate <- function(parms) {
   known_words_l$cdi_words = known_cdi_words_l$words
   #known_words_l$noncdi_words = with(known_cdi_words_l, words - cdi_words)
   proc_speed_l = make_long_df(proc_speed, n_learners, max_age)
+  cdi_list = wf%>%filter(on_cdi==1)%>%select(word)
+  
+  # some data wrangling for part of speech
+  known_other_l = make_long_df(known_other, n_learners, max_age)
+  known_verb_l = make_long_df(known_verb, n_learners, max_age)
+  known_adj_l = make_long_df(known_adj, n_learners, max_age)
+  known_noun_l = make_long_df(known_noun, n_learners, max_age)
+  known_all_l = make_long_df(known_all, n_learners, max_age)
+  # for plotting avgPoS
+  known_other_s = aggregate(known_other_l$words, by=list(Category=known_other_l$month), FUN=sum) %>% mutate("PoS" = "Other", words = x/100)
+  known_verb_s = aggregate(known_verb_l$words, by=list(Category=known_verb_l$month), FUN=sum) %>% mutate("PoS" = "Verb", words = x/100)
+  known_adj_s = aggregate(known_adj_l$words, by=list(Category=known_adj_l$month), FUN=sum) %>% mutate("PoS" = "Adjective", words = x/100)
+  known_noun_s = aggregate(known_noun_l$words, by=list(Category=known_noun_l$month), FUN=sum) %>% mutate("PoS" = "Noun", words = x/100)
+  known_PoS = rbind(known_other_s,known_verb_s,known_adj_s,known_noun_s)
+  # for plotting propPos
+  known_words_pos = known_all_l %>% arrange(id) %>% mutate("PoS" = "All") %>% select(id, month, words, PoS)
+  known_other_a = known_other_l %>% arrange(id) %>% mutate("PoS" = "Other")
+  known_verb_a = known_verb_l %>% arrange(id) %>% mutate("PoS" = "Verb")
+  known_adj_a = known_adj_l %>% arrange(id) %>% mutate("PoS" = "Adjective")
+  known_noun_a = known_noun_l %>% arrange(id) %>% mutate("PoS" = "Noun")
+  known_pos = rbind(known_words_pos, known_noun_a, known_adj_a, known_verb_a, known_other_a)
+  pos_48 = known_pos %>% filter(month == 48)
+  pos_48 = pos_48[rep(seq_len(nrow(pos_48)), each = 48),] %>% rename(twords = words) %>% select(twords)
+  known_pos = cbind(known_pos, pos_48) 
+  all1 = known_pos %>% filter(PoS == "All")%>% mutate("Proportion" = words/twords) %>% select(Proportion)
+  all = rbind(all1,all1,all1,all1,all1)
+  known_pos = cbind(known_pos, all)
+  known_pos = known_pos %>% filter(PoS !="All")
+  
   return(list(known_words = known_words_l,
               known_cdi_words = known_cdi_words_l,
+              known_PoS = known_PoS,
               proc_speed = proc_speed_l, 
-              prop_knowing_word = prop_knowing_word))
+              prop_knowing_word = prop_knowing_word,
+              known_pos = known_pos))
 }
 
 
