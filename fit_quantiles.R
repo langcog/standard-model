@@ -82,7 +82,7 @@ fitSSE <- function(parms, proc_facilitates=T, distro="logzipf", graph="", regula
   # regularize input rate (mean and sd) - 
   #  penalize more the farther estimated parm is far from LENA estimates 
   if(!is.na(regularize_input_rate)) {
-    SSE = SSE + .004*(regularize_input_rate$m - full_parms$input_rate)^2 + 
+    SSE = SSE + .004*(regularize_input_rate$mean - full_parms$input_rate)^2 + 
                 .004*(regularize_input_rate$sd - full_parms$input_rate_sd)^2
   }
   if(graph!="") {

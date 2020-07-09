@@ -1,19 +1,21 @@
 chil = read_csv("data/childes_english.csv") # 45k words in CHILDES
 chil$wf_norm = chil$word_count / (sum(chil$word_count)/1e6) # frequency per million tokens
+chil$final_count = NULL
 
 # https://www.ugent.be/pp/experimentele-psychologie/en/research/documents/subtlexus
 subt = read_csv("data/SUBTLEX-US.csv") # 60384 words appearing >1 in SUBTLEX
 
-pos = read.csv("data/POSEnglish.csv", sep=';', stringsAsFactors = F) # 160k - British spellings..look for American POS
+pos = read.csv("data/POSEnglish.csv", sep=';', stringsAsFactors = F) 
+# 160k - British + American spellings..look for American POS
 
 # minimally we want WF (per million words) for CHILDES as well as SUBTLEX, 
 # along with POS for each word
 # maybe we also want to limit ourselves to concrete words for some learning analyses
 
-syll = read.csv("data/EnglishSyllables.csv", sep=';', stringsAsFactors = F) # 28k - is 
+syll = read.csv("data/EnglishSyllables.csv", sep=';', stringsAsFactors = F) # 28k (find more?)
 
 aoa = read.csv("data/DataAoAEnglish.csv", sep=';', 
-               stringsAsFactors = F) # 31k subjective AoA ratings (from Brysbaert?)
+               stringsAsFactors = F) # 31k subjective AoA ratings (from Brysbaert?) 2011?
 
 conc = read.csv("data/DataConcrEnglish.csv", sep=';', 
                 stringsAsFactors = F) # 40k concreteness ratings
@@ -68,3 +70,5 @@ dim(subset(cd, !is.na(SUBTLWF) &
              !is.na(concreteness) & 
              !is.na(AoA))) 
 # 9127 with both
+
+save(cd, file="data/merged_data.RData")
