@@ -58,9 +58,10 @@ ui <- fluidPage(
         mainPanel(
             tabsetPanel(type = "tabs", id="tabs", 
                 tabPanel("Vocabulary Growth", 
-                         plotOutput("ageVocab"), 
+                         plotOutput("ageVocab", click = "plot_click"), 
                          br(),
                          textOutput("acceleration"),
+                         verbatimTextOutput("info"),
                          # flexible axes
                          fluidRow(
                              column(6,
@@ -194,6 +195,10 @@ server <- function(input, output) {
             geom_smooth(aes(x = month, y = cdi_words), color="red")
             # geom_point(alpha=.1) +
             # geom_abline(intercept=0, slope=input$vocab_size/input$max_age, linetype="dashed", color="grey", size=1) 
+    })
+    
+    output$info <- renderText({
+        paste0("x = ", input$plot_click$x, " months", "\ny = ",  input$plot_click$y, " words")
     })
     
     # three plots related to lexical categories
