@@ -327,7 +327,7 @@ server <- function(input, output) {
         }
     )
     
-    plotageRT() <- reactive({
+    plotageRT <- reactive({
         qs <- c(0.10,0.25,0.50,0.75,0.90)
         ggplot(sim_data()$proc_speed, aes(x=month, y=words)) + geom_line(aes(group=id), alpha=.1) +  
             #geom_quantile(quantiles=qs, formula=y ~ poly(x, 2), aes(colour = as.factor(..quantile..))) + 
