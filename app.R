@@ -58,6 +58,9 @@ ui <- fluidPage(
         mainPanel(
             tabsetPanel(type = "tabs", id="tabs", 
                 tabPanel("Vocabulary Growth", 
+                         br(),
+                         downloadButton('downloadPlotvocabGrowth', "Download Plot"),
+                         br(),
                          plotOutput("ageVocab", click = "plot_click"), 
                          br(),
                          textOutput("acceleration"),
@@ -74,6 +77,9 @@ ui <- fluidPage(
                          br()
                     ),
                 tabPanel("Processing Speed", 
+                         br(),
+                         downloadButton('downloadPlotprocspeed', "Download Plot"),
+                         br(),
                          fluidRow(
                              column(3,
                                     sliderInput("proc_speed_asymp", 
@@ -115,6 +121,9 @@ ui <- fluidPage(
                          br()
                     ),
                 tabPanel("Growth per Word",
+                         br(),
+                         downloadButton('downloadPlotageWord', "Download Plot"),
+                         br(),
                          selectInput("selectword", "Select a word",
                                      cdi_list,
                                      multiple = TRUE),
@@ -128,16 +137,22 @@ ui <- fluidPage(
                                                 min=0, max = 1, value = c(0,1), step = 0.1))
                          ),
                          br()), # add selector(s) to show particular words
-                tabPanel("PoS",
+                tabPanel("Part of Speech I",
                          plotOutput("agePos"),
                          br(),
                          plotOutput("propPos"),
                          br()),
-                tabPanel("Part of Speech",
+                tabPanel("Part of Speech II",
+                         br(),
+                         downloadButton('downloadPlotpos2', "Download Plot"),
+                         br(),
                          plotOutput("avgPoS"),
                          br()
                 ),
                 tabPanel("CDI vs. Full Vocab",
+                         br(),
+                         downloadButton('downloadPlotCDIfull', "Download Plot"),
+                         br(),
                          plotOutput("cdi_vs_full"),
                          fluidRow(
                              column(6,
@@ -180,7 +195,7 @@ server <- function(input, output) {
         #    proc_faciliates=input$proc_facilitates, proc_speed_dev=input$proc_speed_dev, proc_speed_dev_sd=input$proc_speed_dev_sd)
     })
     
-    output$ageVocab <- renderPlot({
+    plotageVocab <- reactive({
         qs <- c(0.10,0.25,0.50,0.75,0.90)
         ggplot(sim_data()$known_words, aes(x=month, y=words)) + 
             geom_line(aes(group = id), alpha = .1) + 
@@ -197,17 +212,43 @@ server <- function(input, output) {
             # geom_abline(intercept=0, slope=input$vocab_size/input$max_age, linetype="dashed", color="grey", size=1) 
     })
     
+    output$ageVocab <- renderPlot({
+        print(plotageVocab())
+    })
+    
+    output$downloadPlotvocabGrowth <- downloadHandler(
+        filename = "vocabGrowth.png",
+        content = function(file){
+            png(file = file)
+            print(plotageVocab())
+            dev.off()
+        }
+    )
+    
     output$info <- renderText({
         paste0("x = ", input$plot_click$x, " months", "\ny = ",  input$plot_click$y, " words")
     })
     
     # three plots related to lexical categories
-    output$avgPoS <- renderPlot({
+   plotavgPoS <- reactive({
         ggplot(sim_data()$known_PoS, aes(x=Category, y=words, fill = PoS)) + 
             geom_bar(stat="identity") + 
             xlab("Age (months)") + 
             ylab("Mean Vocabulary Size") 
     })
+    
+    output$avgPoS <- renderPlot({
+        print(plotavgPoS())
+    })
+    
+    output$downloadPlotpos2 <- downloadHandler(
+        filename = "lexicalCategories.png",
+        content = function(file){
+            png(file = file)
+            print(plotavgPoS())
+            dev.off()
+        }
+    )
     
     output$propPos <- renderPlot({
         ggplot(sim_data()$known_pos, aes(x=Proportion, y=words/twords)) + 
@@ -225,7 +266,7 @@ server <- function(input, output) {
     
     # show proportion of learners knowing each word over time
     # (could also create a table of mean AoA per word)
-    output$ageWord <- renderPlot({
+    plotAgeWord <- reactive({
         # maybe make this dataframe in model code..
         dw <- sim_data()$prop_knowing_word # need to make this long
         dl = data.frame(dw)
@@ -249,7 +290,20 @@ server <- function(input, output) {
             ylim(input$y_range3[1], input$y_range3[2]) 
     })
     
-    output$cdi_vs_full <- renderPlot({
+    output$ageWord <- renderPlot({
+        print(plotAgeWord())
+    })
+    
+    output$downloadPlotageWord <- downloadHandler(
+        filename = "ageword.png",
+        content = function(file){
+            png(file = file)
+            print(plotAgeWord())
+            dev.off()
+        }
+    )
+    
+   plotcdiFull <- reactive({
         dat <- sim_data()$known_words
         dat$age_group = cut_interval(dat$month, 16)
         ggplot(dat, aes(x=cdi_words, y=words)) + 
@@ -260,7 +314,20 @@ server <- function(input, output) {
             ylim(input$y_range2[1], input$y_range2[2])
     })
     
-    output$ageRT <- renderPlot({
+    output$cdi_vs_full <- renderPlot({
+        print(plotcdiFull())
+    })
+    
+    output$downloadPlotCDIfull <- downloadHandler(
+        filename = "CDIfull.png",
+        content = function(file){
+            png(file = file)
+            print(plotcdiFull())
+            dev.off()
+        }
+    )
+    
+    plotageRT() <- reactive({
         qs <- c(0.10,0.25,0.50,0.75,0.90)
         ggplot(sim_data()$proc_speed, aes(x=month, y=words)) + geom_line(aes(group=id), alpha=.1) +  
             #geom_quantile(quantiles=qs, formula=y ~ poly(x, 2), aes(colour = as.factor(..quantile..))) + 
@@ -272,6 +339,19 @@ server <- function(input, output) {
             #+ ylim(0,1.7)
         #print(sim_data()$proc_speed)
     })
+    
+    output$ageRT <- renderPlot({
+        print(plotageRT())
+    })
+    
+    output$downloadPlotprocspeed <- downloadHandler(
+        filename = "processingSpeed.png",
+        content = function(file){
+            png(file = file)
+            print(plotageRT())
+            dev.off()
+        }
+    )
     
     output$summary <- renderText({ 
         paste("Mean of cumulative words known per month.") # input$distro
