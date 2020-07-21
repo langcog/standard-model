@@ -58,6 +58,9 @@ ui <- fluidPage(
         mainPanel(
             tabsetPanel(type = "tabs", id="tabs", 
                 tabPanel("Vocabulary Growth", 
+                         textOutput("overview"),
+                         br(),
+                         textOutput("rgGrowth"),
                          br(),
                          downloadButton('downloadPlotvocabGrowth', "Download Plot"),
                          br(),
@@ -77,6 +80,7 @@ ui <- fluidPage(
                          br()
                     ),
                 tabPanel("Processing Speed", 
+                         textOutput("rgSpeed"),
                          br(),
                          downloadButton('downloadPlotprocspeed', "Download Plot"),
                          br(),
@@ -121,6 +125,7 @@ ui <- fluidPage(
                          br()
                     ),
                 tabPanel("Growth per Word",
+                         textOutput("rgWords"),
                          br(),
                          downloadButton('downloadPlotageWord', "Download Plot"),
                          br(),
@@ -138,11 +143,14 @@ ui <- fluidPage(
                          ),
                          br()), # add selector(s) to show particular words
                 tabPanel("Part of Speech I",
+                         textOutput("rgPoSI"),
+                         br(),
                          plotOutput("agePos"),
                          br(),
                          plotOutput("propPos"),
                          br()),
                 tabPanel("Part of Speech II",
+                         textOutput("rgPoSII"),
                          br(),
                          downloadButton('downloadPlotpos2', "Download Plot"),
                          br(),
@@ -150,6 +158,7 @@ ui <- fluidPage(
                          br()
                 ),
                 tabPanel("CDI vs. Full Vocab",
+                         textOutput("rgCDIvsTot"),
                          br(),
                          downloadButton('downloadPlotCDIfull', "Download Plot"),
                          br(),
@@ -227,6 +236,34 @@ server <- function(input, output) {
     
     output$info <- renderText({
         paste0("x = ", input$plot_click$x, " months", "\ny = ",  input$plot_click$y, " words")
+    })
+    
+    output$rgSpeed <- renderText({ 
+        paste("This plot shows the trajectory of processing speed (seconds) as a function of age. Each individual’s variation from the conditional mean (the dark blue line) may be observed from the plot.") 
+    })
+    
+    output$overview <- renderText({ 
+        paste("Overview: this interactive webpage provides a simulation on language learning of a hundred children from 0-48 months old. The start age of word accumulation is assumed to be the same for all children, and the average waking hours is assumed to be 12 hours per day. By adjusting the parameters, users may observe the growth curves of vocabulary and the trajectories of each child. The words and the word frequency of each word are provided by the CHILDES dataset.") 
+    })
+    
+    output$rgWords <- renderText({ 
+        paste("This plot shows the growth curve of each selected word. Users may select any word included in the CDI dataset.")
+    })
+    
+    output$rgCDIvsTot <- renderText({ 
+        paste("This plot depicts the relationship between known CDI words and total vocabulary. As there are only 656 words included on the CDI list, the number of known CDI words may no longer be reflective of children’s total vocabulary as children are approaching 48 months of age.")
+    })
+    
+    output$rgGrowth <- renderText({ 
+        paste("The plot shows the growth curve of vocabulary as a function of age. The red lines represent the growth curves of each child on CDI words, while the black lines represent the growth curves of each child on CHILDES words.")
+    })
+    
+    output$rgPoSII <- renderText({ 
+        paste("This plot depicts the composition (adjective, noun, verb, and other) of children’s vocabulary. Among these four lexical categories, nouns are the largest constituent of children’s vocabulary.")
+    })
+    
+    output$rgPoSI <- renderText({ 
+        paste("The first plot depicts the growth curves of these four lexical categories (adjective, noun, verb, and other) separately. Note that each individual is a line in the first plot. The second plot is proportional: the proportion of words known to each type as a function of the proportion of total words known. Note that each individual is a dot in the second plot.")
     })
     
     # three plots related to lexical categories
