@@ -5,9 +5,9 @@ account: kachergis
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1382367
-bundleId: 3237014
+bundleId: 3448039
 url: https://kachergis.shinyapps.io/standard-model/
-when: 1591484305.39776
+when: 1595977683.66636
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: acceleration-grid.RData|app-sampling.R|compare_fits.R|fit_quantiles.R|fit_unif_con_pfT.RData|fitmodel_logzipf_pfF.sbatch|fitmodel_logzipf.sbatch|fitmodel_zipf.sbatch|fitmodel.sbatch|fitmodel2.sbatch.sh|fitmodel3.sbatch.sh|fitmodel4.sbatch.sh|generate_tokens.R|get_childes_freqs.R|grid-check-acceleration.R|model_interventions.html|model_interventions.nb.html|model_interventions.Rmd|paper/paper.log|paper/paper.pdf|paper/paper.Rmd|paper/paper.tex|paper/r-references.bib
+ignoredFiles: acceleration-grid.RData|app-sampling.R|compare_fits.R|fit_quantiles.R|fit_unif_con_pfT.RData|fitmodel_logzipf_pfF.sbatch|fitmodel_logzipf.sbatch|fitmodel_zipf.sbatch|fitmodel.sbatch|fitmodel2.sbatch.sh|fitmodel3.sbatch.sh|fitmodel4.sbatch.sh|generate_tokens.R|get_childes_freqs.R|grid-check-acceleration.R|model_interventions.html|model_interventions.nb.html|model_interventions.Rmd|paper/paper.pdf|paper/paper.Rmd|paper/paper.tex|paper/r-references.bib

@@ -58,6 +58,7 @@ ui <- fluidPage(
         mainPanel(
             tabsetPanel(type = "tabs", id="tabs", 
                 tabPanel("Vocabulary Growth", 
+                         h3("Overview"),
                          textOutput("overview"),
                          br(),
                          textOutput("rgGrowth"),
@@ -67,7 +68,8 @@ ui <- fluidPage(
                          plotOutput("ageVocab", click = "plot_click"), 
                          br(),
                          textOutput("acceleration"),
-                         verbatimTextOutput("info"),
+                         br(),
+                        # verbatimTextOutput("info"),
                          # flexible axes
                          fluidRow(
                              column(6,
@@ -243,19 +245,33 @@ server <- function(input, output) {
     })
     
     output$overview <- renderText({ 
-        paste("Overview: this interactive webpage provides a simulation on language learning of a hundred children from 0-48 months old. The start age of word accumulation is assumed to be the same for all children, and the average waking hours is assumed to be 12 hours per day. By adjusting the parameters, users may observe the growth curves of vocabulary and the trajectories of each child. The words and the word frequency of each word are provided by the CHILDES dataset.") 
+        paste("This interactive webpage simulates the early word learning of one hundred children.",
+              "The simulations use a simple accumulator model of input, with the hourly input rate",
+              "experienced per child drawn from a normal distribution with mean and standard deviation chosen by the user (at left).",
+              "The start age of word accumulation is assumed to be the same for all children,",
+              "and the average waking hours is assumed to be 12 hours per day. By adjusting",
+              "the parameters, users may observe the growth curves of vocabulary and the",
+              "trajectories of each child. The words and the word frequency of each word",
+              "are provided by the CHILDES dataset.") 
     })
     
     output$rgWords <- renderText({ 
-        paste("This plot shows the growth curve of each selected word. Users may select any word included in the CDI dataset.")
+        paste("This plot shows the growth curve of any selected word.",
+              "Users may select any word included in the CDI dataset.") # we can add all CHILDES words
     })
     
     output$rgCDIvsTot <- renderText({ 
-        paste("This plot depicts the relationship between known CDI words and total vocabulary. As there are only 656 words included on the CDI list, the number of known CDI words may no longer be reflective of children’s total vocabulary as children are approaching 48 months of age.")
+        paste("This plot depicts the relationship between known CDI words and total vocabulary.", 
+              "As the CDI Words & Sentences checklist only includes 656 words,",
+              "the number of known CDI words may no longer be reflective of children's",
+              "total vocabulary in children close to 48 months of age.")
     })
     
     output$rgGrowth <- renderText({ 
-        paste("The plot shows the growth curve of vocabulary as a function of age. The red lines represent the growth curves of each child on CDI words, while the black lines represent the growth curves of each child on CHILDES words.")
+        paste("The plot below shows simulated vocabulary growth as a function of age:",
+              "red lines denote growth curves for words on the CDI,",
+              "and black lines show simulated vocabulary growth of the most",
+              "frequent 10,179 words in the CHILDES corpus.")
     })
     
     output$rgPoSII <- renderText({ 
