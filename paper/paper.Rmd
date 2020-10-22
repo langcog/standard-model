@@ -6,12 +6,12 @@ author:
   - name          : "George Kachergis"
     affiliation   : "1"
     corresponding : no 
-    address       : "420 Serra Mall"
+    address       : "420 Jane Stanford Way"
     email         : "kachergis@stanford.edu"
   - name          : "Michael C. Frank"
     affiliation   : "1"
     corresponding : yes 
-    address       : "420 Serra Mall"
+    address       : "420 Jane Stanford Way"
     email         : "mcfrank@stanford.edu"
 
 affiliation:
@@ -22,19 +22,17 @@ authornote: |
   Department of Psychology
 
 abstract: |
-  One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
-  Two to three sentences of **more detailed background**, comprehensible  to scientists in related disciplines.
-  One sentence clearly stating the **general problem** being addressed by  this particular study.
-  One sentence summarizing the main result (with the words "**here we show**" or their equivalent).
-  Two or three sentences explaining what the **main result** reveals in direct comparison to what was thought to be the case previously, or how the  main result adds to previous knowledge.
-  One or two sentences to put the results into a more **general context**.
-  Two or three sentences to provide a **broader perspective**, readily comprehensible to a scientist in any discipline.
-  
+  While there remains vigorous debate about the mechanisms by which children learn their first words, there is an emerging consensus about some criticcal factors that predict acquisition.
+  For example, although some words are more difficult to learn than others, words that are heard more often are generally learned earlier: word frequency matters.
+  Moreover, the overall amount of input heard by a child--whether child-directed or overheard speech--should influence uptake: a child hearing more hourly tokens should learn words earlier.
+  Building on previous efforts to model children's early word learning, we present a "standard model" that makes minimal, universally-agreed-upon assumptions about the learning process.
+  Using empirically-estimated input rate distributions and per-word frequencies from the CHILDES corpus, we produce simulated trajectories of vocabulary development.
+  Finally, we discuss implications of the standard model for designing and simulating interventions, as well as outstanding parameter identifiability issues and directions for further model develpment and testing.
   
 keywords          : "keywords"
 wordcount         : "X"
 
-bibliography      : ["r-references.bib"]
+bibliography      : ["references.bib"]
 
 floatsintext      : no
 figurelist        : no
@@ -69,6 +67,18 @@ Important applied area, interest in sociodemographic variation
 Word learning is one of the rare areas in developmental work in which the construct of individual differences is also seen as an epistemic construct: 
 
 
+How is children's linguistic input related to their uptake? 
+A wide range of computational models share the same basic accumulator architecture for word learning, in which hearing a word in the input leads to some increase in the probability of learning that word [@mcmurray2007; @hidaka2013; @mollica2017; @mayor2010]. 
+The goal of the current research is to unify these into a "standard" model -- analogous to the "Standard Model" of physics. 
+Our aim is to recapitulate the dynamics of how vocabulary grows, using words as the fundamental building blocks to understand the relationship between quantitative measures of language exposure and vocabulary size.
+
+We take a step towards this goal by considering Bayesian models that aim to predict children's vocabulary size using inferred parameter values. 
+We infer 1) the mean rate of input (tokens/hour) per child, and 2) a difficulty per word (the number of times a word must be heard to be learned). 
+In our baseline model, we assume that some children hear more hourly tokens than others, that these rates are normally-distributed across children, and that the difficulty of each word is also normally-distributed. 
+A second model extends the baseline model to take into account varying frequency across words (estimated from the CHILDES corpus). 
+Both models assume that all children begin accumulating words at a particular *starting age*, which is to be inferred by the model. 
+
+
 # The Standard Model
 
 To build a "standard model", we begin by specifying the minimal assumptions made by any model of word learning.
@@ -90,8 +100,6 @@ Experimental evidence from the "associations vs. hypotheses" debate
 # Procedure
 
 ## Data analysis
-We used `r cite_r("r-references.bib")` for all our analyses.
-
 
 # Results
 
@@ -102,7 +110,7 @@ We used `r cite_r("r-references.bib")` for all our analyses.
 
 # References
 ```{r create_r-references}
-r_refs(file = "r-references.bib")
+#r_refs(file = "references.bib")
 ```
 
 \begingroup
