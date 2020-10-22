@@ -4,7 +4,7 @@ require(ggrepel)
 
 wf <- read_csv("data/childes_english.csv") %>%
   select(-final_count, -solo_count, -mean_sent_length) %>% # 45598
-  filter(word_count>10, !is.na(word)) %>%# 27736 (21441 > twice, 14376 >5)
+  filter(word_count>1, !is.na(word)) %>%# 27736 (21441 > twice, 14376 >5)
   arrange(desc(word_count)) %>%
   filter(!is.element(word, c("www", "w", "r", "e", "g", "y"))) # frequent non-words
 # 10236 words
@@ -177,8 +177,8 @@ relabel_these = setdiff(colnames(d_mat), words)
 wf$on_cdi = ifelse(is.element(wf$word, words), 1, 0)
 
 wf <- wf %>% arrange(desc(word_count))
-
-write.csv(wf, file="data/childes_english_word_freq_cleaned.csv")
+wf$prob = wf$word_count / sum(wf$word_count)
+write.csv(wf, file="data/childes_english_word_freq_cleaned_noHapaxes.csv")
 
 
 plot_childes_word_freq_range <- function(wf, idx) {
