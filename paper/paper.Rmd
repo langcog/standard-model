@@ -1,5 +1,5 @@
 ---
-title             : "The ``Standard Model'' of Early Language Learning"
+title             : "Towards a ``Standard Model'' of Early Language Learning"
 shorttitle        : "Standard Model of Language Learning"
 
 author: 
@@ -22,14 +22,9 @@ authornote: |
   Department of Psychology
 
 abstract: |
-  While there remains vigorous debate about the mechanisms by which children learn their first words, there is an emerging consensus about some criticcal factors that predict acquisition.
-  For example, although some words are more difficult to learn than others, words that are heard more often are generally learned earlier: word frequency matters.
-  Moreover, the overall amount of input heard by a child--whether child-directed or overheard speech--should influence uptake: a child hearing more hourly tokens should learn words earlier.
-  Building on previous efforts to model children's early word learning, we present a "standard model" that makes minimal, universally-agreed-upon assumptions about the learning process.
-  Using empirically-estimated input rate distributions and per-word frequencies from the CHILDES corpus, we produce simulated trajectories of vocabulary development.
-  Finally, we discuss implications of the standard model for designing and simulating interventions, as well as outstanding parameter identifiability issues and directions for further model develpment and testing.
+  A "standard model" is a theoretical framework that synthesizes observables into a quantitative consensus. We assess our progress towards such a synthesis for children’s early language learning. Several recent computational models of early vocabulary learning all share the intuition that individual words are learned through an accumulation of environmental input, a potential match with empirical work that emphasizes links between input and learning. However, models need to simultaneously account for 1) the fact that words vary in difficulty, as well as 2) the variability in children’s rate of exposure to and 3) ability to integrate word occurrences. We show how these models relate to Item-Response Theory models, which are widely-used in psychometrics. Unfortunately, this formal connection also makes it clear that the currently available datasets cannot allow us to fully test the model, illustrating a critical need for theory in shaping new data collection. In particular, to compare across populations we need to collect data that use absolute measurement units, like words heard per hour and total vocabulary size, rather than unitless measures like effect size. The assumptions of this nascent “standard model” already implicitly guide much work in the field, but making these assumptions explicit brings into sharp relief questions about the applicability of this model to diverse populations. 
   
-keywords          : "keywords"
+keywords          : "early language learning; language acquisition; vocabulary development"
 wordcount         : "X"
 
 bibliography      : ["references.bib"]
@@ -57,51 +52,136 @@ set.seed(42)
 knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 ```
 
-In physics, the "Standard Model" is a widely-accepted theory completed in the 1970s that describes all known elementary particles, along with three of the four known fundamental forces in the universe, explaining a wide variety of empirical phenomena. 
-What fundamental building blocks and mechanisms are needed to construct an analogous standard model of early language learning?
+# Introduction
 
-Understanding children's language environment has been of central interest to both theoretical and applied and research on early language learning.
-In particular, word learning has come to be viewed as central to measuring and influencing language learning.
-Important applied area, interest in sociodemographic variation
+Early language learning is a key challenge for cognitive science research: how do we go from speechless, wordless infants to children who can use language expressively and creatively? 
+A better understanding of this process has implications for both policy and technology. 
+Yet despite rapid progress in this area, early language is still often portrayed as an area mired in controversies, for example around issues of innateness. 
+On the contrary, based on new theoretical and empirical work on the growth of vocabulary – and the deep connections between vocabulary and language more broadly – we see an emerging synthesis. 
+This synthesis provides a testable, quantitative model of the way that language is learned, connecting individual experiences to variability and growth over developmental time. 
+The goal of the current paper is to present this synthesis as a "standard model" of early language: a baseline theory that should be accepted widely in its outlines as a baseline summary[^1] of our beliefs and guide to future work even as its assumptions are still the subject of rigorous evaluation.
 
-Word learning is one of the rare areas in developmental work in which the construct of individual differences is also seen as an epistemic construct: 
+[^1]: Note that "standard" here is not meant to imply that it is normative, but rather that the model is an accepted starting point for a description of early language learning.
 
+In physics, the "standard model" is a widely-accepted theory completed in the 1970s that describes all known elementary particles along with three of the four known fundamental forces in the universe. 
+Although it is known to be incomplete and even in places incorrect, physics’ Standard Model nonetheless explains a wide variety of empirical phenomena, allowing scientists and engineers to model physical interactions with great precision and accuracy – and to design tests of the theory that inform its revision. 
+Psychology in general has been criticized for lacking such formal theories to inform and drive empirical research [@muthukrishna2019problem], and we feel this critique can be applied fairly to the field of language acquisition. 
+Although a substantial literature (that the current authors have contributed to) concerns the use of computational models to simulate acquisition, these models are often strikingly disconnected from the quantitative – not to mention qualitative – data gathered by most working acquisition researchers. 
 
-How is children's linguistic input related to their uptake? 
-A wide range of computational models share the same basic accumulator architecture for word learning, in which hearing a word in the input leads to some increase in the probability of learning that word [@mcmurray2007; @hidaka2013; @mollica2017; @mayor2010]. 
-The goal of the current research is to unify these into a "standard" model -- analogous to the "Standard Model" of physics. 
-Our aim is to recapitulate the dynamics of how vocabulary grows, using words as the fundamental building blocks to understand the relationship between quantitative measures of language exposure and vocabulary size.
+But in fact, researchers studying early language learning often presuppose a common framework for early language learning (Figure 1). 
+Language input in the environment is processed in the moment and then accumulates via repeated exposure into learning. 
+This framework underpins much of the broader policy discussion of individual variability in language learning and its links to environmental stimulation. 
+And this basic model does in fact correspond quite nicely to a class of computational models that has been explored in the word learning literature: accumulator models. 
 
-We take a step towards this goal by considering Bayesian models that aim to predict children's vocabulary size using inferred parameter values. 
-We infer 1) the mean rate of input (tokens/hour) per child, and 2) a difficulty per word (the number of times a word must be heard to be learned). 
-In our baseline model, we assume that some children hear more hourly tokens than others, that these rates are normally-distributed across children, and that the difficulty of each word is also normally-distributed. 
-A second model extends the baseline model to take into account varying frequency across words (estimated from the CHILDES corpus). 
-Both models assume that all children begin accumulating words at a particular *starting age*, which is to be inferred by the model. 
+Our aim here is to make this connection explicit, using item-response theory from psychometric testing as a framework for connecting between empirical data and previous accumulator models. 
+Sitting at a level of analysis between generic regressions and cognitive process models, data-analytic cognitive models of this type offer a way to implement our verbal verbal theories and evaluate them quantitatively [@vanrooij2020theory]. 
+Importantly, the goal is not to produce “the correct model” but rather to explore the ways that model assumptions lead to predictions. 
+In fact, the greatest value of such models is likely the ability to identify the areas of greatest mismatch between data and model, highlighting areas of the theory requiring further investigation (Tauber et al., 2016). 
 
-
-# The Standard Model
-
-To build a "standard model", we begin by specifying the minimal assumptions made by any model of word learning.
-First, assume that words accumulate through repeated exposure at a rate controlled by a variety of factors, including 1) learning rate, 2) frequency of exposure, 3) diversity of exposure, and 4) leveraged learning.
-
-Combine to create a "macro-economics of early language" 
-Input distributional patterns that match corpus dynamics (Montag etc)
-Identify critical uptake patterns to aim for (CDI quantiles?)
-
-@mcmurray2007 introduced a simple accumulator model of word learning to explain the vocabulary splurt... 
-
-## Extensions
-ambiguity and disambiguation
-Cross-situational extensions (Smith, Blythe) - most word learning situations are ambiguous and require disambiguation across time (using mechanisms of learning and memory)
-Socio-pragmatic extensions - most word learning instances are disambiguated by social and pragmatic cues (and are unambiguous)
-Experimental evidence from the "associations vs. hypotheses" debate
+In the remainder of this paper, we introduce accumulator models in more detail and then briefly present how they connect with IRT models. 
+We then review evidence consistent with this sketch of a “standard model”, as well as some empirical challenges for the future development. 
 
 
-# Procedure
+```{r, out.width="0.95\\linewidth", include=TRUE, fig.align="center", fig.cap=c("A schematic of the “standard” relationships between variables assumed in the literature on early language learning. It is generally assumed that child-directed speech (red) is more valuable than overheard speech (blue)."), echo=FALSE}
+knitr::include_graphics("./figs/fig1_standard_model.pdf")
+```
 
-## Data analysis
 
-# Results
+# Theorizing About the Accumulation of Language
+
+We are interested in children’s vocabulary, which we define as the set of words[^2] they know. 
+Although vocabulary has sometimes been thought of as disconnected from other – often more “interesting” – parts of language learning, in fact the language system is tightly woven [@wordbankbook]. 
+Children’s vocabulary size predicts a huge proportion of the concurrent variance in their production of complex grammatical utterances and gestures and is predictively related to early speech perception [@bates1994developmental; @wordbankbook; @cristia2014predicting]. 
+Further, measures of children’s early language are highly correlated with one another both concurrently and predictively, suggesting a single latent variable – language ability – that is quite stable across early childhood [@bornstein2013language].
+
+[^2]: What makes a word is its own separate and difficult question, especially as we look across languages. Are “dog” and “dogs” two separate words? If not, what about “mouse” and “mice”? These questions are relatively inconsequential in morphologically simple languages like English and Mandarin; yet they are quite a bit more difficult in morphologically more complex languages like Turkish or even agglutinating languages like Inuktitut. Here we sidestep this issue by noting that the Turkish or Inuktitut learner is accumulating something – whether or not we call it a word per se, our hypothesis is that this unit is being accumulated and that its accumulation will be subject to many of the same dynamics and information sources as words are. For some initial data bearing out this supposition by comparing Turkish with other languages, see @braginsky2019. 
+
+In early theories of language acquisition, children’s environment was assumed to “trigger” specific innate developmental schemas (e.g., Gibson & Wexler, 1994). 
+Driven by influential observations of the tight relationship between environmental input and children’s learning (e.g., Huttenlocher et al., 1991; Hart & Risley, 1995), more recent models have emphasized the accumulation of specific linguistic experiences in driving learning and generalization. 
+One such class of models is accumulator models, which assume that linguistic experiences with words accumulate in separate registers (pictured as “buckets” in Figure 2), with those registers exceeding a particular threshold being learned. 
+
+Formalized theories of accumulative vocabulary growth have already contributed significantly to theoretical debate. 
+For example, @mcmurray2007 elegantly demonstrated that children’s “vocabulary explosion”  – an acceleration in the growth of children’s vocabulary in their second year of life – can result from the steady accumulation of word tokens without any change in the environment or learning mechanism. 
+Other work has examined similar models using more realistic distributions of words (i.e., Zipf-distributed), developmental change in learning mechanisms, and quantitative comparison to children’s aggregate vocabulary growth [@mayor2010; @hidaka2013; @mollica2017]. 
+Although this work is exciting, these models have not yet been used to make direct predictions about learning in individual children (Bergelson, 2020). 
+
+One difficulty in connecting such models to data is that the relevant variables are often measured in relative, rather than absolute, units. This practice is common – for example, measures of intelligence are given on a standardized scale defined by population variability. 
+Yet in early language, we have – relatively unusually in a psychological domain – access to absolute units of description. 
+We can count how many words a child hears and express this as a rate (e.g., words per hour; Cristia et al., 2019), and we can similarly estimate how many words they know [@wordbankbook]. 
+These absolute units give the potential for a model to make powerfully general quantitative predictions, which could be tested across different situations and populations (Dailey & Bergelson, in press). 
+As we describe below, however, few datasets have measurements of the relevant variables. 
+This may be a case where theory outstrips data and further data collection efforts are necessary. 
+
+```{r, out.width="0.7\\linewidth", include=TRUE, fig.align="center", fig.cap=c("An illustration of an accumulator model: each bucket represents the child’s knowledge about a particular word, and each token is a drop in the corresponding bucket. Some words are more difficult than others (i.e., have larger buckets). When a bucket is full, the corresponding word is considered to be learned. In theory, language input coming from child-directed speech (red) may count more than tokens in overheard speech (blue)."), echo=FALSE}
+knitr::include_graphics("./figs/fig2_standard_model.pdf")
+```
+
+
+
+# Parsing the Literature Using the Standard Model
+
+Since seminal work by Hart & Risley (1996), the connection between children’s language input and the growth of vocabulary has been a topic of intense interest, and numerous studies have reported associations between these variables [e.g., @hoff2003specificity; @weisleder2013]. 
+The direction of these associations is of course congruent with the standard model (and indeed is generally an inspiration). 
+But such correlations are also partially explained by a number of other factors, including socioeconomic [@hoff2003specificity; dailey2021language] and genetic [@hayiou2014language] variables, and their magnitude varies across studies [@wang2020meta]. 
+Though such studies are costly and difficult to conduct, randomized interventions are the gold standard for measuring causal effects of parental language input on language learning. 
+When such studies are conducted, they tend to show modest but reliable effects [e.g., suskind2016project]. 
+These positive results provide support for a causal connection between language input and outcomes, but – because they only estimate the effect of the change in input on variation in outcome – they provide only a relative, rather than an absolute, estimate of how important input is to vocabulary learning. 
+
+Indeed, reasoning from first principles, you cannot learn the word “table” if you do not hear it. Input must be a predictor of learning. 
+Correlational studies do not assess this relationship fully – rather, they assess whether variation in input relates to variation in learning. 
+A second line of work that comes closer to assessing the importance of language input focuses not on differences between children but instead on differences between words. 
+These studies use regression models to predict which words are easier or more difficult, typically averaging across children (e.g., Goodman, Dale, & Li, 2008; Braginsky et al., 2018). 
+Such studies show a strong association between word frequency and the age at which children typically acquire particular words, especially for object labels. 
+Such models can also be used to assess the value of other proposals for learning mechanisms in the literature (e.g., Fourtassi et al., 2020). 
+
+More broadly, this literature illustrates the value of a quantitative process model: under the standard model and its variants, we should be able to compute the expected relation between measures of input and vocabulary size. 
+To the extent this model accounts for the data, it will support researchers’ current theory, but likely more informative will be the model’s pattern of misfit to the data, which should provide grist for the twin mills of theory development and empirical study.
+
+
+# Toward a “Standard” Accumulator Model
+
+As we have argued above, the core of the standard view of language learning is that it is a process of accumulation – individual experiences with words lead to their eventual acquisition. 
+The more of these experiences a child receives, the faster their vocabulary grows. 
+However, both children and words vary: children may learn faster or slower, and words can be more or less difficult to learn. 
+Combining these ideas, the basic hypothesis is that a child’s vocabulary at a particular time should be predicted by their cumulative language exposure and learning rate, combined with the breadth and individual difficulties of the words that they have been exposed to. 
+
+The key contribution of such a baseline theory is that it establishes the link between the observable rates of words that children hear and their eventual knowledge of those words. 
+For example, in principle the model could establish how many occurrences of the word “dog” are needed by the average child in order to start understanding (or producing) “dog.” 
+Moreover, given a child’s vocabulary at a certain age, the model would provide an estimate of the child’s language ability. 
+
+This model outlines an approach that is very similar to Item-Response Theory (IRT; Embretson & Reise, 2000), an influential and popular psychometric modeling framework for understanding the performance of test-takers (in our case language learners whose vocabulary is being assessed) as they are assessed with a particular set of test items (the particular words we ask about). 
+In particular, IRT models jointly infer both how hard specific test items are and how accurate test takers are, recovering these latent parameters from the observed data. 
+In the basic Rasch (or 1-parameter logistic) IRT model, a person i responds correctly to item j with probability determined by their ability ($\theta_i$) and the difficulty of item j ($d_j$). 
+
+1PL eqn
+
+These parameters can easily be mapped onto the kind of accumulator model we have been describing: items are words (e.g. $d_j$ is the difficulty of word j), and $\theta_i$ is child $i$’s estimated latent language ability. 
+Although in a typical IRT model both item difficulties and person abilities are standardized (assumed to be normally-distributed and centered on 0) and unit-free, in principle it is possible to map these scores to real-world distributions – as we would like to do – incorporating measured word frequencies and rates of children’s experienced input. 
+With this mapping into absolute units, this kind of model then can provide a quantitative linking hypothesis between measurements of input and learning. 
+Recognizing the parallels between the standard model desiderata and IRT theory, we can use standard extensions of the 1PL (Rasch) IRT model to include both person-level and item-level covariates. Item-level (word-level) covariates of central interest in the standard model are estimates of word frequency in child-directed speech as well as lexical class [whether they are a noun, a predicate, or function word; @goodman2008does; @braginsky2019]. 
+Person-level covariates of interest in a standard model might include sex, socioeconomic status variables, or other demographic information. 
+
+This model as described above formalizes an important and testable claim: is the amount of language experience the important predictor of learning for a child, or are there other age-related factors beyond experience? 
+Put simply, is a 2-year-old different than a 1-year-old, aside from having twice as much experience with each word? 
+This theoretical question can be answered by simple model comparison between two versions of the standard model, one in which age is included as a person-level covariate, and one in which age is instead included as a scalar on the prevalence of each item (i.e., in which the frequency of “dog” for a 2-year-old is twice that of “dog” for a 1-year-old). 
+Using the IRT framework to formalize theoretical questions and assess them via model comparison is a strength of this approach. 
+Below we report the results of this model comparison, fit to parent-reported vocabulary data from 5,492 English-speaking children in Wordbank. 
+Each model estimated parameters for each child’s ability, and for the 680 words on the CDI Words and Sentences form. 
+As covariates we included the lexical class of each word (function words, adjective, noun, verb, or other), and the estimated numbers of tokens per word a child is likely to hear each month (range: 0.2 - 19,286 tokens), based on estimates from the CHILDES corpus of child-directed speech (MacWhinney, 2000). 
+An average child in this model (with input rate based on reported empirical means) is expected to receive 1,200 words per hour, 12 hours each day, for a total of 438,300 tokens per month, of which 285,200 tokens (65.1%) are accounted for by tokens of CDI words. 
+
+In Model 1, we included age as a person-level covariate, allowing for interactions of age (in months), lexical class, and monthly tokens per word. 
+In Model 2, instead of including the child’s age as a person-level covariate, we scaled the expected tokens per month for each word by the child’s age, yielding an estimate of their lifetime tokens per word, and also allowed for interactions with lexical class. 
+Model selection metrics (AIC and BIC) preferred the more complex Model 1, with a person-level age covariate separate from the item prevalence covariate. 
+Predicted acquisition curves from Model 1 are shown in Figure 3, broken down by age, lexical class, prevalence (left), as well as for specific 
+
+then outline a series of candidate “standard” models to test down the road--some of which will require new data sources in order to differentiate.
+
+
+```{r, out.width="1.0\\linewidth", include=TRUE, fig.align="center", fig.cap=c("Predicted acquisition curves from the fitted English “standard model” as a function of lexical class and the number of expected tokens per month (left), and for a sample of the 680 CDI words (right)."), echo=FALSE}
+knitr::include_graphics("./figs/fig3_predicted_age_LC_and_items.pdf")
+```
+
 
 # Discussion
 
