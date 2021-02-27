@@ -96,19 +96,19 @@ Further, measures of children’s early language are highly correlated with one 
 
 [^2]: What makes a word is its own separate and difficult question, especially as we look across languages. Are “dog” and “dogs” two separate words? If not, what about “mouse” and “mice”? These questions are relatively inconsequential in morphologically simple languages like English and Mandarin; yet they are quite a bit more difficult in morphologically more complex languages like Turkish or even agglutinating languages like Inuktitut. Here we sidestep this issue by noting that the Turkish or Inuktitut learner is accumulating something – whether or not we call it a word per se, our hypothesis is that this unit is being accumulated and that its accumulation will be subject to many of the same dynamics and information sources as words are. For some initial data bearing out this supposition by comparing Turkish with other languages, see @braginsky2019. 
 
-In early theories of language acquisition, children’s environment was assumed to “trigger” specific innate developmental schemas (e.g., Gibson & Wexler, 1994). 
-Driven by influential observations of the tight relationship between environmental input and children’s learning (e.g., Huttenlocher et al., 1991; Hart & Risley, 1995), more recent models have emphasized the accumulation of specific linguistic experiences in driving learning and generalization. 
+In early theories of language acquisition, children’s environment was assumed to “trigger” specific innate developmental schemas [e.g., @gibson1994triggers]. 
+Driven by influential observations of the tight relationship between environmental input and children’s learning [e.g., huttenlocher1991early; @hart1995), more recent models have emphasized the accumulation of specific linguistic experiences in driving learning and generalization. 
 One such class of models is accumulator models, which assume that linguistic experiences with words accumulate in separate registers (pictured as “buckets” in Figure 2), with those registers exceeding a particular threshold being learned. 
 
 Formalized theories of accumulative vocabulary growth have already contributed significantly to theoretical debate. 
 For example, @mcmurray2007 elegantly demonstrated that children’s “vocabulary explosion”  – an acceleration in the growth of children’s vocabulary in their second year of life – can result from the steady accumulation of word tokens without any change in the environment or learning mechanism. 
 Other work has examined similar models using more realistic distributions of words (i.e., Zipf-distributed), developmental change in learning mechanisms, and quantitative comparison to children’s aggregate vocabulary growth [@mayor2010; @hidaka2013; @mollica2017]. 
-Although this work is exciting, these models have not yet been used to make direct predictions about learning in individual children (Bergelson, 2020). 
+Although this work is exciting, these models have not yet been used to make direct predictions about learning in individual children [@bergelson2020comprehension]. 
 
 One difficulty in connecting such models to data is that the relevant variables are often measured in relative, rather than absolute, units. This practice is common – for example, measures of intelligence are given on a standardized scale defined by population variability. 
 Yet in early language, we have – relatively unusually in a psychological domain – access to absolute units of description. 
 We can count how many words a child hears and express this as a rate (e.g., words per hour; Cristia et al., 2019), and we can similarly estimate how many words they know [@wordbankbook]. 
-These absolute units give the potential for a model to make powerfully general quantitative predictions, which could be tested across different situations and populations (Dailey & Bergelson, in press). 
+These absolute units give the potential for a model to make powerfully general quantitative predictions, which could be tested across different situations and populations [@dailey2021language]. 
 As we describe below, however, few datasets have measurements of the relevant variables. 
 This may be a case where theory outstrips data and further data collection efforts are necessary. 
 
@@ -130,7 +130,7 @@ These positive results provide support for a causal connection between language 
 Indeed, reasoning from first principles, you cannot learn the word “table” if you do not hear it. Input must be a predictor of learning. 
 Correlational studies do not assess this relationship fully – rather, they assess whether variation in input relates to variation in learning. 
 A second line of work that comes closer to assessing the importance of language input focuses not on differences between children but instead on differences between words. 
-These studies use regression models to predict which words are easier or more difficult, typically averaging across children (e.g., Goodman, Dale, & Li, 2008; Braginsky et al., 2018). 
+These studies use regression models to predict which words are easier or more difficult, typically averaging across children [e.g., @goodman2008does; @braginsky2019). 
 Such studies show a strong association between word frequency and the age at which children typically acquire particular words, especially for object labels. 
 Such models can also be used to assess the value of other proposals for learning mechanisms in the literature (e.g., Fourtassi et al., 2020). 
 
@@ -149,7 +149,7 @@ The key contribution of such a baseline theory is that it establishes the link b
 For example, in principle the model could establish how many occurrences of the word “dog” are needed by the average child in order to start understanding (or producing) “dog.” 
 Moreover, given a child’s vocabulary at a certain age, the model would provide an estimate of the child’s language ability. 
 
-This model outlines an approach that is very similar to Item-Response Theory (IRT; Embretson & Reise, 2000), an influential and popular psychometric modeling framework for understanding the performance of test-takers (in our case language learners whose vocabulary is being assessed) as they are assessed with a particular set of test items (the particular words we ask about). 
+This model outlines an approach that is very similar to Item-Response Theory [IRT; @embretson2013item], an influential and popular psychometric modeling framework for understanding the performance of test-takers (in our case language learners whose vocabulary is being assessed) as they are assessed with a particular set of test items (the particular words we ask about). 
 In particular, IRT models jointly infer both how hard specific test items are and how accurate test takers are, recovering these latent parameters from the observed data. 
 In the basic Rasch (or 1-parameter logistic) IRT model, a person i responds correctly to item j with probability determined by their ability ($\theta_i$) and the difficulty of item j ($d_j$). 
 
@@ -167,7 +167,7 @@ This theoretical question can be answered by simple model comparison between two
 Using the IRT framework to formalize theoretical questions and assess them via model comparison is a strength of this approach. 
 Below we report the results of this model comparison, fit to parent-reported vocabulary data from 5,492 English-speaking children in Wordbank. 
 Each model estimated parameters for each child’s ability, and for the 680 words on the CDI Words and Sentences form. 
-As covariates we included the lexical class of each word (function words, adjective, noun, verb, or other), and the estimated numbers of tokens per word a child is likely to hear each month (range: 0.2 - 19,286 tokens), based on estimates from the CHILDES corpus of child-directed speech (MacWhinney, 2000). 
+As covariates we included the lexical class of each word (function words, adjective, noun, verb, or other), and the estimated numbers of tokens per word a child is likely to hear each month (range: 0.2 - 19,286 tokens), based on estimates from the CHILDES corpus of child-directed speech [@macwhinney2000childes]. 
 An average child in this model (with input rate based on reported empirical means) is expected to receive 1,200 words per hour, 12 hours each day, for a total of 438,300 tokens per month, of which 285,200 tokens (65.1%) are accounted for by tokens of CDI words. 
 
 In Model 1, we included age as a person-level covariate, allowing for interactions of age (in months), lexical class, and monthly tokens per word. 
