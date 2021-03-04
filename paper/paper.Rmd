@@ -25,7 +25,7 @@ abstract: |
   A "standard model" is a theoretical framework that synthesizes observables into a quantitative consensus. We assess our progress towards such a synthesis for children’s early language learning. Several recent computational models of early vocabulary learning all share the intuition that individual words are learned through an accumulation of environmental input, a potential match with empirical work that emphasizes links between input and learning. However, models need to simultaneously account for 1) the fact that words vary in difficulty, as well as 2) the variability in children’s rate of exposure to and 3) ability to integrate word occurrences. We show how these models relate to Item-Response Theory models, which are widely-used in psychometrics. Unfortunately, this formal connection also makes it clear that the currently available datasets cannot allow us to fully test the model, illustrating a critical need for theory in shaping new data collection. In particular, to compare across populations we need to collect data that use absolute measurement units, like words heard per hour and total vocabulary size, rather than unitless measures like effect size. The assumptions of this nascent “standard model” already implicitly guide much work in the field, but making these assumptions explicit brings into sharp relief questions about the applicability of this model to diverse populations. 
   
 keywords          : "early language learning; language acquisition; vocabulary development"
-wordcount         : "X"
+wordcount         : "3334"
 
 bibliography      : ["references.bib"]
 
@@ -97,7 +97,7 @@ Further, measures of children’s early language are highly correlated with one 
 [^2]: What makes a word is its own separate and difficult question, especially as we look across languages. Are “dog” and “dogs” two separate words? If not, what about “mouse” and “mice”? These questions are relatively inconsequential in morphologically simple languages like English and Mandarin; yet they are quite a bit more difficult in morphologically more complex languages like Turkish or even agglutinating languages like Inuktitut. Here we sidestep this issue by noting that the Turkish or Inuktitut learner is accumulating something – whether or not we call it a word per se, our hypothesis is that this unit is being accumulated and that its accumulation will be subject to many of the same dynamics and information sources as words are. For some initial data bearing out this supposition by comparing Turkish with other languages, see @braginsky2019. 
 
 In early theories of language acquisition, children’s environment was assumed to “trigger” specific innate developmental schemas [e.g., @gibson1994triggers]. 
-Driven by influential observations of the tight relationship between environmental input and children’s learning [e.g., huttenlocher1991early; @hart1995), more recent models have emphasized the accumulation of specific linguistic experiences in driving learning and generalization. 
+Driven by influential observations of the tight relationship between environmental input and children’s learning [e.g., @huttenlocher1991early; @hart1995], more recent models have emphasized the accumulation of specific linguistic experiences in driving learning and generalization. 
 One such class of models is accumulator models, which assume that linguistic experiences with words accumulate in separate registers (pictured as “buckets” in Figure 2), with those registers exceeding a particular threshold being learned. 
 
 Formalized theories of accumulative vocabulary growth have already contributed significantly to theoretical debate. 
@@ -151,9 +151,9 @@ Moreover, given a child’s vocabulary at a certain age, the model would provide
 
 This model outlines an approach that is very similar to Item-Response Theory [IRT; @embretson2013item], an influential and popular psychometric modeling framework for understanding the performance of test-takers (in our case language learners whose vocabulary is being assessed) as they are assessed with a particular set of test items (the particular words we ask about). 
 In particular, IRT models jointly infer both how hard specific test items are and how accurate test takers are, recovering these latent parameters from the observed data. 
-In the basic Rasch (or 1-parameter logistic) IRT model, a person i responds correctly to item j with probability determined by their ability ($\theta_i$) and the difficulty of item j ($d_j$). 
+In the basic Rasch (or 1-parameter logistic) IRT model, a person i responds correctly to item j with probability determined by their ability ($\theta_i$) and the difficulty of item j ($d_j$):
 
-1PL eqn
+$$ P(y_{i,j} = 1 | \theta_i, d_j) = \frac{1}{1+e^{\theta_i + d_j}} $$
 
 These parameters can easily be mapped onto the kind of accumulator model we have been describing: items are words (e.g. $d_j$ is the difficulty of word j), and $\theta_i$ is child $i$’s estimated latent language ability. 
 Although in a typical IRT model both item difficulties and person abilities are standardized (assumed to be normally-distributed and centered on 0) and unit-free, in principle it is possible to map these scores to real-world distributions – as we would like to do – incorporating measured word frequencies and rates of children’s experienced input. 
@@ -173,18 +173,56 @@ An average child in this model (with input rate based on reported empirical mean
 In Model 1, we included age as a person-level covariate, allowing for interactions of age (in months), lexical class, and monthly tokens per word. 
 In Model 2, instead of including the child’s age as a person-level covariate, we scaled the expected tokens per month for each word by the child’s age, yielding an estimate of their lifetime tokens per word, and also allowed for interactions with lexical class. 
 Model selection metrics (AIC and BIC) preferred the more complex Model 1, with a person-level age covariate separate from the item prevalence covariate. 
-Predicted acquisition curves from Model 1 are shown in Figure 3, broken down by age, lexical class, prevalence (left), as well as for specific 
+Predicted acquisition curves from Model 1 are shown in Figure 3, broken down by age, lexical class, and prevalence (left), showing for example that nouns are learned more rapidly than verbs or function words, and that there are interactions of prevalence and word type (e.g., more frequent nouns are learned earlier, but there is little effect of prevalence for verbs and function words). Moreover, the model predicts item-level acquisition curves (Figure 3, right), for example predicting that “ball” is learned earlier than “dog”, and that “go” is easier than “have.” Model 1 represents a new baseline standard model, which might be extended to include person-level groups such as SES and sex, as well as item-level covariates such as word length. 
 
-then outline a series of candidate “standard” models to test down the road--some of which will require new data sources in order to differentiate.
+Any model in this framework also estimates the latent language ability of each child in the dataset -- a value correlated with age, and with a child’s total vocabulary size as estimated by the CDI, but that may be better correlated with the child’s quantity/quality of input received, or with their processing speed: relations that will require new datasets with concurrent measures of these variables in order to distinguish. For one lesson we have learned in synthesizing the standard model framework is that based on current datasets, some of the theories are currently indistinguishable from one another, the models unidentifiable. Thus, we conclude by briefly discussing the next steps needed to test and build upon the standard model.
 
 
-```{r, out.width="1.0\\linewidth", include=TRUE, fig.align="center", fig.cap=c("Predicted acquisition curves from the fitted English “standard model” as a function of lexical class and the number of expected tokens per month (left), and for a sample of the 680 CDI words (right)."), echo=FALSE}
+```{r, out.width="1.0\\linewidth", include=TRUE, fig.align="center", fig.cap=c("Predicted acquisition curves from the fitted English “standard model” as a function of lexical class and the number of expected tokens per month (left), and for a sample of the 680 words on the CDI (right)."), echo=FALSE}
 knitr::include_graphics("./figs/fig3_predicted_age_LC_and_items.pdf")
 ```
 
+# Onward from the Standard Model
 
-# Discussion
+## Leveraged learning and the role of processing
 
+As the model results above show, older children accumulate language from their input faster than younger children. 
+Why? One potential reason is that independent developmental or maturational factors simply make older children better at remembering their experiences. 
+Our model suggests that domain general developmental differences in learning and memory would be important to measure independently to see how the ability to learn and remember words (or word-object associations) changes with age. 
+
+Another possibility – not mutually exclusive – is that children “leverage” their knowledge of language to learn faster [@mitchell2009]. 
+This leverage idea is consistent with many proposed mechanisms for language learning. For example, if children reason about new vocabulary items by exclusion (e.g., Markman et al., 1988), they could get better at learning new words just by having more potential items to exclude from consideration. 
+Certainly children can perform this kind of reasoning robustly across a range of ages, though the magnitude of its contributions to the broader accumulation of vocabulary is still unknown (Lewis et al., 2020).
+
+Yet another possibility – again not mutually exclusive to others – is that children are getting better at using the words they know. 
+Several recent studies have found that a surprising proportion of variance in the rate of young children’s vocabulary growth is accounted for by the speed with which individual children are able to process familiar words (e.g., Fernald, Perfors & Marchman, 2006; Marchman, Admas, Loi, Fernald, & Feldman, 2015). 
+Children’s processing speed in these studies is measured with the looking-while-listening (LWL) paradigm (Fernald, Pinto, Swingley, Weinberg, McRoberts, 1998), in which children are presented with an onscreen array of familiar objects (e.g., a shoe and a ball), and their latency to look at a named target object (ball) is measured. 
+Much of this work has been correlational, however. 
+Thus, it is unclear whether children with larger vocabularies are better at processing familiar words – as one might expect based on adult processing speed results, which find faster and more accurate processing of words in adults with larger vocabularies (Mainz, Shao, Brysbaert, & Meyer, 2017), or if the ability to quickly process familiar words generalizes to being faster to learn new words, as is sometimes speculated (e.g., Law & Edwards, 2015; Peter et al., 2019). 
+This latter would be a form of leverage as well.  
+
+In sum, given that...
+
+## Beyond Vocabulary
+
+The “Standard Model” that we have proposed is a model of the accumulation of words, but language is rich, complex..
+
+Empirically, The language system is tightly woven. 
+	Grammar Lex correlations
+	Gestures lex 
+	Phonology lex (cristia)
+Bornstein
+Theoretically, accumulator models are generic models of skill acquisition. One perspective on language is that it is in fact a skill [@chater2018language]. 
+Dovetails with construction grammar theory
+A Theory for Understanding Diverse Outcomes
+
+
+
+# Conclusions
+
+We have proposed here a way of implementing the theory that implicitly drives much of the research (and policy-making) on early language acquisition. 
+This “standard” model synthesizes measures of language input, processing, and vocabulary growth, allowing us to formalize, test, and iteratively improve our theoretical understanding of early language acquisition. 
+Moreover, by situating the standard model in the classic IRT psychometric framework, we have identified specific knowledge gaps in current empirical approaches that must be closed in future work in order to inform future theory development.
 
 \newpage
 
