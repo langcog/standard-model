@@ -5,13 +5,18 @@ shorttitle        : "Standard Model of Language Learning"
 author: 
   - name          : "George Kachergis"
     affiliation   : "1"
-    corresponding : no 
-    address       : "420 Jane Stanford Way"
+    corresponding : yes 
+    address       : "450 Jane Stanford Way, Stanford, CA 94305"
     email         : "kachergis@stanford.edu"
+  - name          : "Virginia A. Marchman"
+    affiliation   : "1"
+    corresponding : no 
+    address       : "450 Jane Stanford Way, Stanford, CA 94305"
+    email         : "mcfrank@stanford.edu"
   - name          : "Michael C. Frank"
     affiliation   : "1"
-    corresponding : yes 
-    address       : "420 Jane Stanford Way"
+    corresponding : no 
+    address       : "450 Jane Stanford Way, Stanford, CA 94305"
     email         : "mcfrank@stanford.edu"
 
 affiliation:
@@ -138,7 +143,7 @@ More broadly, this literature illustrates the value of a quantitative process mo
 To the extent this model accounts for the data, it will support researchers’ current theory, but likely more informative will be the model’s pattern of misfit to the data, which should provide grist for the twin mills of theory development and empirical study.
 
 
-# Toward a “Standard” Accumulator Model
+# Toward a "Standard" Accumulator Model
 
 As we have argued above, the core of the standard view of language learning is that it is a process of accumulation – individual experiences with words lead to their eventual acquisition. 
 The more of these experiences a child receives, the faster their vocabulary grows. 
@@ -184,45 +189,28 @@ knitr::include_graphics("./figs/fig3_predicted_age_LC_and_items.pdf")
 
 # Onward from the Standard Model
 
-## Leveraged learning and the role of processing
+The goal of a computational theory like the "standard model" described here is to describe the quantitative predictions that arise from a set of assumptions. Often, however, it is the *failure* of such a model to predict observed patterns of data that is most useful, as these failures point the way forward towards future refinements [@vanrooij2020theory]. We discuss three potential failures here as they point towards ways forward. 
 
-As the model results above show, older children accumulate language from their input faster than younger children. 
+**Leveraged learning and the role of processing**. As the model results above show, older children accumulate language from their input faster than younger children. 
 Why? One potential reason is that independent developmental or maturational factors simply make older children better at remembering their experiences. 
-Our model suggests that domain general developmental differences in learning and memory would be important to measure independently to see how the ability to learn and remember words (or word-object associations) changes with age. 
+Another possibility -- not mutually exclusive -– is that children *leverage* their knowledge of language to learn faster [@mitchell2009]. 
+This leverage idea is consistent with many proposed mechanisms for language learning. For example, if children reason about new vocabulary items by exclusion [@markman1988], they could get better at learning new words just by having more potential items to exclude from consideration. 
+Yet a third possibility –- again not mutually exclusive with the others -– is that children are getting better at using the words they know. 
+Several recent studies have found that a surprising proportion of variance in the rate of young children’s vocabulary growth is accounted for by the speed with which individual children are able to process familiar words [e.g., @fernald2006picking; @marchman2016early].
+Disentangling these distinct explanations will require careful measurement of both vocabulary and the potential mechanisms of leverage [cf. @lewis2020]. 
 
-Another possibility – not mutually exclusive – is that children “leverage” their knowledge of language to learn faster [@mitchell2009]. 
-This leverage idea is consistent with many proposed mechanisms for language learning. For example, if children reason about new vocabulary items by exclusion (e.g., Markman et al., 1988), they could get better at learning new words just by having more potential items to exclude from consideration. 
-Certainly children can perform this kind of reasoning robustly across a range of ages, though the magnitude of its contributions to the broader accumulation of vocabulary is still unknown (Lewis et al., 2020).
+**Beyond vocabulary**. The "standard model" that we have proposed is a model of the accumulation of words, but language is rich, complex system in which words are inflected morphologically and composed syntactically to express compositional meanings. In early conceptions of language learning, syntax and morphology were thought of as distinct and unconnected, but this conception has not been borne out empirically. Instead, evidence from large-scale data show again and again that the language system is "tightly woven," with extremely tight correlations between the acquisition of words, morphology, and syntax [@frank2021]. Theoretically, accumulator models like the standard model are generic models of skill acquisition. Given the perspective that language learning is a form of skill acquisition [@chater2018language], such connections could lead the way towards exensions of the standard model to the accumulation of broader units of language like constructions. 
 
-Yet another possibility – again not mutually exclusive to others – is that children are getting better at using the words they know. 
-Several recent studies have found that a surprising proportion of variance in the rate of young children’s vocabulary growth is accounted for by the speed with which individual children are able to process familiar words (e.g., @fernald2006picking; @marchman2016early). 
-Children’s processing speed in these studies is measured with the looking-while-listening (LWL) paradigm (Fernald, Pinto, Swingley, Weinberg, McRoberts, 1998), in which children are presented with an onscreen array of familiar objects (e.g., a shoe and a ball), and their latency to look at a named target object (ball) is measured. 
-Much of this work has been correlational, however. 
-Thus, it is unclear whether children with larger vocabularies are better at processing familiar words – as one might expect based on adult processing speed results, which find faster and more accurate processing of words in adults with larger vocabularies (Mainz, Shao, Brysbaert, & Meyer, 2017), or if the ability to quickly process familiar words generalizes to being faster to learn new words, as is sometimes speculated (e.g., Law & Edwards, 2015; Peter et al., 2019). 
-This latter would be a form of leverage as well.  
-
-In sum, given that...
-
-## Beyond Vocabulary
-
-The “Standard Model” that we have proposed is a model of the accumulation of words, but language is rich, complex..
-
-Empirically, The language system is tightly woven. 
-	Grammar Lex correlations
-	Gestures lex 
-	Phonology lex (cristia)
-Bornstein
-Theoretically, accumulator models are generic models of skill acquisition. One perspective on language is that it is in fact a skill [@chater2018language]. 
-Dovetails with construction grammar theory
-A Theory for Understanding Diverse Outcomes
-
-
+**A theory for understanding acquisition in diverse contexts**. The "standard model" formalizes an implict assumption of the literature: namely, that early language learning follows the same general model for children in radically different circumstances. Yet this assumption could very well be false. Some children might learn more from overheard speech and others might learn more from child-directed speech [@sperry2019]. The kind of data necessary to test this assumption directly are only now being collected, for example in studies that rigorously track learning outcomes and amount of language input in diverse populations [e.g., comparisons between children growing up in low-income, rural, indigenous communities and those in higher-income Western contexts; @casillas2020].
 
 # Conclusions
 
-We have proposed here a way of implementing the theory that implicitly drives much of the research (and policy-making) on early language acquisition. 
-This “standard” model synthesizes measures of language input, processing, and vocabulary growth, allowing us to formalize, test, and iteratively improve our theoretical understanding of early language acquisition. 
-Moreover, by situating the standard model in the classic IRT psychometric framework, we have identified specific knowledge gaps in current empirical approaches that must be closed in future work in order to inform future theory development.
+An implicit theory drives much research and policy-making on early language acquisition: early language accumulates through a set of discrete experiences with individual words. 
+The more experiences, the faster the words are learned. 
+This implicit theory can be expressed as a simple computational model that makes quantitative predictions. 
+By situating this model in a common psychometric framework, we show how it can be used to connect to large-scale, cross-linguistic datasets. 
+This “standard model" synthesizes measures of language input and vocabulary growth, allowing us to formalize, test, and iteratively improve our theoretical understanding of early language acquisition. 
+Moreover, this formalization allows us to identify specific gaps in current empirical approaches that must be closed to inform future theory development.
 
 \newpage
 
