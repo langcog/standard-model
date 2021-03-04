@@ -30,7 +30,7 @@ abstract: |
   A "standard model" is a theoretical framework that synthesizes observables into a quantitative consensus. We assess our progress towards such a synthesis for children’s early language learning. Several recent computational models of early vocabulary learning all share the intuition that individual words are learned through an accumulation of environmental input, a potential match with empirical work that emphasizes links between input and learning. However, models need to simultaneously account for 1) the fact that words vary in difficulty, as well as 2) the variability in children’s rate of exposure to and 3) ability to integrate word occurrences. We show how these models relate to Item-Response Theory models, which are widely-used in psychometrics. Unfortunately, this formal connection also makes it clear that the currently available datasets cannot allow us to fully test the model, illustrating a critical need for theory in shaping new data collection. In particular, to compare across populations we need to collect data that use absolute measurement units, like words heard per hour and total vocabulary size, rather than unitless measures like effect size. The assumptions of this nascent “standard model” already implicitly guide much work in the field, but making these assumptions explicit brings into sharp relief questions about the applicability of this model to diverse populations. 
   
 keywords          : "early language learning; language acquisition; vocabulary development"
-wordcount         : "3334"
+wordcount         : "3463"
 
 bibliography      : ["references.bib"]
 
@@ -178,9 +178,13 @@ An average child in this model (with input rate based on reported empirical mean
 In Model 1, we included age as a person-level covariate, allowing for interactions of age (in months), lexical class, and monthly tokens per word. 
 In Model 2, instead of including the child’s age as a person-level covariate, we scaled the expected tokens per month for each word by the child’s age, yielding an estimate of their lifetime tokens per word, and also allowed for interactions with lexical class. 
 Model selection metrics (AIC and BIC) preferred the more complex Model 1, with a person-level age covariate separate from the item prevalence covariate. 
-Predicted acquisition curves from Model 1 are shown in Figure 3, broken down by age, lexical class, and prevalence (left), showing for example that nouns are learned more rapidly than verbs or function words, and that there are interactions of prevalence and word type (e.g., more frequent nouns are learned earlier, but there is little effect of prevalence for verbs and function words). Moreover, the model predicts item-level acquisition curves (Figure 3, right), for example predicting that “ball” is learned earlier than “dog”, and that “go” is easier than “have.” Model 1 represents a new baseline standard model, which might be extended to include person-level groups such as SES and sex, as well as item-level covariates such as word length. 
+Predicted acquisition curves from Model 1 are shown in Figure 3, broken down by age, lexical class, and prevalence (left), showing for example that nouns are learned more rapidly than verbs or function words, and that there are interactions of prevalence and word type (e.g., more frequent nouns are learned earlier, but there is little effect of prevalence for verbs and function words). 
+Moreover, the model predicts item-level acquisition curves (Figure 3, right), for example predicting that “ball” is learned earlier than “dog”, and that “go” is easier than “have.” 
+Model 1 represents a new baseline standard model, which might be extended to include person-level groups such as SES and sex, as well as item-level covariates such as word length. 
 
-Any model in this framework also estimates the latent language ability of each child in the dataset -- a value correlated with age, and with a child’s total vocabulary size as estimated by the CDI, but that may be better correlated with the child’s quantity/quality of input received, or with their processing speed: relations that will require new datasets with concurrent measures of these variables in order to distinguish. For one lesson we have learned in synthesizing the standard model framework is that based on current datasets, some of the theories are currently indistinguishable from one another, the models unidentifiable. Thus, we conclude by briefly discussing the next steps needed to test and build upon the standard model.
+Any model in this framework also estimates the latent language ability of each child in the dataset -- a value correlated with age, and with a child’s total vocabulary size as estimated by the CDI, but that may be better correlated with the child’s quantity/quality of input received, or with their processing speed: relations that will require new datasets with concurrent measures of these variables in order to distinguish. 
+For one lesson we have learned in synthesizing the standard model framework is that based on current datasets, some of the theories are currently indistinguishable from one another, the models unidentifiable. 
+Thus, we conclude by briefly discussing the next steps needed to test and build upon the standard model.
 
 
 ```{r, out.width="1.0\\linewidth", include=TRUE, fig.align="center", fig.cap=c("Predicted acquisition curves from the fitted English “standard model” as a function of lexical class and the number of expected tokens per month (left), and for a sample of the 680 words on the CDI (right)."), echo=FALSE}
@@ -189,19 +193,28 @@ knitr::include_graphics("./figs/fig3_predicted_age_LC_and_items.pdf")
 
 # Onward from the Standard Model
 
-The goal of a computational theory like the "standard model" described here is to describe the quantitative predictions that arise from a set of assumptions. Often, however, it is the *failure* of such a model to predict observed patterns of data that is most useful, as these failures point the way forward towards future refinements [@vanrooij2020theory]. We discuss three potential failures here as they point towards ways forward. 
+The goal of a computational theory like the "standard model" described here is to describe the quantitative predictions that arise from a set of assumptions. 
+Often, however, it is the *failure* of such a model to predict observed patterns of data that is most useful, as these failures point the way forward towards future refinements [@vanrooij2020theory]. 
+We discuss three potential failures here as they point towards ways forward. 
 
 **Leveraged learning and the role of processing**. As the model results above show, older children accumulate language from their input faster than younger children. 
 Why? One potential reason is that independent developmental or maturational factors simply make older children better at remembering their experiences. 
 Another possibility -- not mutually exclusive -– is that children *leverage* their knowledge of language to learn faster [@mitchell2009]. 
-This leverage idea is consistent with many proposed mechanisms for language learning. For example, if children reason about new vocabulary items by exclusion [@markman1988], they could get better at learning new words just by having more potential items to exclude from consideration. 
+This leverage idea is consistent with many proposed mechanisms for language learning. For example, if children reason about new vocabulary items by exclusion [@markman1988children], they could get better at learning new words just by having more potential items to exclude from consideration. 
 Yet a third possibility –- again not mutually exclusive with the others -– is that children are getting better at using the words they know. 
 Several recent studies have found that a surprising proportion of variance in the rate of young children’s vocabulary growth is accounted for by the speed with which individual children are able to process familiar words [e.g., @fernald2006picking; @marchman2016early].
-Disentangling these distinct explanations will require careful measurement of both vocabulary and the potential mechanisms of leverage [cf. @lewis2020]. 
+Disentangling these distinct explanations will require careful measurement of both vocabulary and the potential mechanisms of leverage [cf. @lewis2020role]. 
 
-**Beyond vocabulary**. The "standard model" that we have proposed is a model of the accumulation of words, but language is rich, complex system in which words are inflected morphologically and composed syntactically to express compositional meanings. In early conceptions of language learning, syntax and morphology were thought of as distinct and unconnected, but this conception has not been borne out empirically. Instead, evidence from large-scale data show again and again that the language system is "tightly woven," with extremely tight correlations between the acquisition of words, morphology, and syntax [@frank2021]. Theoretically, accumulator models like the standard model are generic models of skill acquisition. Given the perspective that language learning is a form of skill acquisition [@chater2018language], such connections could lead the way towards exensions of the standard model to the accumulation of broader units of language like constructions. 
+**Beyond vocabulary**. The "standard model" that we have proposed is a model of the accumulation of words, but language is rich, complex system in which words are inflected morphologically and composed syntactically to express compositional meanings. 
+In early conceptions of language learning, syntax and morphology were thought of as distinct and unconnected, but this conception has not been borne out empirically. 
+Instead, evidence from large-scale data show again and again that the language system is "tightly woven," with extremely tight correlations between the acquisition of words, morphology, and syntax [@wordbankbook]. 
+Theoretically, accumulator models like the standard model are generic models of skill acquisition. 
+Given the perspective that language learning is a form of skill acquisition [@chater2018language], such connections could lead the way towards extensions of the standard model to the accumulation of broader units of language like constructions. 
 
-**A theory for understanding acquisition in diverse contexts**. The "standard model" formalizes an implict assumption of the literature: namely, that early language learning follows the same general model for children in radically different circumstances. Yet this assumption could very well be false. Some children might learn more from overheard speech and others might learn more from child-directed speech [@sperry2019]. The kind of data necessary to test this assumption directly are only now being collected, for example in studies that rigorously track learning outcomes and amount of language input in diverse populations [e.g., comparisons between children growing up in low-income, rural, indigenous communities and those in higher-income Western contexts; @casillas2020].
+**A theory for understanding acquisition in diverse contexts**. The "standard model" formalizes an implict assumption of the literature: namely, that early language learning follows the same general model for children in radically different circumstances. 
+Yet this assumption could very well be false. 
+Some children might learn more from overheard speech and others might learn more from child-directed speech [@sperry2019]. 
+The kind of data necessary to test this assumption directly are only now being collected, for example in studies that rigorously track learning outcomes and amount of language input in diverse populations [e.g., comparisons between children growing up in low-income, rural, indigenous communities and those in higher-income Western contexts; @casillas2020].
 
 # Conclusions
 
@@ -216,7 +229,7 @@ Moreover, this formalization allows us to identify specific gaps in current empi
 
 # References
 ```{r create_r-references}
-#r_refs(file = "references.bib")
+#r_refs(file = "references.bib") # 31 refs right now
 ```
 
 \begingroup
