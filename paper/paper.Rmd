@@ -120,19 +120,19 @@ knitr::include_graphics("./figs/fig2_standard_model.pdf")
 
 # Parsing the Literature Using the Standard Model
 
-Since seminal work by Hart & Risley (1996), the connection between children’s language input and the growth of vocabulary has been a topic of intense interest, and numerous studies have reported associations between these variables [e.g., @hoff2003specificity; @weisleder2013]. 
+Since seminal work by @hart1995, the connection between children’s language input and the growth of vocabulary has been a topic of intense interest, and numerous studies have reported associations between these variables [e.g., @hoff2003specificity; @weisleder2013]. 
 The direction of these associations is of course congruent with the standard model (and indeed is generally an inspiration). 
-But such correlations are also partially explained by a number of other factors, including socioeconomic [@hoff2003specificity; dailey2021language] and genetic [@hayiou2014language] variables, and their magnitude varies across studies [@wang2020meta]. 
+But such correlations are also partially explained by a number of other factors, including socioeconomic [@hoff2003specificity; @dailey2021language] and genetic [@hayiou2014language] variables, and their magnitude varies across studies [@wang2020meta]. 
 Though such studies are costly and difficult to conduct, randomized interventions are the gold standard for measuring causal effects of parental language input on language learning. 
-When such studies are conducted, they tend to show modest but reliable effects [e.g., suskind2016project]. 
+When such studies are conducted, they tend to show modest but reliable effects [e.g., @suskind2016project]. 
 These positive results provide support for a causal connection between language input and outcomes, but – because they only estimate the effect of the change in input on variation in outcome – they provide only a relative, rather than an absolute, estimate of how important input is to vocabulary learning. 
 
 Indeed, reasoning from first principles, you cannot learn the word “table” if you do not hear it. Input must be a predictor of learning. 
 Correlational studies do not assess this relationship fully – rather, they assess whether variation in input relates to variation in learning. 
 A second line of work that comes closer to assessing the importance of language input focuses not on differences between children but instead on differences between words. 
-These studies use regression models to predict which words are easier or more difficult, typically averaging across children [e.g., @goodman2008does; @braginsky2019). 
+These studies use regression models to predict which words are easier or more difficult, typically averaging across children [e.g., @goodman2008does; @braginsky2019]. 
 Such studies show a strong association between word frequency and the age at which children typically acquire particular words, especially for object labels. 
-Such models can also be used to assess the value of other proposals for learning mechanisms in the literature (e.g., Fourtassi et al., 2020). 
+Such models can also be used to assess the value of other proposals for learning mechanisms in the literature [e.g., @fourtassi2020growth]. 
 
 More broadly, this literature illustrates the value of a quantitative process model: under the standard model and its variants, we should be able to compute the expected relation between measures of input and vocabulary size. 
 To the extent this model accounts for the data, it will support researchers’ current theory, but likely more informative will be the model’s pattern of misfit to the data, which should provide grist for the twin mills of theory development and empirical study.
@@ -157,7 +157,7 @@ $$ P(y_{i,j} = 1 | \theta_i, d_j) = \frac{1}{1+e^{\theta_i + d_j}} $$
 
 These parameters can easily be mapped onto the kind of accumulator model we have been describing: items are words (e.g. $d_j$ is the difficulty of word j), and $\theta_i$ is child $i$’s estimated latent language ability. 
 Although in a typical IRT model both item difficulties and person abilities are standardized (assumed to be normally-distributed and centered on 0) and unit-free, in principle it is possible to map these scores to real-world distributions – as we would like to do – incorporating measured word frequencies and rates of children’s experienced input. 
-With this mapping into absolute units, this kind of model then can provide a quantitative linking hypothesis between measurements of input and learning. 
+With this mapping into absolute units, this kind of model can provide a quantitative linking hypothesis between measurements of input and learning. 
 Recognizing the parallels between the standard model desiderata and IRT theory, we can use standard extensions of the 1PL (Rasch) IRT model to include both person-level and item-level covariates. Item-level (word-level) covariates of central interest in the standard model are estimates of word frequency in child-directed speech as well as lexical class [whether they are a noun, a predicate, or function word; @goodman2008does; @braginsky2019]. 
 Person-level covariates of interest in a standard model might include sex, socioeconomic status variables, or other demographic information. 
 
@@ -167,7 +167,7 @@ This theoretical question can be answered by simple model comparison between two
 Using the IRT framework to formalize theoretical questions and assess them via model comparison is a strength of this approach. 
 Below we report the results of this model comparison, fit to parent-reported vocabulary data from 5,492 English-speaking children in Wordbank. 
 Each model estimated parameters for each child’s ability, and for the 680 words on the CDI Words and Sentences form. 
-As covariates we included the lexical class of each word (function words, adjective, noun, verb, or other), and the estimated numbers of tokens per word a child is likely to hear each month (range: 0.2 - 19,286 tokens), based on estimates from the CHILDES corpus of child-directed speech [@macwhinney2000childes]. 
+As covariates we included the lexical class of each word (function words, adjective, noun, verb, or other), and the estimated number of monthly tokens per word a child is likely to hear (range: 0.2 - 19,286 tokens), based on estimates from the CHILDES corpus of child-directed speech [@macwhinney2000childes]. 
 An average child in this model (with input rate based on reported empirical means) is expected to receive 1,200 words per hour, 12 hours each day, for a total of 438,300 tokens per month, of which 285,200 tokens (65.1%) are accounted for by tokens of CDI words. 
 
 In Model 1, we included age as a person-level covariate, allowing for interactions of age (in months), lexical class, and monthly tokens per word. 
