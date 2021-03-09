@@ -27,7 +27,7 @@ authornote: |
   Department of Psychology
 
 abstract: |
-  A "standard model" is a theoretical framework that synthesizes observables into a quantitative consensus. We assess our progress towards such a synthesis for children’s early language learning. Several recent computational models of early vocabulary learning all share the intuition that individual words are learned through an accumulation of environmental input, a potential match with empirical work that emphasizes links between input and learning. However, models need to simultaneously account for 1) the fact that words vary in difficulty, as well as 2) the variability in children’s rate of exposure to and 3) ability to integrate word occurrences. We show how these models relate to Item-Response Theory models, which are widely-used in psychometrics. Unfortunately, this formal connection also makes it clear that the currently available datasets cannot allow us to fully test the model, illustrating a critical need for theory in shaping new data collection. In particular, to compare across populations we need to collect data that use absolute measurement units, like words heard per hour and total vocabulary size, rather than unitless measures like effect size. The assumptions of this nascent “standard model” already implicitly guide much work in the field, but making these assumptions explicit brings into sharp relief questions about the applicability of this model to diverse populations. 
+  A "standard model" is a theoretical framework that synthesizes observables into a quantitative consensus. We assess our progress towards such a synthesis for children’s early language learning. Several recent computational models of early vocabulary learning all share the intuition that individual words are learned through an accumulation of environmental input, a potential match with empirical work that emphasizes links between input and learning. However, models need to simultaneously account for variation in: 1) word difficulty, 2) children’s rate of exposure to words, and 3) children’s ability to integrate word occurrences. We show how these models relate to Item-Response Theory models, widely-used in psychometrics. Unfortunately, this formal connection also makes it clear that the currently available datasets cannot allow us to fully test the model, illustrating a critical need for theory in shaping new data collection. In particular, to compare across populations, we need to collect data that use absolute measurement units, like words heard per hour and total vocabulary size, rather than unitless measures like effect size. The assumptions of this nascent “standard model” already implicitly guide much work in the field, but making these assumptions explicit brings into sharp relief questions about the applicability of this model to diverse populations. 
   
 keywords          : "early language learning; language acquisition; vocabulary development"
 wordcount         : "3463"
@@ -59,12 +59,12 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 
 # Introduction
 
-Early language learning is a key challenge for cognitive science research: how do we go from speechless, wordless infants to children who can use language expressively and creatively? 
+Early language learning is a key challenge for cognitive science: how do we go from speechless, wordless infants to children who can use language expressively and creatively? 
 A better understanding of this process has implications for both policy and technology. 
-Yet despite rapid progress in this area, early language is still often portrayed as an area mired in controversies, for example around issues of innateness. 
-On the contrary, based on new theoretical and empirical work on the growth of vocabulary – and the deep connections between vocabulary and language more broadly – we see an emerging synthesis. 
-This synthesis provides a testable, quantitative model of the way that language is learned, connecting individual experiences to variability and growth over developmental time. 
-The goal of the current paper is to present this synthesis as a "standard model" of early language: a baseline theory that should be accepted widely in its outlines as a baseline summary[^1] of our beliefs and guide to future work even as its assumptions are still the subject of rigorous evaluation.
+Despite rapid progress in this area, early language is still often portrayed as mired in controversies, for example, around issues of innateness. 
+However, based on new theoretical and empirical work on the growth of vocabulary, and the deep connections between vocabulary and language more broadly, we see an emerging synthesis. 
+This synthesis provides a testable, quantitative model language learning, connecting individual experiences to variability and growth over developmental time. 
+Our goal is to present this synthesis as a "standard model": a baseline theory that should be accepted widely in its outlines as a baseline summary[^1] of our beliefs and guide to future work even as its assumptions are still the subject of rigorous evaluation.
 
 [^1]: Note that "standard" here is not meant to imply that it is normative, but rather that the model is an accepted starting point for a description of early language learning.
 
@@ -205,7 +205,7 @@ Yet a third possibility –- again not mutually exclusive with the others -– i
 Several recent studies have found that a surprising proportion of variance in the rate of young children’s vocabulary growth is accounted for by the speed with which individual children are able to process familiar words [e.g., @fernald2006picking; @marchman2016early].
 Disentangling these distinct explanations will require careful measurement of both vocabulary and the potential mechanisms of leverage [cf. @lewis2020role]. 
 
-**Beyond vocabulary**. The "standard model" that we have proposed is a model of the accumulation of words, but language is a rich, complex system in which words are inflected morphologically and composed syntactically to express compositional meanings. 
+**Beyond vocabulary**. The "standard model" proposed here is a model of the accumulation of words, but language is a rich, complex system in which words are inflected morphologically and composed syntactically to express compositional meanings. 
 In early conceptions of language learning, syntax and morphology were thought of as distinct and unconnected, but this conception has not been borne out empirically. 
 Instead, evidence from large-scale data shows again and again that the language system is "tightly woven," with extremely tight correlations between the acquisition of words, morphology, and syntax [@wordbankbook]. 
 Theoretically, accumulator models like the standard model are generic models of skill acquisition. 
