@@ -1,5 +1,5 @@
 ---
-title             : "Towards a ``Standard Model'' of Early Language Learning"
+title             : "Towards a \"Standard Model\" of Early Language Learning"
 shorttitle        : "Standard Model of Language Learning"
 
 author: 
@@ -34,7 +34,7 @@ wordcount         : "3334"
 
 bibliography      : ["references.bib"]
 
-floatsintext      : no
+floatsintext      : yes
 figurelist        : no
 tablelist         : no
 footnotelist      : no
