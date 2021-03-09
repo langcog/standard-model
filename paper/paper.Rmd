@@ -195,7 +195,7 @@ knitr::include_graphics("./figs/fig3_predicted_age_LC_and_items.pdf")
 
 The goal of a computational theory like the "standard model" described here is to describe the quantitative predictions that arise from a set of assumptions. 
 Often, however, it is the *failure* of such a model to predict observed patterns of data that is most useful, as these failures point the way forward towards future refinements [@vanrooij2020theory]. 
-We discuss three potential failures here as they point towards ways forward. 
+We discuss three potential failures here as signposts for ways forward. 
 
 **Leveraged learning and the role of processing**. As the model results above show, older children accumulate language from their input faster than younger children. 
 Why? One potential reason is that independent developmental or maturational factors simply make older children better at remembering their experiences. 
@@ -205,9 +205,9 @@ Yet a third possibility –- again not mutually exclusive with the others -– i
 Several recent studies have found that a surprising proportion of variance in the rate of young children’s vocabulary growth is accounted for by the speed with which individual children are able to process familiar words [e.g., @fernald2006picking; @marchman2016early].
 Disentangling these distinct explanations will require careful measurement of both vocabulary and the potential mechanisms of leverage [cf. @lewis2020role]. 
 
-**Beyond vocabulary**. The "standard model" that we have proposed is a model of the accumulation of words, but language is rich, complex system in which words are inflected morphologically and composed syntactically to express compositional meanings. 
+**Beyond vocabulary**. The "standard model" that we have proposed is a model of the accumulation of words, but language is a rich, complex system in which words are inflected morphologically and composed syntactically to express compositional meanings. 
 In early conceptions of language learning, syntax and morphology were thought of as distinct and unconnected, but this conception has not been borne out empirically. 
-Instead, evidence from large-scale data show again and again that the language system is "tightly woven," with extremely tight correlations between the acquisition of words, morphology, and syntax [@wordbankbook]. 
+Instead, evidence from large-scale data shows again and again that the language system is "tightly woven," with extremely tight correlations between the acquisition of words, morphology, and syntax [@wordbankbook]. 
 Theoretically, accumulator models like the standard model are generic models of skill acquisition. 
 Given the perspective that language learning is a form of skill acquisition [@chater2018language], such connections could lead the way towards extensions of the standard model to the accumulation of broader units of language like constructions. 
 
