@@ -64,27 +64,24 @@ A better understanding of this process has implications for both policy and tech
 Despite rapid progress in this area, early language is still often portrayed as mired in controversies, for example, around issues of innateness. 
 However, based on new theoretical and empirical work on the growth of vocabulary, and the deep connections between vocabulary and language more broadly, we see an emerging synthesis. 
 This synthesis provides a testable, quantitative model language learning, connecting individual experiences to variability and growth over developmental time. 
-Our goal is to present this synthesis as a "standard model": a baseline theory that should be accepted widely in its outlines as a baseline summary[^1] of our beliefs and guide to future work even as its assumptions are still the subject of rigorous evaluation.
+Our goal is to present this synthesis as a "standard model": a baseline theory that should be accepted widely in its outlines as a baseline summary[^1] of our beliefs and guide to future work, even if its assumptions still require rigorous evaluation.
 
 [^1]: Note that "standard" here is not meant to imply that it is normative, but rather that the model is an accepted starting point for a description of early language learning.
 
-In physics, the "standard model" is a widely-accepted theory completed in the 1970s that describes all known elementary particles along with three of the four known fundamental forces in the universe. 
-Although it is known to be incomplete and even in places incorrect, physics’ Standard Model nonetheless explains a wide variety of empirical phenomena, allowing scientists and engineers to model physical interactions with great precision and accuracy – and to design tests of the theory that inform its revision. 
-Psychology in general has been criticized for lacking such formal theories to inform and drive empirical research [@muthukrishna2019problem], and we feel this critique can be applied fairly to the field of language acquisition. 
+In physics, the "standard model" is a widely-accepted theory from the 1970s that describes all known elementary particles along with three of the four known fundamental forces in the universe. 
+Although it is known to be incomplete and even incorrect in places, physics’ Standard Model nonetheless explains a wide variety of empirical phenomena, allowing scientists and engineers to model physical interactions with great precision and accuracy and to design tests that inform theory revision. 
+Psychology in general has been criticized for lacking such formal theories that inform and drive empirical research [@muthukrishna2019problem]. We feel this critique can be applied fairly to the field of language acquisition. 
 Although a substantial literature (that the current authors have contributed to) concerns the use of computational models to simulate acquisition, these models are often strikingly disconnected from the quantitative – not to mention qualitative – data gathered by most working acquisition researchers. 
 
-But in fact, researchers studying early language learning often presuppose a common framework for early language learning (Figure 1). 
-Language input in the environment is processed in the moment and then accumulates via repeated exposure into learning. 
+In fact, researchers studying early language learning often presuppose a common framework for early language learning (Figure 1). 
+Language input is processed in the moment and then accumulates via repeated exposure, resulting in learning. 
 This framework underpins much of the broader policy discussion of individual variability in language learning and its links to environmental stimulation. 
-And this basic model does in fact correspond quite nicely to a class of computational models that has been explored in the word learning literature: accumulator models. 
+This basic model does in fact correspond nicely to a class of computational models that has been explored in the word learning literature: accumulator models. 
 
-Our aim here is to make this connection explicit, using item-response theory from psychometric testing as a framework for connecting between empirical data and previous accumulator models. 
+Our aim is to make this connection explicit, using item-response theory (IRT) from psychometric testing as a framework for connecting empirical data and previous accumulator models. 
 Sitting at a level of analysis between generic regressions and cognitive process models, data-analytic cognitive models of this type offer a way to implement our verbal verbal theories and evaluate them quantitatively [@vanrooij2020theory]. 
-Importantly, the goal is not to produce “the correct model” but rather to explore the ways that model assumptions lead to predictions. 
-In fact, the greatest value of such models is likely the ability to identify the areas of greatest mismatch between data and model, highlighting areas of the theory requiring further investigation (Tauber et al., 2016). 
-
-In the remainder of this paper, we introduce accumulator models in more detail and then briefly present how they connect with IRT models. 
-We then review evidence consistent with this sketch of a “standard model”, as well as some empirical challenges for the future development. 
+Importantly, the goal is not to produce “the correct model,” but rather to explore the ways that model assumptions lead to predictions. 
+In fact, the greatest value of such models is the ability to identify the areas of greatest mismatch between data and model, highlighting areas of the theory requiring further investigation (Tauber et al., 2016). 
 
 
 ```{r, out.width="0.95\\linewidth", include=TRUE, fig.align="center", fig.cap=c("A schematic of the “standard” relationships between variables assumed in the literature on early language learning. It is generally assumed that child-directed speech (red) is more valuable than overheard speech (blue)."), echo=FALSE}
@@ -95,24 +92,25 @@ knitr::include_graphics("./figs/fig1_standard_model.pdf")
 # Theorizing About the Accumulation of Language
 
 We are interested in children’s vocabulary, which we define as the set of words[^2] they know. 
-Although vocabulary has sometimes been thought of as disconnected from other – often more “interesting” – parts of language learning, in fact the language system is tightly woven [@wordbankbook]. 
-Children’s vocabulary size predicts a huge proportion of the concurrent variance in their production of complex grammatical utterances and gestures and is predictively related to early speech perception [@bates1994developmental; @wordbankbook; @cristia2014predicting]. 
-Further, measures of children’s early language are highly correlated with one another both concurrently and predictively, suggesting a single latent variable – language ability – that is quite stable across early childhood [@bornstein2013language].
+Although vocabulary has sometimes been thought of as disconnected from other, often more “interesting,” parts of language learning, in fact the language system is tightly woven [@wordbankbook]. 
+Children’s vocabulary size predicts a substantial proportion of concurrent variance in their production of complex grammatical utterances and gestures and is predicted by early speech perception [@bates1994developmental; @wordbankbook; @cristia2014predicting]. 
+Further, measures of early language are highly correlated with one another, both concurrently and predictively, suggesting a single latent variable, i.e. language ability, that is quite stable across early childhood [@bornstein2013language].
 
-[^2]: What makes a word is its own separate and difficult question, especially as we look across languages. Are “dog” and “dogs” two separate words? If not, what about “mouse” and “mice”? These questions are relatively inconsequential in morphologically simple languages like English and Mandarin; yet they are quite a bit more difficult in morphologically more complex languages like Turkish or even agglutinating languages like Inuktitut. Here we sidestep this issue by noting that the Turkish or Inuktitut learner is accumulating something – whether or not we call it a word per se, our hypothesis is that this unit is being accumulated and that its accumulation will be subject to many of the same dynamics and information sources as words are. For some initial data bearing out this supposition by comparing Turkish with other languages, see @braginsky2019. 
+[^2]: What makes a word is its own separate and difficult question, especially as we look across languages. Are “dog” and “dogs” two separate words? If not, what about “mouse” and “mice”? These questions are relatively inconsequential in morphologically simple languages like English and Mandarin; yet they are quite a bit more difficult in morphologically more complex languages like Turkish or even agglutinating languages like Inuktitut. Here we sidestep this issue by noting that the Turkish or Inuktitut learner is accumulating *something* – whether or not we call it a word *per se*, our hypothesis is that this unit is being accumulated and that its accumulation will be subject to many of the same dynamics and information sources as words are. For some initial data bearing out this supposition by comparing Turkish with other languages, see @braginsky2019. 
 
-In early theories of language acquisition, children’s environment was assumed to “trigger” specific innate developmental schemas [e.g., @gibson1994triggers]. 
-Driven by influential observations of the tight relationship between environmental input and children’s learning [e.g., @huttenlocher1991early; @hart1995], more recent models have emphasized the accumulation of specific linguistic experiences in driving learning and generalization. 
-One such class of models is accumulator models, which assume that linguistic experiences with words accumulate in separate registers (pictured as “buckets” in Figure 2), with those registers exceeding a particular threshold being learned. 
+In early theories, linguistic input was assumed to “trigger” specific innate developmental schemas [e.g., @gibson1994triggers]. 
+Driven by influential observations of the tight relationship between input and children’s learning [e.g., @huttenlocher1991early; @hart1995], more recent models have emphasized the accumulation of specific linguistic experiences in driving learning and generalization. 
+One such class of models is *accumulator* models, which assume that linguistic experiences with words accumulate in separate registers (depicted as “buckets” in Figure 2), with those registers exceeding a particular threshold being learned. 
 
 Formalized theories of accumulative vocabulary growth have already contributed significantly to theoretical debate. 
-For example, @mcmurray2007 elegantly demonstrated that children’s “vocabulary explosion”  – an acceleration in the growth of children’s vocabulary in their second year of life – can result from the steady accumulation of word tokens without any change in the environment or learning mechanism. 
+For example, @mcmurray2007 elegantly demonstrated that children’s “vocabulary explosion” – an acceleration in vocabulary growth in the second year – can result from the steady accumulation of word tokens without changes in the environment or learning mechanism. 
 Other work has examined similar models using more realistic distributions of words (i.e., Zipf-distributed), developmental change in learning mechanisms, and quantitative comparison to children’s aggregate vocabulary growth [@mayor2010; @hidaka2013; @mollica2017]. 
-Although this work is exciting, these models have not yet been used to make direct predictions about learning in individual children [@bergelson2020comprehension]. 
+Although this work is exciting, these models have not yet made direct predictions about learning in individual children [@bergelson2020comprehension]. 
 
-One difficulty in connecting such models to data is that the relevant variables are often measured in relative, rather than absolute, units. This practice is common – for example, measures of intelligence are given on a standardized scale defined by population variability. 
-Yet in early language, we have – relatively unusually in a psychological domain – access to absolute units of description. 
-We can count how many words a child hears and express this as a rate (e.g., words per hour; Cristia et al., 2019), and we can similarly estimate how many words they know [@wordbankbook]. 
+One difficulty in connecting such models to data is that the relevant variables are often measured in relative, rather than absolute, units. 
+This practice is common, for example, measures of intelligence are given on a standardized scale defined by population variability. 
+Yet in early language, we have access to absolute units of description, relatively unusually in a psychological domain. 
+We can count how many words a child hears and express this as a rate (e.g., words per hour; Cristia et al., 2019), and we can similarly estimate how many words they know [e.g., by parents report of vocabulary size, @wordbankbook]. 
 These absolute units give the potential for a model to make powerfully general quantitative predictions, which could be tested across different situations and populations [@dailey2021language]. 
 As we describe below, however, few datasets have measurements of the relevant variables. 
 This may be a case where theory outstrips data and further data collection efforts are necessary. 
@@ -125,27 +123,29 @@ knitr::include_graphics("./figs/fig2_standard_model.pdf")
 
 # Parsing the Literature Using the Standard Model
 
-Since seminal work by @hart1995, the connection between children’s language input and the growth of vocabulary has been a topic of intense interest, and numerous studies have reported associations between these variables [e.g., @hoff2003specificity; @weisleder2013]. 
-The direction of these associations is of course congruent with the standard model (and indeed is generally an inspiration). 
-But such correlations are also partially explained by a number of other factors, including socioeconomic [@hoff2003specificity; @dailey2021language] and genetic [@hayiou2014language] variables, and their magnitude varies across studies [@wang2020meta]. 
-Though such studies are costly and difficult to conduct, randomized interventions are the gold standard for measuring causal effects of parental language input on language learning. 
-When such studies are conducted, they tend to show modest but reliable effects [e.g., @suskind2016project]. 
-These positive results provide support for a causal connection between language input and outcomes, but – because they only estimate the effect of the change in input on variation in outcome – they provide only a relative, rather than an absolute, estimate of how important input is to vocabulary learning. 
+Since seminal work by @hart1995, the connection between children’s language input and the growth of vocabulary has been a topic of intense interest. 
+Numerous studies have reported associations between these variables [e.g., @hoff2003specificity; @weisleder2013]. 
+The direction of these associations is, of course, congruent with the standard model (and indeed is generally an inspiration). 
+Moreover, such correlations are also partially explained by other factors, including socioeconomic [@hoff2003specificity; @dailey2021language] and genetic [@hayiou2014language] variables, and their magnitude varies across studies [@wang2020meta]. 
+Randomized interventions are the gold standard for measuring causal effects of parental language input on language learning, although such studies are costly and difficult to conduct. 
+When such studies are conducted, they show modest but reliable effects [e.g., @suskind2016project], providing support for a causal connection between language input and outcomes. 
+Critically, however, these studies only estimate the effect of the change in input on variation in outcome, hence, providing only a relative, rather than an absolute, estimate of how important input is to vocabulary learning.  
 
-Indeed, reasoning from first principles, you cannot learn the word “table” if you do not hear it. Input must be a predictor of learning. 
-Correlational studies do not assess this relationship fully – rather, they assess whether variation in input relates to variation in learning. 
-A second line of work that comes closer to assessing the importance of language input focuses not on differences between children but instead on differences between words. 
-These studies use regression models to predict which words are easier or more difficult, typically averaging across children [e.g., @goodman2008does; @braginsky2019]. 
+Reasoning from first principles, you cannot learn the word “table” if you do not hear it: input *must* predict learning. 
+Yet correlational studies do not assess this relationship fully, and instead assess whether *variation* in input relates to *variation* in learning. 
+Thus, a second line of work that comes closer to assessing the importance of language input focuses, not on differences between children, but on differences between words. 
+These studies use regression models to predict which *words* are easier or more difficult, averaging across children [e.g., @goodman2008does; @braginsky2019]. 
 Such studies show a strong association between word frequency and the age at which children typically acquire particular words, especially for object labels. 
-Such models can also be used to assess the value of other proposals for learning mechanisms in the literature [e.g., @fourtassi2020growth]. 
+Such models are also used to evaluate other proposals for learning mechanisms [e.g., @fourtassi2020growth]. 
 
+<!--
 More broadly, this literature illustrates the value of a quantitative process model: under the standard model and its variants, we should be able to compute the expected relation between measures of input and vocabulary size. 
-To the extent this model accounts for the data, it will support researchers’ current theory, but likely more informative will be the model’s pattern of misfit to the data, which should provide grist for the twin mills of theory development and empirical study.
-
+To the extent this model accounts for the data, it will support researchers’ current theory, but the model’s pattern of misfit to the data will likely be more informative, providing grist for the twin mills of theory development and empirical study.
+-->
 
 # Toward a "Standard" Accumulator Model
 
-As we have argued above, the core of the standard view of language learning is that it is a process of accumulation – individual experiences with words lead to their eventual acquisition. 
+The core of the standard view of language learning is that it is a process of accumulation – individual experiences with words lead to their eventual acquisition. 
 The more of these experiences a child receives, the faster their vocabulary grows. 
 However, both children and words vary: children may learn faster or slower, and words can be more or less difficult to learn. 
 Combining these ideas, the basic hypothesis is that a child’s vocabulary at a particular time should be predicted by their cumulative language exposure and learning rate, combined with the breadth and individual difficulties of the words that they have been exposed to. 
