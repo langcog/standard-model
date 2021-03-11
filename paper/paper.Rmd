@@ -185,8 +185,8 @@ Predicted acquisition curves from Model 1 are shown in Figure 3, broken down by 
 Moreover, the model predicts item-level acquisition curves (Figure 3, right): e.g., “ball” is learned earlier than “dog”, and “go” is easier than “have.” 
 Model 1 represents a new baseline standard model, which might be extended to include person-level groups such as SES and sex, as well as item-level covariates such as word length. 
 
-These models also estimate a latent language ability for each child in the dataset. 
-However, this ability is no doubt correlated with age, sex (females have larger vocabularies at young ages), and likely with features related to input quality. 
+These models also estimate a latent language ability for each child, but currently do not specify whether/how this value changes over time. 
+However, this ability is no doubt correlated with age, as well as with features related to input quality. 
 Estimating the contributions of these factors and determining whether/how language ability changes over developmental time is not possible with current datasets.
 Thus, we conclude by discussing the next steps needed to test and build upon the standard model.
 
