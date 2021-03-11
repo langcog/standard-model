@@ -12,7 +12,7 @@ author:
     affiliation   : "1"
     corresponding : no 
     address       : "450 Jane Stanford Way, Stanford, CA 94305"
-    email         : "mcfrank@stanford.edu"
+    email         : "marchman@stanford.edu"
   - name          : "Michael C. Frank"
     affiliation   : "1"
     corresponding : no 
