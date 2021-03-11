@@ -83,7 +83,7 @@ Importantly, the goal is not to produce 'the correct model," but rather to explo
 In fact, the greatest value of such models is the ability to identify the areas of greatest mismatch between data and model, highlighting areas of the theory requiring further investigation [@tauber2016]. 
 
 
-```{r, out.width="0.95\\linewidth", include=TRUE, fig.align="center", fig.cap=c("A schematic of the "standard" relationships between variables assumed in the literature on early language learning. It is generally assumed that child-directed speech (red) is more valuable than overheard speech (blue)."), echo=FALSE}
+```{r, out.width="0.95\\linewidth", include=TRUE, fig.align="center", fig.cap=c("A schematic of the standard relationships between variables assumed in the literature on early language learning. It is generally assumed that child-directed speech (red) is more valuable than overheard speech (blue)."), echo=FALSE}
 knitr::include_graphics("./figs/fig1_standard_model.pdf")
 ```
 
@@ -183,7 +183,7 @@ Estimating the contributions of these factors and determining whether/how langua
 Thus, we conclude by discussing the next steps needed to test and build upon the standard model.
 
 
-```{r, out.width="1.0\\linewidth", include=TRUE, fig.align="center", fig.cap=c("Predicted acquisition curves from the fitted English "standard model" as a function of lexical class and the number of expected tokens per month (left), and for a sample of the 680 words on the CDI (right)."), echo=FALSE}
+```{r, out.width="1.0\\linewidth", include=TRUE, fig.align="center", fig.cap=c("Predicted acquisition curves from a fitted English IRT model as a function of lexical class and the number of expected tokens per month (left), and for a sample of the 680 words on the CDI (right)."), echo=FALSE}
 knitr::include_graphics("./figs/fig3_predicted_age_LC_and_items.pdf")
 ```
 
