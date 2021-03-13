@@ -30,7 +30,7 @@ abstract: |
   A "standard model" is a theoretical framework that synthesizes observables into a quantitative consensus. Have we made progress towards this kind of synthesis for children’s early language learning? A number of computational models of early vocabulary learning assume that individual words are learned through an accumulation of environmental input. This assumption is also implicit in empirical work that emphasizes links between home language input and learning outcomes. However, models have typically focused on average performance, while empirical work has focused on variability. To capture individual variability, we relate accumulator models to Item-Response Theory models from psychometrics. Unfortunately, this formal connection also makes it clear that the currently available datasets cannot allow us to fully test these models, illustrating a critical need for theory in shaping new data collection. We end by considering the how this framework could shed light on to the role of language processing in acquistion, the connections of word learning to language learning more broadly, and the sources of variation in early language outcomes.
   
 keywords          : "early language learning; language acquisition; vocabulary development"  
-wordcount         : "3133"
+wordcount         : "2896"
 
 bibliography      : ["references.bib"]
 
@@ -80,7 +80,7 @@ This basic framework corresponds nicely with a class of computational models tha
 Our aim is to make this connection explicit, using item-response theory (IRT) from psychometric testing as a framework for connecting empirical data and previous accumulator models. 
 Sitting at a level of analysis between generic regressions and cognitive process models, data-analytic cognitive models of this type offer a way to implement our verbal theories and evaluate them quantitatively. 
 Importantly, the goal is not to produce the "correct" model, but rather to explore the ways that model assumptions lead to predictions about specific patterns of data. 
-In fact, the greatest value of such models is the ability to identify the areas of greatest mismatch between data and model, highlighting areas of the theory requiring further investigation [@tauber2016]. 
+In fact, the greatest value of such models is the ability to identify the areas of greatest mismatch between data and model, highlighting areas of the theory requiring further investigation [@tauber2017bayesian]. 
 
 
 ```{r, out.width="0.95\\linewidth", include=TRUE, fig.align="center", fig.cap=c("A schematic of the standard relationships between variables assumed in the literature on early language learning. It is generally assumed that child-directed speech (red) is more valuable than overheard speech (blue)."), echo=FALSE}
@@ -106,7 +106,7 @@ Although this work is exciting, these models have not yet made direct prediction
 One difficulty in connecting such models to data is that the relevant variables are often measured in relative, rather than absolute, units. 
 This practice is common. For example, measures of intelligence are given on a standardized scale defined by population variability. 
 Yet in early language, we have access to absolute units of description, relatively unusually in a psychological domain. 
-We can count how many words a child hears and express this as a rate [e.g., words per hour; @cristia2019], and we can similarly estimate how many words they know [e.g., by parents' reports of vocabulary size, @wordbankbook]. 
+We can count how many words a child hears and express this as a rate [e.g., words per hour; @cristia2020accuracy], and we can similarly estimate how many words they know [e.g., by parents' reports of vocabulary size, @wordbankbook]. 
 These absolute units give the potential for a model to make powerfully general quantitative predictions, which could be tested across different situations and populations [@dailey2021language]. 
 As we describe below, however, few datasets have measurements of the relevant variables. 
 This may be a case where theory outstrips data and further data collection efforts are necessary. 
@@ -205,7 +205,7 @@ Disentangling these distinct explanations will require careful measurement of bo
 **Beyond vocabulary**. The "standard model" proposed here models the accumulation of words.
 Yet, of course, language is a rich, complex system in which words are inflected morphologically and composed syntactically to express compositional meanings. 
 In early views, syntax and morphology were conceptualized as distinct and unconnected, but this conception has not been borne out empirically. 
-Instead, evidence shows again and again that the language system is "tightly woven," with extremely tight correlations between the acquisition of words, morphology, and syntax [@bornstein2013language,@wordbankbook]. 
+Instead, evidence shows again and again that the language system is "tightly woven," with extremely tight correlations between the acquisition of words, morphology, and syntax [@bornstein2013language; @wordbankbook]. 
 Theoretically, accumulator models like the standard model are generic models of skill acquisition. 
 If language learning is a form of skill acquisition [@chater2018language], such connections could lead the way towards extensions of the standard model to the accumulation of broader units of language-like constructions. 
 
