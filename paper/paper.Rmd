@@ -30,7 +30,7 @@ abstract: |
   A "standard model" is a theoretical framework that synthesizes observables into a quantitative consensus. Have we made progress towards this kind of synthesis for children’s early language learning? A number of computational models of early vocabulary learning assume that individual words are learned through an accumulation of environmental input. This assumption is also implicit in empirical work that emphasizes links between home language input and learning outcomes. However, models have typically focused on average performance, while empirical work has focused on variability. To capture individual variability, we relate the tradition of research on accumulator models to Item-Response Theory models from psychometrics. This formal connection also makes it clear that the currently available datasets cannot allow us to fully test these models, illustrating a critical need for theory in shaping new data collection and creating and testing an eventual "standard model." 
   
 keywords          : "early language learning; language acquisition; vocabulary development"  
-wordcount         : "2896"
+wordcount         : "2921"
 
 bibliography      : ["references.bib"]
 
@@ -130,13 +130,13 @@ Randomized interventions are the gold standard for measuring causal effects of p
 When such studies are conducted, they show modest but reliable effects [e.g., @suskind2016project], providing support for a causal connection between language input and outcomes. 
 Critically, however, these studies only estimate the effect of the change in input on variation in outcome, hence, providing only a relative, rather than an absolute, estimate of how important input is to vocabulary learning.  
 
-Reasoning from first principles, you cannot learn the word "table" if you do not hear it: input must predict learning. 
-Yet correlational studies do not assess this relation fully, and instead assess whether variation in input relates to variation in learning. 
-Thus, a second line of work focuses on differences between words, not children. 
+Reasoning from first principles, you cannot learn the word "table" if you do not hear it: input must predict learning of individual words. 
+Yet correlational studies do not assess this word-level relation fully, and instead assess whether variation in input relates to variation in learning across children. 
+However, a second line of work focuses on differences between words, not children. 
 These studies use regression models to predict which words are easier or more difficult, averaging across children [e.g., @goodman2008does; @braginsky2019]. 
 They typically show a strong association between word frequency and the age at which children acquire particular words on average, especially for object labels. 
 This general finding provides convergent support for accumulator models, absent the confound of differences between individuals.
-In sum, accumulator models provide the conceptual underpinning of the relationships between input (freuqency for words, quantity for children) and learning. 
+In sum, accumulator models provide the conceptual underpinning of the relationships between input (frequency for words, quantity for children) and learning. 
 
 # Connecting Accumulator Models with Psychometric Models
 
@@ -144,7 +144,7 @@ The core of the view that we are describing is that language learning is a proce
 Individual experiences with words lead to their eventual acquisition. 
 The more of these experiences a child receives, the faster their vocabulary grows. 
 However, both children and words vary: children may learn faster or slower, and words can be more or less difficult to learn. 
-Combining these ideas, the basic hypothesis is that a child’s vocabulary at a particular time should be predicted by their cumulative language exposure and learning rate, combined with the breadth of the sample of words to which have been exposed and those words' individual difficulties. 
+Combining these ideas, the basic hypothesis is that a child’s vocabulary at a particular time should be predicted by their cumulative language exposure and learning rate, combined with the breadth of the sample of words to which they have been exposed and those words' individual difficulties. 
 
 This hypothesis describes an approach similar to Item-Response Theory [IRT; @embretson2013item], an influential and popular psychometric modeling framework. 
 IRT is commonly used for estimating the ability of "test takers" (in our case language learners) as they are assessed with a particular set of "test items" (particular words). 
@@ -181,13 +181,13 @@ Each model estimated parameters for each child's linguistic ability and each wor
 
 We also included the frequency of each word as the key parameter controlling its accumulation, treating frequency as an item-level covariate of difficulty.
 We do not have access to word frequencies in individual children's environments, however. 
-Instead, we estimated average word frequencies by using the American English corpora in CHILDES [@macwhinney2000childes], following previous work [@goodman2008does;@braginsky2019].
-<!-- IS THIS ^^ CORRECT? ALL AMERICAN ENGLISH? WHAT AGE CUTOFF? CHILDES-DB? -->
-We estiamted that  an average child receives 1,200 words/hour, 12 hours/day, for a total of 438,300 tokens/month, of which 285,200 tokens (65.1%) are tokens of words appearing on the CDI. 
+Instead, we estimated average word frequencies using the American English corpora in CHILDES [@macwhinney2000childes] retrieved from childes-db [@sanchez2019childes], following previous work [@goodman2008does;@braginsky2019].
+<!-- need to specify age cut-off? ToDo GK - believe it was all data -->
+We estimated that an average child receives 1,200 words/hour, 12 hours/day, for a total of 438,300 tokens/month, of which 285,200 tokens (65.1%) are tokens of words appearing on the CDI (see Appendix). 
 <!-- HOW WAS THIS ^^ COMPUTED! NEED AN APPENDIX OR NOTES IN THE REPO OR SOMETHING -->
 We then included frequency estimates for each word of the tokens per month heard by a typical child (range: 0.2 - 19,286 tokens). 
 
-In our simple accumulator model, we used as our covariate for each child the  expected total tokens they had heard given their age. 
+In our simple accumulator model, we used as our covariate for each child the expected total tokens they had heard given their age. 
 We also included an interaction between frequency and lexical category, as previous work has suggested that frequency is more predictive for nouns than for other word classes [@goodman2008does;@braginsky2019].
 In contrast, in our more complex model, we included age as a person-level covariate, allowing for interactions between the child's age and the frequency and lexical class predictors.
 
@@ -210,11 +210,12 @@ We discuss three potential failures of simple accumulator models.
 **Leveraged learning and the role of processing**. 
 As our results above show, older children accumulate language from their input faster than younger children.
 Why?
-Are older children simply better at remembering words, leading to "bigger drops" in the bucket for older children? 
-Or children *leverage* their knowledge of language to learn faster [@mitchell2009]? 
+Are older children simply better at remembering words, leading to "bigger drops" in their buckets? 
+Or do older children *leverage* their knowledge of language to learn faster than younger children [@mitchell2009]? 
 They could do this by reasoning about new words by exclusion [@markman1988children]. 
-Or their increasing fluency with the words they know could help them learn new words. A surprising proportion of variance in the rate of young children’s vocabulary growth is accounted for by the speed with which they process familiar words [e.g., @marchman2016early].
-These theories predictions about which words should faciliate which others predictions that could be tested using the models we describe.
+Or could their increasing fluency with the words they know help them learn new words? 
+A surprising proportion of variance in the rate of young children’s vocabulary growth is accounted for by the speed with which they process familiar words [e.g., @marchman2016early].
+These theoretical proposals about which words should facilitate the learning of other words yield predictions that could be tested using the models we describe.
 
 **A theory for understanding acquisition in diverse contexts**. 
 The framework above formalizes an implicit assumption: namely, children learn the same way in all circumstances.
