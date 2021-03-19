@@ -112,7 +112,7 @@ This practice is common.
 For example, measures of intelligence are given on a standardized scale defined by population variability. 
 Yet in early language -- unusually in a psychological domain -- we have access to absolute units.
 We can count how many words a child hears and express this number as a rate [e.g., words per hour; @cristia2020accuracy]. 
-We can similarly estimate how many words they know [e.g., by parents' reports of vocabulary size, @wordbankbook]. 
+We can similarly estimate how many words they know [e.g., by parents' reports of vocabulary size; @frank2021]. 
 These absolute units give the potential for a model to make powerfully general quantitative predictions, which could be tested across different situations and populations [@dailey2021language]. 
 Few datasets have measurements of the relevant variables, however. 
 Thus, one upshot of our argument here is that future data collection efforts should attempt whenever possible to report measurements in absolute units. 
@@ -168,65 +168,66 @@ A final benefit of the IRT framework is that we can use a standardized set of to
 
 # Comparing Model Variants as a Method for Evaluating Theories
 
-We next give an example of how IRT accumulator models can be fit to data and hence how different theoretical assumptions can be compared empirically in this framework. 
-We can use this framework to test whether the amount of language experience is the important predictor of learning for a child or whether there are other age-related factors beyond experience. 
-Put simply, is a 2-year-old different than a 1-year-old, aside from having twice as much experience with each word? 
-This theoretical question can be answered by simple model comparison between two related models. 
+We next give an example of how IRT accumulator models can be fit to data and hence how different theoretical assumptions can be compared empirically in the framework described above. 
+We ask, is a 2-year-old different than a 1-year-old, aside from having twice as much experience with each word? 
+That is, is the amount of language experience the only developmental change we predict (as assumed by the simplest version of an accumulator model)? 
+Or are there other age-related changes that distinguish younger and older children's learning?
 
-In Model 1, we included age as a person-level covariate, allowing for interactions of age, lexical class, and monthly tokens per word. 
-Model 2 dropped the age covariate and instead scaled the expected tokens/month for each word by child age, yielding an estimate of lifetime tokens per word and also allowed for interactions with lexical class. 
+To answer this question, we fit IRT models to parent report data about the words that children produce. 
+We downloaded data from 5,429 monolingual, English-learning children between 16 and 30 months from Wordbank [@frank2021]. 
+These data were collected using the MacArthur-Bates Communicative Development Inventory (CDI), a reliable and valid parent report instrument; they include 680 binary responses per child about whether a particular child produced a particular word at a given age. 
+Each model estimated parameters for each child's linguistic ability and each word's difficulty.
 
-The first includes age is a person-level covariate, indicating 
-The second includes age as a scalar multiplier on the prevalence of each item (i.e., the frequency of "dog" for a 2-year-old is twice that of a 1-year-old). 
+We also included the frequency of each word as the key parameter controlling its accumulation, treating frequency as an item-level covariate of difficulty.
+We do not have access to word frequencies in individual children's environments, however. 
+Instead, we estimated average word frequencies by using the American English corpora in CHILDES [@macwhinney2000childes], following previous work [@goodman2008does;@braginsky2019].
+<!-- IS THIS ^^ CORRECT? ALL AMERICAN ENGLISH? WHAT AGE CUTOFF? CHILDES-DB? -->
+We estiamted that  an average child receives 1,200 words/hour, 12 hours/day, for a total of 438,300 tokens/month, of which 285,200 tokens (65.1%) are tokens of words appearing on the CDI. 
+<!-- HOW WAS THIS ^^ COMPUTED! NEED AN APPENDIX OR NOTES IN THE REPO OR SOMETHING -->
+We then included frequency estimates for each word of the tokens per month heard by a typical child (range: 0.2 - 19,286 tokens). 
 
-We report the results of this model comparison, fit to parent-reported vocabulary data from 5,492 English-speaking children in Wordbank. 
-Each model estimated parameters for each child’s ability, and for the 680 words on the CDI Words and Sentences form [@fenson2007]. 
-Covariates were each word's lexical class (function word, adjective, noun, verb, or other) and the estimated number of monthly tokens a child hears (range: 0.2 - 19,286 tokens), based on child-directed speech from CHILDES [@macwhinney2000childes]. 
-This model expects an average child to receive 1,200 words/hour, 12 hours/day, for a total of 438,300 tokens/month, of which 285,200 tokens (65.1%) are  tokens of CDI words. 
+In our simple accumulator model, we used as our covariate for each child the  expected total tokens they had heard given their age. 
+We also included an interaction between frequency and lexical category, as previous work has suggested that frequency is more predictive for nouns than for other word classes [@goodman2008does;@braginsky2019].
+In contrast, in our more complex model, we included age as a person-level covariate, allowing for interactions between the child's age and the frequency and lexical class predictors.
 
-
-Model selection metrics (AIC and BIC) preferred the more complex Model 1. 
-Predicted acquisition curves from Model 1 are shown in Figure 3 by age, lexical class, and prevalence (left), revealing that nouns are learned more rapidly than verbs or function words, and that there are interactions of prevalence and word type (e.g., more frequent nouns are learned earlier, but there is little effect of prevalence for verbs and function words). 
+The more complex model showed a better fit to the data and were preferred over under several model selection metrics (AIC and BIC).
+Predicted acquisition curves from this model are shown in Figure 3 by age, lexical class, and prevalence (left), revealing that nouns are learned more rapidly than verbs or function words, and that more frequent nouns are learned earlier, but there is little effect of frequency for verbs and function words. 
 Moreover, the model predicts item-level acquisition curves (Figure 3, right): e.g., "ball" is learned earlier than "dog" and "go" is easier than "have." 
-Model 1 represents a new baseline standard model, which might be extended to include person-level groups such as SES and sex, as well as item-level covariates such as word length. 
-
-These models also estimate a latent language ability for each child, but currently do not specify whether/how this value changes over time. 
-However, this ability is no doubt correlated with age, as well as with features related to input quality. 
-Estimating the contributions of these factors and determining whether/how language ability changes over developmental time is not possible with current datasets.
-Thus, we conclude by discussing the next steps needed to test and build upon the standard model.
-
+Further, its better fit provides support for age-related changes in the accumulation mechanism. 
+More generally, this simulation demonstrates the possibility of using large-scale datasets to test hypotheses about the nature of learning mechanisms. 
 
 ```{r, out.width="1.0\\linewidth", include=TRUE, fig.align="center", fig.cap=c("Predicted acquisition curves from a fitted English IRT model as a function of lexical class and the number of expected tokens per month (left), and for a sample of the 680 words on the CDI (right)."), echo=FALSE}
 knitr::include_graphics("./figs/fig3_predicted_age_LC_and_items.pdf")
 ```
 
-# Onward from the Standard Model
+# Onward Towards a Standard Model
 
 The goal of any computational theory is to derive the predictions arising from a specific set of assumptions. 
 Often, however, it is the *failure* of such a model to predict observed patterns of data that is most useful, as these failures point the way forward towards future refinements [@vanrooij2020theory]. 
-We discuss three potential failures of standard accumulator models like those described above. 
+We discuss three potential failures of simple accumulator models. 
 
-**Leveraged learning and the role of processing**. As our results show, older children accumulate language from their input faster than younger children. 
-There are at least three non-mutually exclusive potential reasons for this.
-First, older children may be better at remembering their experiences due to independent developmental/maturational factors. 
-Second, children may *leverage* their knowledge of language to learn faster through any of several proposed mechanisms [@mitchell2009]. 
-For example, if children reason about new words by exclusion [@markman1988children], they get better at learning new words just by having more potential items to exclude from consideration. 
-A third possibility is that children are getting better at using the words they know. Several recent studies found that a surprising proportion of variance in the rate of young children’s vocabulary growth is accounted for by the speed with which individual children are able to process familiar words [e.g., @fernald2006picking; @marchman2016early].
-Disentangling these distinct explanations will require careful measurement of both vocabulary and the potential mechanisms of leverage [cf. @lewis2020role]. 
-
-**Beyond vocabulary**. 
-The "standard model" proposed here models the accumulation of words.
-Yet language is a rich, complex system in which words are inflected morphologically and composed syntactically to express compositional meanings. 
-In early views, syntax and morphology were conceptualized as distinct and unconnected, but this conception has not been borne out empirically. 
-Instead, evidence shows again and again that the language system is "tightly woven," with extremely tight correlations between the acquisition of words, morphology, and syntax [@bornstein2013language; @wordbankbook]. 
-Theoretically, accumulator models like the standard model are generic models of skill acquisition. 
-If language learning is a form of skill acquisition [@chater2018language], such connections could lead the way towards extensions of the standard model to the accumulation of broader units of language-like constructions. 
+**Leveraged learning and the role of processing**. 
+As our results above show, older children accumulate language from their input faster than younger children.
+Why?
+Are older children simply better at remembering words, leading to "bigger drops" in the bucket for older children? 
+Or children *leverage* their knowledge of language to learn faster [@mitchell2009]? 
+They could do this by reasoning about new words by exclusion [@markman1988children]. 
+Or their increasing fluency with the words they know could help them learn new words. A surprising proportion of variance in the rate of young children’s vocabulary growth is accounted for by the speed with which they process familiar words [e.g., @fernald2006picking; @marchman2016early].
+These theories predictions about which words should faciliate which others predictions that could be tested using the models we describe.
 
 **A theory for understanding acquisition in diverse contexts**. 
-The "standard model" formalizes an implict assumption: namely, that early language learning follows the same general model for all children, even those in radically different circumstances. 
+The framework above formalizes an implicit assumption: namely, children learn the same way in all circumstances.
 Yet this assumption could very well be false. 
-Some children might learn more from overheard speech and others might learn more from child-directed speech [@sperry2019]. 
+For example, some children might learn more from overheard speech and others might learn more from child-directed speech [@sperry2019]. 
 The kind of data necessary to test this assumption directly are only now being collected, for example, in studies that rigorously track learning outcomes and amount of language input in diverse populations [e.g., comparisons between children in low-income, rural, indigenous communities and those in higher-income Western contexts; @casillas2020].
+
+**Beyond vocabulary**. 
+We have described a model of the accumulation of words.
+Yet language is a rich, complex system in which words are inflected morphologically and composed syntactically to express compositional meanings. 
+In early views, syntax and morphology were conceptualized as distinct and unconnected, but this conception has not been borne out empirically. 
+Instead, evidence shows again and again that the language system is "tightly woven," with extremely tight correlations between the acquisition of words, morphology, and syntax [@bornstein2013language; @frank2021]. 
+Theoretically, accumulator models like the standard model are generic models of skill acquisition. 
+If language learning is a form of skill acquisition [@chater2018language], such connections could lead the way towards extensions of the standard model to the accumulation of broader units of language-like constructions. 
 
 # Conclusions
 
