@@ -113,6 +113,37 @@ ggplot(df, aes(x = mother_child_tokens_hr)) +
   annotate("text", x=cds_agg$mean +700, y=.0008, label=paste("Mean =",round(cds_agg$mean,0)))
 ggsave("figures/CDS_hourly_tokens_Sperry_HartRisley_WeislederFernald.pdf", width=4.5,height=4) 
 
+
+# log-normal distribution?
+require(fitdistrplus)
+mc_tok = df$mother_child_tokens_hr[!is.na(df$mother_child_tokens_hr)]
+ac_tok = df$adult_child_tokens_hr[!is.na(df$adult_child_tokens_hr)]
+all_tok = df$all_tokens_hr[!is.na(df$all_tokens_hr)]
+plotdist(mc_tok, histo=T, demp=T) # 113
+plotdist(ac_tok, histo=T, demp=T) # 42
+plotdist(all_tok, histo=T, demp=T) # 83
+
+# based on skew vs. kurtosis, look like beta distributions
+descdist(df$mother_child_tokens_hr[!is.na(df$mother_child_tokens_hr)], boot=1000)
+descdist(df$adult_child_tokens_hr[!is.na(df$adult_child_tokens_hr)], boot=1000)
+descdist(df$all_tokens_hr[!is.na(df$all_tokens_hr)], boot=1000)
+
+fb <- fitdist(mc_tok/max(mc_tok+1e-9), method="mme", "beta") # beta: vals must be in [0-1], so I scaled...
+# llik = -7.76
+
+summary(fitdist(mc_tok/max(mc_tok+1e-9), "weibull")) # llik: 23.4 ?
+
+fw <- fitdist(mc_tok, "weibull") # llik: -902
+fg <- fitdist(mc_tok, "gamma", method="mme") # llik: -902 fails with method="mle" error code 100
+fln <- fitdist(mc_tok, "lnorm") # llik: -907.9991
+fn <- fitdist(mc_tok, "norm") # llik: -920.7385
+plot.legend <- c("Weibull","log-normal", "gamma")
+par(mfrow=c(2,2))
+denscomp(list(fw, fln, fg), legendtext=plot.legend)
+qqcomp(list(fw, fln, fg), legendtext=plot.legend)
+cdfcomp(list(fw, fln, fg), legendtext=plot.legend)
+ppcomp(list(fw, fln, fg), legendtext=plot.legend)
+
 # should this be a Poisson distribution? not normal
 #ggplot(transform(data.frame(x=0:3650), y=dpois(x, cds_agg$mean)), aes(x, y)) + 
 #    geom_bar(stat="identity")

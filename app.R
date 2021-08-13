@@ -9,7 +9,7 @@ library(shinythemes)
 #source("model-nonsampling.R")
 source("model-childesfreqs.R")
 
-theme_set(theme_classic())
+theme_set(theme_classic(base_size=16))
 # Define UI
 ui <- fluidPage(
     theme = shinytheme("spacelab"),
