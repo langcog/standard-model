@@ -1,0 +1,111 @@
+---
+title: "Children's language input"
+author: "George"
+date: "9/24/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+require(tidyverse)
+```
+
+# Goal
+
+Use average hourly input rates from three sources (overheard speech, child-directed speech, and child-read books) to estimate how many tokens a 'standard' child will experience over their early development.
+
+## Overheard and Child-directed speech
+
+Using children's median number of waking hours, we extrapolate from our best estimates of hourly rates for overheard speech (600 words/hr) and child-directed speech (1198 words/hr) to the monthly amounts of speech heard by children.
+(Should these rates change for school-aged children?)
+
+```{r waking-hours}
+# https://www.sleepfoundation.org/children-and-sleep/how-much-sleep-do-kids-need
+waking_hours_per_day = c(7,8,9, # 14-17 hrs of sleep
+                           seq(10, 12, length.out=9), # infant: 12-15 hrs of sleep
+                           rep(12, 12), # toddler: 11-14 hrs of sleep
+                           rep(13, 3*12), # preschool (3-5): 10-13 hrs of sleep
+                           rep(14, 8*12)) # school-aged: 9-11 hrs of sleep
+```
+
+
+```{r hourly-rates}
+overheard_speech_rate = rep(600, 13*12) # 13 years - increase at school age?
+child_directed_speech_rate = rep(1198, 13*12) # how should this change?
+# let's estimate monthly rates based on Hasbrauck and Tindal (2006) norms
+reading_rate = 60 * c(rep(0, 12*5), # no reading 0-5
+                 seq(0, 53, length.out=12), # 53 correct wpm by end of Grade 1
+                 seq(53, 89, length.out=12), # 89 by end of Grade 2
+                 seq(89, 107, length.out=12), # 107 by end of Grade 3
+                 seq(107, 123, length.out=12), # Grade 4
+                 seq(123, 139, length.out=12), # Grade 5
+                 seq(139, 150, length.out=12), # Grade 6
+                 seq(150, 150, length.out=12), # Grade 7
+                 seq(150, 151, length.out=12) # Grade 8
+                 ) # first 13 years
+
+# 6TH-8TH GRADE (SPRING) (11-14 YEARS OLD): 150 – 204 WPM
+# HIGHSCHOOL (14-18 YEARS OLD): 200 – 300 WPM
+# COLLEGE (18-23) YEARS OLD	300 – 350 WPM
+# ADULTS	220 – 350 WPM
+```
+
+## Reading rates
+
+Many sources recommend that school-aged children read 15-20 minutes per day (7.6 hours/month), although most teachers estimate that most of their students read less than this.
+For now we will assume the 'standard' child reads the recommended daily amount, at speeds following the Hasbrauck and Tindal (2006) norms (e.g., 53 correct words/min by end of Grade 1; 151 correct words/min by end of Grade 8).
+For reference, silent-reading adults average 238 words/min, while adults that read aloud average 183 words/min (Brysbaert, 2019).
+
+```{r, echo=FALSE}
+hours_read_per_month = 30.44*.25 # 15 min/day
+tokens_read_per_month = reading_rate * hours_read_per_month
+waking_hours_per_month = waking_hours_per_day * 30.44
+
+hours_overheard_speech_per_month = overheard_speech_rate * waking_hours_per_month
+hours_child_directed_speech_per_month = child_directed_speech_rate * waking_hours_per_month
+
+input_long_df <- bind_rows(
+  tibble(Source = "Reading", Age = 1:length(tokens_read_per_month), 
+         `Hourly Rate` = reading_rate,
+         `Monthly Tokens` = tokens_read_per_month,
+         `Total Tokens` = cumsum(tokens_read_per_month)),
+  tibble(Source = "Overheard Speech", Age = 1:length(tokens_read_per_month),
+         `Hourly Rate` = overheard_speech_rate,
+         `Monthly Tokens` = hours_overheard_speech_per_month,
+         `Total Tokens` = cumsum(hours_overheard_speech_per_month)),
+  tibble(Source = "Child-directed Speech", Age = 1:length(tokens_read_per_month),
+         `Hourly Rate` = child_directed_speech_rate,
+         `Monthly Tokens` = hours_child_directed_speech_per_month,
+         `Total Tokens` = cumsum(hours_child_directed_speech_per_month))
+  )
+```
+
+
+## Monthly input
+
+For reference, the average novel is ~60,000 words.
+
+```{r monthly-input, echo=F}
+input_long_df %>%
+  mutate(`Age (years)` = Age / 12) %>%
+  ggplot(aes(x=`Age (years)`, y=`Monthly Tokens`, fill=Source)) + 
+    geom_area() + #ylim(0, 1.5e6) + 
+    theme_classic() # + geom_hline(yintercept=1e6, linetype="dashed")
+```
+
+## Cumulative input
+
+How many tokens do children accumulate from different sources by the age of 13?
+
+
+```{r, echo=F}
+input_long_df %>% 
+  mutate(`Cumulative Tokens (millions)` = `Total Tokens` / 1e6,
+         `Age (years)` = Age / 12) %>%
+  ggplot(aes(x=`Age (years)`, y=`Cumulative Tokens (millions)`, fill=Source)) + 
+    geom_area() + 
+    theme_classic() + # + geom_hline(yintercept=1e6, linetype="dashed")
+    theme(legend.position = c(.2, .7))
+```
+
+(Add TV? "The average across all 170 stations is 2.38 words per second" (143 words/min, 8580 words/hr). The average child (aged 8-12) watches 4-6 hours/day -- 34320 to 51480 words that are not overheard/child-directed speech.)
