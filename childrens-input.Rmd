@@ -58,26 +58,40 @@ For reference, silent-reading adults average 238 words/min, while adults that re
 
 ```{r, echo=FALSE}
 hours_read_per_month = 30.44*.25 # 15 min/day
-tokens_read_per_month = reading_rate * hours_read_per_month
-waking_hours_per_month = waking_hours_per_day * 30.44
 
-hours_overheard_speech_per_month = overheard_speech_rate * waking_hours_per_month
-hours_child_directed_speech_per_month = child_directed_speech_rate * waking_hours_per_month
+get_input_df <- function(overheard_speech_rate, child_directed_speech_rate, 
+                         reading_rate, hours_read_per_month, waking_hours_per_day) {
+  hours_overheard_speech_per_month = overheard_speech_rate * waking_hours_per_month
+  hours_child_directed_speech_per_month = child_directed_speech_rate * waking_hours_per_month
 
-input_long_df <- bind_rows(
-  tibble(Source = "Reading", Age = 1:length(tokens_read_per_month), 
-         `Hourly Rate` = reading_rate,
-         `Monthly Tokens` = tokens_read_per_month,
-         `Total Tokens` = cumsum(tokens_read_per_month)),
-  tibble(Source = "Overheard Speech", Age = 1:length(tokens_read_per_month),
-         `Hourly Rate` = overheard_speech_rate,
-         `Monthly Tokens` = hours_overheard_speech_per_month,
-         `Total Tokens` = cumsum(hours_overheard_speech_per_month)),
-  tibble(Source = "Child-directed Speech", Age = 1:length(tokens_read_per_month),
-         `Hourly Rate` = child_directed_speech_rate,
-         `Monthly Tokens` = hours_child_directed_speech_per_month,
-         `Total Tokens` = cumsum(hours_child_directed_speech_per_month))
-  )
+  tokens_read_per_month = reading_rate * hours_read_per_month
+  waking_hours_per_month = waking_hours_per_day * 30.44
+  
+  input_long_df <- bind_rows(
+    tibble(Source = "Reading", Age = 1:length(tokens_read_per_month), 
+           `Hourly Rate` = reading_rate,
+           `Monthly Hours` = hours_read_per_month,
+           `Monthly Tokens` = tokens_read_per_month,
+           `Total Tokens` = cumsum(tokens_read_per_month)),
+    tibble(Source = "Overheard Speech", Age = 1:length(tokens_read_per_month),
+           `Hourly Rate` = overheard_speech_rate,
+           `Monthly Hours` = waking_hours_per_month,
+           `Monthly Tokens` = hours_overheard_speech_per_month,
+           `Total Tokens` = cumsum(hours_overheard_speech_per_month)),
+    tibble(Source = "Child-directed Speech", Age = 1:length(tokens_read_per_month),
+           `Hourly Rate` = child_directed_speech_rate,
+           `Monthly Hours` = waking_hours_per_month,
+           `Monthly Tokens` = hours_child_directed_speech_per_month,
+           `Total Tokens` = cumsum(hours_child_directed_speech_per_month))
+    )
+  return(input_long_df)
+}
+
+input_long_df <- get_input_df(overheard_speech_rate, 
+                              child_directed_speech_rate, 
+                              reading_rate, 
+                              hours_read_per_month, 
+                              waking_hours_per_day)
 ```
 
 
@@ -108,4 +122,97 @@ input_long_df %>%
     theme(legend.position = c(.2, .7))
 ```
 
-(Add TV? "The average across all 170 stations is 2.38 words per second" (143 words/min, 8580 words/hr). The average child (aged 8-12) watches 4-6 hours/day -- 34320 to 51480 words that are not overheard/child-directed speech.)
+
+```{r}
+age13 = subset(input_long_df, Age==156)
+age13[1,]$`Total Tokens` / sum(age13$`Total Tokens`)
+```
+
+## Strong Reader
+
+What if a child reads an hour per day, and is an accelerated reader (starts reading at age 5, and reads at norms 1 grade level ahead)?
+
+```{r}
+reading_rate_accel = 60 * c(rep(0, 12*4), # no reading 0-4
+                 seq(0, 53, length.out=12), # 53 correct wpm by end of kindergarten
+                 seq(53, 89, length.out=12), # 89 by end of Grade 1
+                 seq(89, 107, length.out=12), # 107 by end of Grade 2
+                 seq(107, 123, length.out=12), # Grade 3
+                 seq(123, 139, length.out=12), # Grade 4
+                 seq(139, 150, length.out=12), # Grade 5
+                 seq(150, 150, length.out=12), # Grade 6
+                 seq(150, 151, length.out=12), # Grade 7
+                 seq(151, 204, length.out=12)
+                 ) # first 13 years
+
+
+# 6TH-8TH GRADE (SPRING) (11-14 YEARS OLD): 150 – 204 WPM
+# HIGHSCHOOL (14-18 YEARS OLD): 200 – 300 WPM
+# COLLEGE (18-23) YEARS OLD	300 – 350 WPM
+# ADULTS	220 – 350 WPM
+
+input_long_df_accel <- get_input_df(overheard_speech_rate, 
+                              child_directed_speech_rate, 
+                              reading_rate_accel, 
+                              30.44, 
+                              waking_hours_per_day)
+
+```
+
+```{r, echo=F}
+input_long_df_accel %>% 
+  mutate(`Cumulative Tokens (millions)` = `Total Tokens` / 1e6,
+         `Age (years)` = Age / 12) %>%
+  ggplot(aes(x=`Age (years)`, y=`Cumulative Tokens (millions)`, fill=Source)) + 
+    geom_area() + 
+    theme_classic() + # + geom_hline(yintercept=1e6, linetype="dashed")
+    theme(legend.position = c(.2, .7)) + 
+  ggtitle("An Avid Reader")
+```
+
+## TV Watching
+
+"The average across all 170 stations is 2.38 words per second" (143 words/min, 8568 words/hr). 
+Children ages 2 to 5 watched TV on average 32 hours each week (4.6 hrs/day), and children ages 6 to 8 spent 28 hours per week watching television (Nielson Co., 2009).
+The average child (aged 8-12) watches 4-6 hours/day, providing 34320 to 51480 daily words that are not overheard/child-directed speech.
+
+We show cumulative tokens for children watching the average amount of television for their age.
+We also assume TV time eats into CDS and ODS equally (i.e., for each hour of TV watched, children lose 30 minutes of CDS, and 30 minutes of ODS).
+We assume children younger than 3 do not watch any TV.
+
+```{r, echo=F}
+tv_hourly_tokens = 2.38 * 60 * 60
+
+hours_tv_per_day = c(rep(0, 2*12),
+                       rep(4.6, 3*12),
+                       rep(4.0, 2*12),
+                       rep(5.0, 6*12))
+
+tokens_tv_per_month = tv_hourly_tokens * hours_tv_per_day * 30.44
+
+# incorporate this into get_input_df function? or make adjust_for_activity() ?
+input_long_tv_df <- bind_rows(input_long_df,
+    tibble(Source = "TV", Age = 1:length(tokens_tv_per_month), 
+           `Hourly Rate` = tv_hourly_tokens,
+           `Monthly Hours` = hours_tv_per_day * 30.44,
+           `Monthly Tokens` = tokens_tv_per_month,
+           `Total Tokens` = cumsum(tokens_tv_per_month)))
+
+input_wide_tv_df <- input_long_tv_df %>% 
+  pivot_wider(id_cols=Age, names_from=Source, values_from=`Monthly Hours`) %>%
+  mutate(`Overheard Speech` = `Overheard Speech` - TV/2,
+         `Child-directed Speech` = `Child-directed Speech` - TV/2)
+
+input_wide_tv_df
+```
+
+```{r, echo=F}
+input_long_tv_df %>% 
+  mutate(`Cumulative Tokens (millions)` = `Total Tokens` / 1e6,
+         `Age (years)` = Age / 12) %>%
+  ggplot(aes(x=`Age (years)`, y=`Cumulative Tokens (millions)`, fill=Source)) + 
+    geom_area() + 
+    theme_classic() + # + geom_hline(yintercept=1e6, linetype="dashed")
+    theme(legend.position = c(.2, .7))
+```
+

@@ -1,6 +1,6 @@
 ---
-title             : "Toward a \"Standard Model\" of Early Language Learning"
-shorttitle        : "Standard Model of Language Learning"
+title             : "A \"Standard Model\" of Early Language Learning Requires Absolute Measurement"
+shorttitle        : "Standard Model Measures"
 
 author: 
   - name          : "George Kachergis"
@@ -27,7 +27,8 @@ authornote: |
   Department of Psychology
 
 abstract: |
-  A "standard model" is a theoretical framework that synthesizes observables into a quantitative consensus. Have we made progress towards this kind of synthesis for children’s early language learning? A number of computational models of early vocabulary learning assume that individual words are learned through an accumulation of environmental input. This assumption is also implicit in empirical work that emphasizes links between home language input and learning outcomes. However, models have typically focused on average performance, while empirical work has focused on variability. To capture individual variability, we relate the tradition of research on accumulator models to Item-Response Theory models from psychometrics. This formal connection also makes it clear that the currently available datasets cannot allow us to fully test these models, illustrating a critical need for theory in shaping new data collection and creating and testing an eventual "standard model." 
+  A "standard model" which formally unites consensus verbal theories to make quantitative predictions is a critical step for improving theories of early language learning. Although early attempts at such a standard model have been made, their impact has been limited due to a lack of both 1) a
+   A number of computational models of early vocabulary learning assume that individual words are learned through an accumulation of environmental input. This assumption is also implicit in empirical work that emphasizes links between home language input and learning outcomes. However, models have typically focused on average performance, while empirical work has focused on variability. To capture individual variability, we relate the tradition of research on accumulator models to Item-Response Theory models from psychometrics. This formal connection also makes it clear that the currently available datasets cannot allow us to fully test these models, illustrating a critical need for theory in shaping new data collection and creating and testing an eventual "standard model." 
   
 keywords          : "early language learning; language acquisition; vocabulary development"  
 wordcount         : "2921"
@@ -59,31 +60,41 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 
 # Introduction
 
-Early language learning is a key challenge for cognitive science: how do we go from speechless, wordless infants to children who can use language expressively and creatively? 
-The field of early language is often portrayed as mired in controversies, for example, around issues of innateness. 
-We see a new synthesis emerging, however, based on new theoretical and empirical work on the growth of vocabulary. 
-Our goal is to present this synthesis as the beginnings of a "standard model": a baseline theory that should be accepted widely in its outlines as a baseline summary[^1] of our beliefs and should guide future work, even if its assumptions still require rigorous evaluation.
 
-[^1]: "Standard" here is not meant to imply a normative prescription, but rather that the model is an accepted starting point for a description of early language learning.
 
-In physics, the "standard model" is a widely-accepted theory from the 1970s that describes all known elementary particles along with three of the four known fundamental forces in the universe. 
-Although it is known to be incomplete and even incorrect in places, physics’ Standard Model nonetheless explains a wide variety of empirical phenomena, allowing scientists and engineers to model physical interactions with great precision and accuracy and to design tests that inform theory revision. 
+
 Psychology, in general, has been criticized for lacking such formal theories that inform and drive empirical research [@muthukrishna2019problem]. 
-We feel this critique can be applied fairly to the field of language acquisition. 
-
-Although a substantial literature uses computational models to simulate acquisition, these models (ours included) are often only loosely connected to the quantitative data gathered by working acquisition researchers. 
-Despite this lack of formal connections, researchers studying early language learning often presuppose a common framework for early language learning (Figure 1). 
-The core of this framework is that language input accumulates via repeated exposure, resulting in learning.
-This framework underpins much of the broader policy discussion of individual variability in language learning and its links to environmental stimulation. 
+Cumulative theories that are iteratively refined,.
 
 This basic framework corresponds nicely with a group of computational models that has been explored in the word learning literature, which we refer to jointly as "accumulator models" [@mcmurray2007;@hidaka2013;@mollica2017]. 
 Our aim is to make an explicit connection between these models and the broader but less formal discussion of the role of language input in learning. 
-Since discussions of language input are typically focused on variation between children, we use item-response theory (IRT) from psychometric testing as a framework for connecting empirical data with accumulator models. 
-Sitting at a level of analysis between generic regressions and cognitive process models, data-analytic cognitive models of this type offer a way to implement our verbal theories and evaluate them quantitatively. 
-Importantly, the goal is not to produce the "correct" model, but rather to explore the ways that model assumptions lead to predictions about specific patterns of data. 
-In fact, the greatest value of such models is the ability to identify the areas of greatest mismatch between data and model, highlighting areas of the theory requiring further investigation [@tauber2017bayesian]. 
-Perhaps such iterative work will lead to a true "standard model" of language learning.
 
+For an overview of best practices for collecting long format sensory experience (LFSE) recording, see @casillas2019step.  
+
+## Absolute > Relative Measurements
+
+
+## Measurement Error
+
+accuracy, precision..
+If we only binary code child-directed / other-directed at the level of 5-minute segments, then even assuming that human coders are 100% accurate we have potential error of just less than 2.5 minutes per segment.
+
+Relative (Fractional) Uncertainty = | uncertainty / (measured quantity) |
+Propagation of uncertainty - do an example for all-day LENA recordings?
+<!-- https://www.webassign.net/question_assets/unccolphysmechl1/measurements/manual.html -->
+NIST says we should report total combined uncertainty for any measured values.
+NIST. Essentials of Expressing Measurement Uncertainty. http://physics.nist.gov/cuu/Uncertainty/
+Lichten, William. Data and Error Analysis., 2nd. ed. Prentice Hall: Upper Saddle River, NJ, 1999.
+
+## Reliability
+
+How reliable are human coders, e.g. at distinguishing child-directed from other-directed speech?
+How reliable are measures of children's speech environment (e.g., adult word count per hour), and how do they relate to the duration of the recording?
+
+A variety of reliability coefficients have been devised, which generally range from 0 to 1, and are meant to quantify the proportion of variation in a test score that is due to differences in the true scores of the test takers, and how much is due to measurement error or noise. 
+
+Classical Test Theory / True Score Theory: an individual's observed score on a test is X = T + E, where T is their 'true' score and E is measurement error.
+Unfortunately, we only have access to X, and can only estimate the other values.
 
 ```{r, out.width="0.95\\linewidth", include=TRUE, fig.align="center", fig.cap=c("A schematic of the standard relationships between variables assumed in the literature on early language learning. It is generally assumed that child-directed speech (red) is more valuable than overheard speech (blue)."), echo=FALSE}
 knitr::include_graphics("./figs/fig1_standard_model.pdf")
