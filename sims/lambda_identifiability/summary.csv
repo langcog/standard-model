@@ -1,0 +1,16 @@
+label,param,med,lo,hi
+"E  λ free, noisy frequency ruler",λ (logit per log-token),1.8284384128916025,1.4878266310244093,2.1905986329132583
+"E  λ free, noisy frequency ruler",δ (acceleration),4.9291970856613965,3.827248397253243,6.355989090339426
+"E  λ free, noisy frequency ruler",π_α (efficiency share),0.8208898910295026,0.7412346274228019,0.8828884926991102
+"D  λ free, observed-input ruler",λ (logit per log-token),2.3934996678123195,1.7207665738174784,3.1413026528358285
+"D  λ free, observed-input ruler",δ (acceleration),3.512296714002303,2.406559480434251,5.306361438965055
+"D  λ free, observed-input ruler",π_α (efficiency share),0.7179475467202839,0.5682892980261773,0.8523093590463178
+"C  λ free, frequency ruler",λ (logit per log-token),2.5256992767357933,2.2576680214342995,2.798566743922033
+"C  λ free, frequency ruler",δ (acceleration),3.287473039860859,2.7898714606493082,3.887806083938751
+"C  λ free, frequency ruler",π_α (efficiency share),0.6608803445849016,0.5677779171131913,0.7388455722108876
+"B  λ free, no ruler",λ (logit per log-token),1.4126576202240397,0.9415455234008929,2.2212540339364164
+"B  λ free, no ruler",δ (acceleration),6.679425539134828,3.7355693119866693,10.56874660066084
+"B  λ free, no ruler",π_α (efficiency share),0.8934922404563929,0.7232358525657943,0.952044868372617
+"A  λ = 1, no frequency (SM2 no_freq)",λ (logit per log-token),1,1,1
+"A  λ = 1, no frequency (SM2 no_freq)",δ (acceleration),9.833850083766883,8.98652461572108,10.672971438498836
+"A  λ = 1, no frequency (SM2 no_freq)",π_α (efficiency share),0.9468243495983422,0.9400785990987067,0.9532806632920134
