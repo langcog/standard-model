@@ -1,8 +1,8 @@
 ruler,model,med,lo,hi,label,lagged
 Between-child: LENA adult words,"142 items, all CDI rows",1.12151934606424,0.806614681183385,1.69281572123926,"Between-child: LENA adult words  ·  142 items, all CDI rows",FALSE
-Between-child: noun tokens,"Onset, all months",0.739510343256546,-0.0558572371783578,1.66370019211812,"Between-child: noun tokens  ·  Onset, all months",FALSE
-Between-child: noun tokens,"Onset, lagged",0.539103302947599,0.00356392983801635,1.13768374701819,"Between-child: noun tokens  ·  Onset, lagged",TRUE
-Between-word: SEEDLingS frequency,"Onset, all months",1.01694794900309,0.86757247776083,1.17104320039352,"Between-word: SEEDLingS frequency  ·  Onset, all months",FALSE
-Between-word: SEEDLingS frequency,"Onset, lagged",1.02030843267297,0.878433737042313,1.16616901302985,"Between-word: SEEDLingS frequency  ·  Onset, lagged",TRUE
-Within child × word,"Onset, all months",0.613579786799941,0.569043873326969,0.659552081886415,"Within child × word  ·  Onset, all months",FALSE
-Within child × word,"Onset, lagged",0.359651374859028,0.328151097025774,0.393641015736927,"Within child × word  ·  Onset, lagged",TRUE
+Between-child: noun tokens,"Onset, all months",0.83346690365318,-0.0788262502733543,1.75841283029838,"Between-child: noun tokens  ·  Onset, all months",FALSE
+Between-child: noun tokens,"Onset, lagged",0.750795551229975,-0.0338976934719969,1.60283121566795,"Between-child: noun tokens  ·  Onset, lagged",TRUE
+Between-word: SEEDLingS frequency,"Onset, all months",1.02702440616547,0.880023643078644,1.17519761082997,"Between-word: SEEDLingS frequency  ·  Onset, all months",FALSE
+Between-word: SEEDLingS frequency,"Onset, lagged",1.03791781973968,0.89192083810235,1.18289359646079,"Between-word: SEEDLingS frequency  ·  Onset, lagged",TRUE
+Within child × word,"Onset, all months",0.877635798271357,0.810724808616133,0.949460932051315,"Within child × word  ·  Onset, all months",FALSE
+Within child × word,"Onset, lagged",0.571239417647165,0.508326853987417,0.627892962070745,"Within child × word  ·  Onset, lagged",TRUE

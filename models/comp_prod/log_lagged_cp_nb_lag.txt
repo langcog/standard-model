@@ -1,0 +1,139 @@
+Warning message:
+package ‘StanHeaders’ was built under R version 4.6.1 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 2).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 3).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 4).
+Chain 2: 
+Chain 2: Gradient evaluation took 0.051377 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 513.77 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 1: 
+Chain 1: Gradient evaluation took 0.074057 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 740.57 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+Chain 3: 
+Chain 3: Gradient evaluation took 0.10018 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 1001.8 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3: 
+Chain 3: 
+Chain 4: 
+Chain 4: Gradient evaluation took 0.099119 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 991.19 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4: 
+Chain 4: 
+Chain 2: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 1: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 3: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 4: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 2: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 1: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 4: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 2: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 1: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 4: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 3: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 2: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 1: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 2: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 4: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 3: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 1: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 2: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 2: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 4: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 3: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 1: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 1: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 2: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 4: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 4: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 3: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 1: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 2: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 4: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 1: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 3: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 3: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 2: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 4: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 1: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 3: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 2: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 4: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 3: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 2516.87 seconds (Warm-up)
+Chain 2:                1763.14 seconds (Sampling)
+Chain 2:                4280.01 seconds (Total)
+Chain 2: 
+Chain 4: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 3: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 2826.68 seconds (Warm-up)
+Chain 1:                1749.59 seconds (Sampling)
+Chain 1:                4576.27 seconds (Total)
+Chain 1: 
+Chain 4: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 4: 
+Chain 4:  Elapsed Time: 2967.3 seconds (Warm-up)
+Chain 4:                1736.93 seconds (Sampling)
+Chain 4:                4704.23 seconds (Total)
+Chain 4: 
+Chain 3: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 3: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 3: 
+Chain 3:  Elapsed Time: 3533.55 seconds (Warm-up)
+Chain 3:                1661.52 seconds (Sampling)
+Chain 3:                5195.07 seconds (Total)
+Chain 3: 
+Warning messages:
+1: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#bulk-ess 
+2: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#tail-ess 
+                 mean   2.5%    50%  97.5%    n_eff  Rhat
+lambda          0.571  0.508  0.571  0.628 1102.365 1.000
+lambda_child    0.753 -0.034  0.751  1.603  484.296 1.006
+lambda_word     1.038  0.892  1.038  1.183  308.031 1.017
+beta_v          1.319 -0.059  1.314  2.837  484.212 1.007
+beta_w          1.823  1.531  1.817  2.167  352.848 1.015
+delta          13.005 11.337 12.933 15.044  519.639 1.008
+s               0.455  0.023  0.417  1.100 1401.079 1.001
+kappa           0.424  0.353  0.424  0.496  842.624 1.010
+kappa_ratio     0.743  0.644  0.742  0.856  818.390 1.009
+mu_p           -6.747 -7.580 -6.747 -5.995  233.363 1.032
+delta_p         7.133  6.044  7.137  8.127  960.749 1.010
+sd_kid[1]       3.106  2.452  3.074  3.883  462.064 1.001
+sd_kid[2]       2.224  1.756  2.191  2.864  542.273 1.002
+rho_alpha_prod -0.165 -0.448 -0.167  0.135  378.131 1.011
+sigma_zeta      3.784  3.137  3.760  4.594  643.854 1.005
+mu_psi          1.974  0.745  1.957  3.148  297.380 1.020
+tau_psi         2.142  1.848  2.129  2.483  534.456 1.004
+tau_D           1.088  0.937  1.085  1.251  708.074 1.003
+n_floor_comp    0.000  0.000  0.000  0.000      NaN   NaN
+n_floor_prod    0.000  0.000  0.000  0.000      NaN   NaN
+
+Divergences:
+0 of 2000 iterations ended with a divergence.
+
+Tree depth:
+0 of 2000 iterations saturated the maximum tree depth of 10.
+
+Energy:
+E-BFMI indicated no pathological behavior.
