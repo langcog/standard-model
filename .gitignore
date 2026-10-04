@@ -8,3 +8,11 @@ paper/paper.pdf
 paper/r-references.bib
 .DS_Store
 .DS_Store
+
+# unpublished drafts and others' papers (repo is public)
+literature/
+
+# fitted models and intermediate Stan data bundles (large; regenerate from scripts)
+**/fit_*.rds
+**/*_standata.rds
+sims/**/log_*.txt
