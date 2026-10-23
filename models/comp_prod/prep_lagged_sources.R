@@ -9,28 +9,35 @@
 # pseudo-tokens, so nouns with few past tokens don't get extreme shares.
 # Exposure (res_lag) and risk sets are exactly those of prep_lagged_nb.R.
 #
-# Usage: SN_DIR=/path/to/seedlings-nouns Rscript models/comp_prod/prep_lagged_sources.R
+#   repeat : (with GAP > 0) a token of the same noun within GAP seconds of the previous one
+#            in the same recording -- a massed repeat; reference = first token of an episode
+#
+# Usage: SN_DIR=/path/to/seedlings-nouns [GAP=120] Rscript models/comp_prod/prep_lagged_sources.R
 suppressPackageStartupMessages(library(tidyverse))
 here <- "models/comp_prod"
 sn <- Sys.getenv("SN_DIR", "../seedlings-nouns")
+gap <- as.numeric(Sys.getenv("GAP", "0"))
 a <- 3
 nb <- readRDS(file.path(here, "seedlings_lagged_nb_cp_standata.rds"))
 b <- readRDS(file.path(here, "seedlings_nouns_standata.rds"))
 
 tok <- read_csv(file.path(sn, "seedlings-nouns.csv"), show_col_types = FALSE,
-                col_select = c(audio_video, subject, month, speaker, global_basic_level,
+                col_select = c(recording_id, audio_video, subject, month, onset, speaker, global_basic_level,
                                is_top_3_hours, object_present, utterance_type),
                 col_types = cols(.default = "c")) %>%
   filter(audio_video == "audio", toupper(is_top_3_hours) == "TRUE", speaker != "CHI",
          !str_detect(speaker, "TV$|^TOY$"), global_basic_level %in% b$nouns$match) %>%
   mutate(m = as.integer(month), read = utterance_type == "r", absent = object_present == "n",
-         other = speaker != "MOT") %>%
+         other = speaker != "MOT", onset = as.numeric(onset)) %>%
+  arrange(recording_id, global_basic_level, onset) %>%
+  group_by(recording_id, global_basic_level) %>%
+  mutate(`repeat` = coalesce(onset - lag(onset) <= gap * 1000, FALSE)) %>% ungroup() %>%
   inner_join(b$kids, by = "subject") %>%
   inner_join(b$nouns %>% select(match, j), by = c(global_basic_level = "match"))
 
-srcs <- c("read", "absent", "other")
+srcs <- c("read", "absent", "other", if (gap > 0) "repeat")
 cell <- tok %>% group_by(i, j, m) %>%
-  summarise(n = n(), read = sum(read), absent = sum(absent), other = sum(other), .groups = "drop")
+  summarise(n = n(), across(all_of(srcs), sum), .groups = "drop")
 child_share <- tok %>% group_by(i) %>% summarise(across(all_of(srcs), mean, .names = "cs_{.col}"))
 cat("overall shares:", paste(sprintf("%s %.3f", srcs, colMeans(tok[srcs])), collapse = ", "), "\n")
 
@@ -45,7 +52,8 @@ rows <- rows %>% left_join(past, by = c("i", "j", "age")) %>%
          s_read = (read_p + a * cs_read) / (n_p + a),
          s_absent = (absent_p + a * cs_absent) / (n_p + a),
          s_other = (other_p + a * cs_other) / (n_p + a))
-S <- c("s_read", "s_absent", "s_other")
+if (gap > 0) rows <- rows %>% mutate(s_repeat = (repeat_p + a * cs_repeat) / (n_p + a))
+S <- paste0("s_", srcs)
 cat("lagged shares across CDI rows (mean, sd):",
     paste(sprintf("%s %.2f (%.2f)", S, colMeans(rows[S]), apply(rows[S], 2, sd)), collapse = "; "), "\n")
 # within-child, within-word spread is what identifies the weights
@@ -72,5 +80,6 @@ sd$K <- length(S)
 sd$S_c <- as.matrix(rs[S]); sd$S_cprev <- as.matrix(rs[paste0(S, "_prev")])
 sd$S_p <- as.matrix(ps[S]); sd$S_pprev <- as.matrix(ps[paste0(S, "_prev")])
 stopifnot(isTRUE(all.equal(sd$res, rs$res_lag)), isTRUE(all.equal(sd$pres, ps$res_lag)))
-saveRDS(list(lag = sd, sources = S, a = a), file.path(here, "seedlings_lagged_sources_standata.rds"))
+out <- if (gap > 0) sprintf("seedlings_lagged_sources_rep%d_standata.rds", gap) else "seedlings_lagged_sources_standata.rds"
+saveRDS(list(lag = sd, sources = S, a = a, gap = gap), file.path(here, out))
 cat(sprintf("comprehension rows %d, production rows %d\n", sd$R, sd$P))
