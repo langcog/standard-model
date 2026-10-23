@@ -16,3 +16,8 @@ literature/
 **/fit_*.rds
 **/*_standata.rds
 sims/**/log_*.txt
+
+# per-child / per-recording intermediates from Cychosz et al.'s public data (regenerate with models/bursty/*.py)
+models/bursty/analysis_sample.csv
+models/bursty/recording_metrics.csv
+models/bursty/bout_params.csv
