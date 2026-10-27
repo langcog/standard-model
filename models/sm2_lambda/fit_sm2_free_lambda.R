@@ -1,19 +1,20 @@
 # Fit the input paper's Fig. 4 joint io+proc model (standard-model-2, English + count bundle,
 # rung D'2) with the coefficient on the input deviation d_i free (sm2_io_proc_free_lambda.stan).
 # Priors, inits and the bundle follow model/scripts/fit_joint_io_proc_lean.R; the only addition
-# is lambda_d ~ N(1, 2). mode "fixed" pins lambda_d at 1 (prior SD 0.001) = the published model.
+# is lambda_d ~ N(1, 2). mode "fixed" pins lambda_d at 1 (prior SD 0.001) = the published model;
+# mode "lena" uses the LENA-vocabulary ruler from SEEDLingS, 1.16 [0.81, 1.69], as N(1.16, 0.22).
 #
 # Bundle: in a standard-model-2 clone, run
 #   Rscript model/scripts/prepare_proc_dp_bundle.R
 #   Rscript model/scripts/prepare_joint_io_proc_bundle_mm.R
 #   Rscript model/scripts/prepare_english_count_bundle.R
-# Usage: SM2_DIR=/path/to/standard-model-2 Rscript models/sm2_lambda/fit_sm2_free_lambda.R [free|fixed]
+# Usage: SM2_DIR=/path/to/standard-model-2 Rscript models/sm2_lambda/fit_sm2_free_lambda.R [free|fixed|lena]
 suppressPackageStartupMessages({ library(rstan) })
 rstan_options(auto_write = TRUE)
 here <- "models/sm2_lambda"
 mode <- commandArgs(trailingOnly = TRUE)[1]
 if (is.na(mode)) mode <- "free"
-stopifnot(mode %in% c("free", "fixed"))
+stopifnot(mode %in% c("free", "fixed", "lena"))
 sm2 <- Sys.getenv("SM2_DIR", "../standard-model-2")
 sd <- readRDS(file.path(sm2, "fits/joint_io_proc_english_count_subset_data.rds"))$stan_data
 sd$form_start <- as.array(sd$form_start); sd$form_len <- as.array(sd$form_len)   # rstan: length-1 arrays
@@ -23,8 +24,8 @@ sd$gamma_in_prior_sd <- 1 / sd$sigma_r_prior_mean
 sd$beta_xi_prior_sd  <- 1 / sd$sigma_rt0_prior_mean
 sd$beta_k0_prior_sd  <- 1 / sd$sigma_rt0_prior_mean
 sd$delta_prior_sd    <- 10
-sd$lambda_d_prior_mean <- 1
-sd$lambda_d_prior_sd   <- if (mode == "free") 2 else 0.001
+sd$lambda_d_prior_mean <- c(free = 1, fixed = 1, lena = 1.16)[[mode]]
+sd$lambda_d_prior_sd   <- c(free = 2, fixed = 0.001, lena = 0.22)[[mode]]
 
 chains  <- as.integer(Sys.getenv("CHAINS", "4"))
 threads <- as.integer(Sys.getenv("THREADS", "3"))
