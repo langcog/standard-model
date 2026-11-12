@@ -1,0 +1,155 @@
+Warning message:
+package ‘StanHeaders’ was built under R version 4.6.1 
+LENA-only: sigma_r 0.344 | sigma_w 0.372 | sd of shrunken x_i 0.329 | kids with recordings 44 of 44
+hash mismatch so recompiling; make sure Stan code ends with a blank line
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 2).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 3).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 4).
+Chain 4: 
+Chain 4: Gradient evaluation took 0.002163 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 21.63 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4: 
+Chain 4: 
+Chain 1: 
+Chain 1: Gradient evaluation took 0.00315 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 31.5 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+Chain 2: 
+Chain 2: Gradient evaluation took 0.002977 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 29.77 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 3: 
+Chain 3: Gradient evaluation took 0.00342 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 34.2 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3: 
+Chain 3: 
+Chain 1: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 4: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 3: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 2: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 3: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 1: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 2: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 4: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 3: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 1: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 2: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 4: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 3: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 2: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 3: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 1: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 4: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 2: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 3: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 3: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 1: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 2: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 2: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 3: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 4: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 2: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 3: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 2: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 1: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 1: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 3: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 4: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 4: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 2: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 3: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 1: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 2: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 4: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 3: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 3: 
+Chain 3:  Elapsed Time: 908.722 seconds (Warm-up)
+Chain 3:                593.561 seconds (Sampling)
+Chain 3:                1502.28 seconds (Total)
+Chain 3: 
+Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 1021.92 seconds (Warm-up)
+Chain 2:                537.403 seconds (Sampling)
+Chain 2:                1559.33 seconds (Total)
+Chain 2: 
+Chain 4: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 1: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 4: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 1: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 4: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 4: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 4: 
+Chain 4:  Elapsed Time: 1314.77 seconds (Warm-up)
+Chain 4:                583.773 seconds (Sampling)
+Chain 4:                1898.54 seconds (Total)
+Chain 4: 
+Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 1258.81 seconds (Warm-up)
+Chain 1:                716.495 seconds (Sampling)
+Chain 1:                1975.3 seconds (Total)
+Chain 1: 
+Warning messages:
+1: There were 20 transitions after warmup that exceeded the maximum treedepth. Increase max_treedepth above 10. See
+https://mc-stan.org/misc/warnings.html#maximum-treedepth-exceeded 
+2: Examine the pairs() plot to diagnose sampling problems
+ 
+3: The largest R-hat is NA, indicating chains have not mixed.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#r-hat 
+4: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#bulk-ess 
+5: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#tail-ess 
+                      mean   2.5%    50%  97.5%    n_eff   Rhat
+gamma_r              0.783 -2.519  0.863  4.061 1115.925  1.001
+sigma_u              5.937  3.589  5.828  8.802    2.444  2.298
+lambda_lena_t[8mo]   1.273 -0.100  1.245  2.805  527.081  1.013
+lambda_lena_t[10mo]  1.448  0.690  1.422  2.379  142.287  1.032
+lambda_lena_t[12mo]  1.590  1.095  1.554  2.316   53.888  1.056
+lambda_lena_t[14mo]  1.711  0.996  1.692  2.540  235.602  1.030
+lambda_lena_t[16mo]  1.816  0.749  1.808  2.964  619.409  1.013
+lambda_lena_t[18mo]  1.908  0.476  1.916  3.349  847.575  1.007
+lambda_c             1.590  1.095  1.554  2.316   53.888  1.056
+delta_c              3.815  1.488  3.749  6.556    7.335  1.206
+beta_p               0.437  0.215  0.418  0.740   40.384  1.072
+s                    0.726  0.022  0.694  1.628    2.603  2.042
+g                    0.000  0.000  0.000  0.001 2577.829  1.000
+kappa                0.154 -1.349  0.108  1.727    2.057  6.007
+kappa_ratio          0.138 -0.729  0.142  0.992    2.015 12.061
+delta_p              9.300  1.941  9.046 16.615    2.036  7.511
+mu_p                -6.948 -8.926 -6.972 -5.068    2.251  3.011
+sd_kid[1]            1.207  0.792  1.183  1.794  247.360  1.015
+sd_kid[2]            2.394  1.882  2.369  3.061  156.327  1.038
+rho_alpha_prod      -0.007 -0.656 -0.013  0.652    2.112  4.273
+sigma_zeta           3.319  2.275  3.294  4.656   13.431  1.113
+tau_D                2.268  1.402  2.151  3.359    2.138  3.876
+
+P(gamma > 0):
+gamma_r 
+  0.677 
+
+Divergences:
+0 of 2000 iterations ended with a divergence.
+
+Tree depth:
+20 of 2000 iterations saturated the maximum tree depth of 10 (1%).
+Try increasing 'max_treedepth' to avoid saturation.
+
+Energy:
+E-BFMI indicated no pathological behavior.

@@ -1,0 +1,181 @@
+Warning message:
+package ‘StanHeaders’ was built under R version 4.6.1 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 2).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 3).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 4).
+Chain 3: 
+Chain 3: Gradient evaluation took 0.044907 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 449.07 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3: 
+Chain 3: 
+Chain 1: 
+Chain 1: Gradient evaluation took 0.046462 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 464.62 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+Chain 2: 
+Chain 2: Gradient evaluation took 0.052163 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 521.63 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 4: 
+Chain 4: Gradient evaluation took 0.041446 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 414.46 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4: 
+Chain 4: 
+Chain 1: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 2: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 3: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 4: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 2: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 4: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 1: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 2: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 4: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 3: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 1: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 4: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 3: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 2: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 1: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 3: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 4: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 2: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 1: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 3: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 4: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 4: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 2: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 2: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 1: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 1: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 4: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 2: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 3: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 3: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 1: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 4: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 2: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 1: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 3: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 4: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 2: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 1: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 3: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 4: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 2: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 3: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 4: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 4: 
+Chain 4:  Elapsed Time: 3959.09 seconds (Warm-up)
+Chain 4:                1642.77 seconds (Sampling)
+Chain 4:                5601.86 seconds (Total)
+Chain 4: 
+Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 4050.11 seconds (Warm-up)
+Chain 2:                1644.24 seconds (Sampling)
+Chain 2:                5694.35 seconds (Total)
+Chain 2: 
+Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 4169.13 seconds (Warm-up)
+Chain 1:                1674.03 seconds (Sampling)
+Chain 1:                5843.16 seconds (Total)
+Chain 1: 
+Chain 3: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 3: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 3: 
+Chain 3:  Elapsed Time: 4487.35 seconds (Warm-up)
+Chain 3:                1768.44 seconds (Sampling)
+Chain 3:                6255.79 seconds (Total)
+Chain 3: 
+Warning messages:
+1: There were 1 divergent transitions after warmup. See
+https://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. 
+2: Examine the pairs() plot to diagnose sampling problems
+ 
+3: The largest R-hat is NA, indicating chains have not mixed.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#r-hat 
+4: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#bulk-ess 
+5: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#tail-ess 
+                        mean   2.5%    50%  97.5%    n_eff  Rhat
+gamma_r                0.022 -0.222  0.021  0.251 1129.887 1.000
+gamma_v                0.867 -0.484  0.877  2.118  224.207 1.025
+gamma_w                0.245  0.051  0.245  0.439  739.862 1.004
+pi_r                  -0.091 -0.498 -0.085  0.273  706.911 1.003
+sigma_omega            1.264  1.070  1.259  1.490  607.741 1.005
+lambda_within_t[8mo]   0.560  0.424  0.560  0.705  597.115 1.005
+lambda_within_t[10mo]  0.565  0.474  0.564  0.661  498.433 1.008
+lambda_within_t[12mo]  0.569  0.505  0.570  0.639  468.852 1.012
+lambda_within_t[14mo]  0.572  0.513  0.572  0.635  684.074 1.009
+lambda_within_t[16mo]  0.575  0.502  0.576  0.650 1313.535 1.004
+lambda_within_t[18mo]  0.578  0.484  0.579  0.667 1977.389 1.001
+lambda_child_t[8mo]    0.408 -0.553  0.414  1.399  228.643 1.014
+lambda_child_t[10mo]   0.601 -0.223  0.600  1.445  190.509 1.016
+lambda_child_t[12mo]   0.759 -0.022  0.746  1.561  159.061 1.022
+lambda_child_t[14mo]   0.893  0.108  0.883  1.736  157.386 1.027
+lambda_child_t[16mo]   1.008  0.143  1.000  1.906  163.813 1.031
+lambda_child_t[18mo]   1.111  0.159  1.100  2.062  172.202 1.033
+lambda_word_t[8mo]     0.905  0.723  0.902  1.093  104.262 1.041
+lambda_word_t[10mo]    0.959  0.799  0.956  1.130   89.952 1.048
+lambda_word_t[12mo]    1.004  0.851  1.003  1.162   87.282 1.050
+lambda_word_t[14mo]    1.042  0.886  1.040  1.198   91.769 1.049
+lambda_word_t[16mo]    1.074  0.917  1.073  1.237  100.514 1.044
+lambda_word_t[18mo]    1.103  0.941  1.104  1.271  115.300 1.040
+kappa_within_t[8mo]    0.474  0.275  0.468  0.683  422.531 1.009
+kappa_within_t[10mo]   0.454  0.330  0.451  0.586  351.021 1.012
+kappa_within_t[12mo]   0.437  0.362  0.436  0.525  346.339 1.014
+kappa_within_t[14mo]   0.423  0.352  0.421  0.500  828.311 1.005
+kappa_within_t[16mo]   0.411  0.309  0.411  0.514 3083.292 0.999
+kappa_within_t[18mo]   0.400  0.259  0.401  0.536 3571.180 0.999
+lambda                 0.569  0.505  0.570  0.639  468.852 1.012
+lambda_child           0.759 -0.022  0.746  1.561  159.061 1.022
+lambda_word            1.004  0.851  1.003  1.162   87.282 1.050
+beta_v                 1.336 -0.035  1.300  2.740  158.004 1.023
+beta_w                 1.771  1.459  1.759  2.153  135.493 1.034
+delta                 12.978 10.933 12.894 15.268  255.011 1.013
+s                      0.527  0.024  0.471  1.288  527.394 1.004
+kappa                  0.437  0.362  0.436  0.525  346.339 1.014
+kappa_ratio            0.768  0.660  0.766  0.899  335.957 1.014
+mu_p                  -6.758 -7.554 -6.746 -5.991  117.747 1.033
+delta_p                6.946  5.681  6.951  8.070  347.796 1.015
+sd_kid[1]              3.156  2.500  3.111  4.048  219.195 1.015
+sd_kid[2]              2.259  1.801  2.226  2.868  207.263 1.031
+rho_alpha_prod        -0.195 -0.476 -0.195  0.100  191.575 1.030
+sigma_zeta             3.638  2.869  3.617  4.463  359.369 1.007
+mu_psi                 1.861  0.613  1.836  3.239  131.544 1.016
+tau_psi                2.079  1.781  2.069  2.428  278.879 1.022
+tau_D                  1.080  0.919  1.078  1.262  419.315 1.009
+n_floor_comp           7.321  0.000  0.000 44.000 1778.394 1.000
+n_floor_prod           0.000  0.000  0.000  0.000      NaN   NaN
+
+P(gamma > 0):
+gamma_r gamma_v gamma_w    pi_r 
+  0.579   0.904   0.991   0.337 
+
+Divergences:
+1 of 2000 iterations ended with a divergence (0.05%).
+Try increasing 'adapt_delta' to remove the divergences.
+
+Tree depth:
+0 of 2000 iterations saturated the maximum tree depth of 10.
+
+Energy:
+E-BFMI indicated no pathological behavior.
