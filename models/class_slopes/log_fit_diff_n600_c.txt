@@ -1,0 +1,185 @@
+Warning message:
+package ‘StanHeaders’ was built under R version 4.6.1 
+fit | diff | children 600 | administrations 1429 | words 323 | responses 405137
+recompiling to avoid crashing R session
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 2).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 3).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 4).
+Chain 1: 
+Chain 1: Gradient evaluation took 0.01597 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 159.7 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+Chain 3: 
+Chain 3: Gradient evaluation took 0.018787 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 187.87 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3: 
+Chain 3: 
+Chain 2: 
+Chain 2: Gradient evaluation took 0.028493 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 284.93 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 4: 
+Chain 4: Gradient evaluation took 0.026576 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 265.76 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4: 
+Chain 4: 
+Chain 3: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 4: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 1: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 2: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 2: Iteration:  50 / 1000 [  5%]  (Warmup)
+Chain 1: Iteration:  50 / 1000 [  5%]  (Warmup)
+Chain 3: Iteration:  50 / 1000 [  5%]  (Warmup)
+Chain 4: Iteration:  50 / 1000 [  5%]  (Warmup)
+Chain 2: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 1: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 3: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 4: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 2: Iteration: 150 / 1000 [ 15%]  (Warmup)
+Chain 3: Iteration: 150 / 1000 [ 15%]  (Warmup)
+Chain 4: Iteration: 150 / 1000 [ 15%]  (Warmup)
+Chain 1: Iteration: 150 / 1000 [ 15%]  (Warmup)
+Chain 2: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 3: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 4: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 1: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 2: Iteration: 250 / 1000 [ 25%]  (Warmup)
+Chain 3: Iteration: 250 / 1000 [ 25%]  (Warmup)
+Chain 4: Iteration: 250 / 1000 [ 25%]  (Warmup)
+Chain 1: Iteration: 250 / 1000 [ 25%]  (Warmup)
+Chain 2: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 3: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 4: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 1: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 2: Iteration: 350 / 1000 [ 35%]  (Warmup)
+Chain 3: Iteration: 350 / 1000 [ 35%]  (Warmup)
+Chain 4: Iteration: 350 / 1000 [ 35%]  (Warmup)
+Chain 1: Iteration: 350 / 1000 [ 35%]  (Warmup)
+Chain 2: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 3: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 4: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 2: Iteration: 450 / 1000 [ 45%]  (Warmup)
+Chain 1: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 3: Iteration: 450 / 1000 [ 45%]  (Warmup)
+Chain 4: Iteration: 450 / 1000 [ 45%]  (Warmup)
+Chain 2: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 2: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 1: Iteration: 450 / 1000 [ 45%]  (Warmup)
+Chain 3: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 3: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 4: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 4: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 2: Iteration: 550 / 1000 [ 55%]  (Sampling)
+Chain 3: Iteration: 550 / 1000 [ 55%]  (Sampling)
+Chain 1: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 1: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 4: Iteration: 550 / 1000 [ 55%]  (Sampling)
+Chain 2: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 1: Iteration: 550 / 1000 [ 55%]  (Sampling)
+Chain 3: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 4: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 2: Iteration: 650 / 1000 [ 65%]  (Sampling)
+Chain 1: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 3: Iteration: 650 / 1000 [ 65%]  (Sampling)
+Chain 4: Iteration: 650 / 1000 [ 65%]  (Sampling)
+Chain 2: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 1: Iteration: 650 / 1000 [ 65%]  (Sampling)
+Chain 3: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 4: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 2: Iteration: 750 / 1000 [ 75%]  (Sampling)
+Chain 1: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 3: Iteration: 750 / 1000 [ 75%]  (Sampling)
+Chain 4: Iteration: 750 / 1000 [ 75%]  (Sampling)
+Chain 2: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 1: Iteration: 750 / 1000 [ 75%]  (Sampling)
+Chain 3: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 4: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 2: Iteration: 850 / 1000 [ 85%]  (Sampling)
+Chain 1: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 3: Iteration: 850 / 1000 [ 85%]  (Sampling)
+Chain 4: Iteration: 850 / 1000 [ 85%]  (Sampling)
+Chain 2: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 1: Iteration: 850 / 1000 [ 85%]  (Sampling)
+Chain 3: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 4: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 2: Iteration: 950 / 1000 [ 95%]  (Sampling)
+Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 3: Iteration: 950 / 1000 [ 95%]  (Sampling)
+Chain 4: Iteration: 950 / 1000 [ 95%]  (Sampling)
+Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 1843.45 seconds (Warm-up)
+Chain 2:                813.276 seconds (Sampling)
+Chain 2:                2656.73 seconds (Total)
+Chain 2: 
+Chain 1: Iteration: 950 / 1000 [ 95%]  (Sampling)
+Chain 3: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 3: 
+Chain 3:  Elapsed Time: 1867.5 seconds (Warm-up)
+Chain 3:                814.822 seconds (Sampling)
+Chain 3:                2682.32 seconds (Total)
+Chain 3: 
+Chain 4: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 4: 
+Chain 4:  Elapsed Time: 1911.02 seconds (Warm-up)
+Chain 4:                805.185 seconds (Sampling)
+Chain 4:                2716.21 seconds (Total)
+Chain 4: 
+Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 1949.43 seconds (Warm-up)
+Chain 1:                796.878 seconds (Sampling)
+Chain 1:                2746.31 seconds (Total)
+Chain 1: 
+Warning messages:
+1: The largest R-hat is NA, indicating chains have not mixed.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#r-hat 
+2: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#bulk-ess 
+3: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+https://mc-stan.org/misc/warnings.html#tail-ess 
+elapsed: 45.8 min
+                   par   mean   2.5%    50%  97.5%    n_eff  Rhat
+                 kappa 12.018 11.509 11.995 12.614   52.373 1.091
+      lambda[nouns_q1]  1.000  1.000  1.000  1.000      NaN   NaN
+      lambda[nouns_q2]  1.071  1.048  1.071  1.095  717.900 1.007
+      lambda[nouns_q3]  0.988  0.965  0.987  1.011  639.753 1.002
+      lambda[nouns_q4]  0.958  0.932  0.957  0.983  456.695 1.012
+       Delta[nouns_q1]  0.000  0.000  0.000  0.000      NaN   NaN
+       Delta[nouns_q2] -0.065 -0.221 -0.068  0.108 1364.183 1.003
+       Delta[nouns_q3] -0.270 -0.457 -0.271 -0.088 1337.257 1.001
+       Delta[nouns_q4] -0.784 -0.992 -0.783 -0.566 1490.750 1.001
+   age_slope[nouns_q1] 12.018 11.509 11.995 12.614   52.373 1.091
+   age_slope[nouns_q2] 12.801 12.235 12.776 13.457   54.956 1.086
+   age_slope[nouns_q3] 11.600 11.102 11.583 12.219   56.040 1.082
+   age_slope[nouns_q4] 10.757 10.211 10.736 11.388   53.651 1.087
+ accel_ratio[nouns_q1]  1.000  1.000  1.000  1.000      NaN   NaN
+ accel_ratio[nouns_q2]  0.995  0.981  0.994  1.009 1367.614 1.003
+ accel_ratio[nouns_q3]  0.978  0.962  0.978  0.993 1315.037 1.001
+ accel_ratio[nouns_q4]  0.935  0.917  0.935  0.952 1110.119 1.003
+             sigma[xi]  2.103  1.970  2.100  2.242 1154.277 1.005
+           sigma[zeta]  6.391  5.973  6.385  6.848 1449.173 1.002
+                   rho -0.202 -0.290 -0.202 -0.112  971.578 1.009
+        mu_c[nouns_q1]  1.451  1.118  1.452  1.761   48.021 1.078
+        mu_c[nouns_q2]  3.045  2.769  3.051  3.292   29.368 1.129
+        mu_c[nouns_q3]  3.671  3.416  3.673  3.910   26.321 1.150
+        mu_c[nouns_q4]  4.794  4.522  4.798  5.041   40.744 1.106
+       tau_c[nouns_q1]  1.267  1.098  1.262  1.476 3130.721 0.999
+       tau_c[nouns_q2]  0.851  0.721  0.845  1.006 4313.209 0.999
+       tau_c[nouns_q3]  0.757  0.645  0.753  0.893 3106.667 0.999
+       tau_c[nouns_q4]  0.882  0.755  0.879  1.032 3357.811 0.999
+divergences 0 | max treedepth hits 0 | max rhat 1.150 | min n_eff 26

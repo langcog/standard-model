@@ -1,0 +1,179 @@
+Warning message:
+package ‘StanHeaders’ was built under R version 4.6.1 
+fit | rasch | children 600 | administrations 1429 | words 681 | responses 831269
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 2).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 3).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 4).
+Chain Chain 3: 
+1Chain : 
+3: Gradient evaluation took 0.091657 seconds
+Chain 1: Gradient evaluation took 0.100879 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 1008.79 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: Chain 
+3Chain : 1: 1000 transitions using 10 leapfrog steps per transition would take 916.57 seconds.
+
+Chain 3: Adjust your expectations accordingly!
+Chain 3: 
+Chain 3: 
+Chain 4: 
+Chain 4: Gradient evaluation took 0.094932 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 949.32 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4: 
+Chain 4: 
+Chain 2: 
+Chain 2: Gradient evaluation took 0.120222 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 1202.22 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 1: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 3: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 4: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 2: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 1: Iteration:  50 / 1000 [  5%]  (Warmup)
+Chain 4: Iteration:  50 / 1000 [  5%]  (Warmup)
+Chain 2: Iteration:  50 / 1000 [  5%]  (Warmup)
+Chain 3: Iteration:  50 / 1000 [  5%]  (Warmup)
+Chain 1: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 4: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 1: Iteration: 150 / 1000 [ 15%]  (Warmup)
+Chain 2: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 3: Iteration: 100 / 1000 [ 10%]  (Warmup)
+Chain 4: Iteration: 150 / 1000 [ 15%]  (Warmup)
+Chain 1: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 2: Iteration: 150 / 1000 [ 15%]  (Warmup)
+Chain 3: Iteration: 150 / 1000 [ 15%]  (Warmup)
+Chain 4: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 1: Iteration: 250 / 1000 [ 25%]  (Warmup)
+Chain 2: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 4: Iteration: 250 / 1000 [ 25%]  (Warmup)
+Chain 3: Iteration: 200 / 1000 [ 20%]  (Warmup)
+Chain 1: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 2: Iteration: 250 / 1000 [ 25%]  (Warmup)
+Chain 3: Iteration: 250 / 1000 [ 25%]  (Warmup)
+Chain 4: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 1: Iteration: 350 / 1000 [ 35%]  (Warmup)
+Chain 3: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 4: Iteration: 350 / 1000 [ 35%]  (Warmup)
+Chain 2: Iteration: 300 / 1000 [ 30%]  (Warmup)
+Chain 1: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 2: Iteration: 350 / 1000 [ 35%]  (Warmup)
+Chain 4: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 3: Iteration: 350 / 1000 [ 35%]  (Warmup)
+Chain 1: Iteration: 450 / 1000 [ 45%]  (Warmup)
+Chain 2: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 3: Iteration: 400 / 1000 [ 40%]  (Warmup)
+Chain 4: Iteration: 450 / 1000 [ 45%]  (Warmup)
+Chain 1: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 1: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 3: Iteration: 450 / 1000 [ 45%]  (Warmup)
+Chain 2: Iteration: 450 / 1000 [ 45%]  (Warmup)
+Chain 4: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 4: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 1: Iteration: 550 / 1000 [ 55%]  (Sampling)
+Chain 3: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 2: Iteration: 500 / 1000 [ 50%]  (Warmup)
+Chain 3: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 2: Iteration: 501 / 1000 [ 50%]  (Sampling)
+Chain 4: Iteration: 550 / 1000 [ 55%]  (Sampling)
+Chain 1: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 3: Iteration: 550 / 1000 [ 55%]  (Sampling)
+Chain 2: Iteration: 550 / 1000 [ 55%]  (Sampling)
+Chain 4: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 1: Iteration: 650 / 1000 [ 65%]  (Sampling)
+Chain 3: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 2: Iteration: 600 / 1000 [ 60%]  (Sampling)
+Chain 4: Iteration: 650 / 1000 [ 65%]  (Sampling)
+Chain 1: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 3: Iteration: 650 / 1000 [ 65%]  (Sampling)
+Chain 2: Iteration: 650 / 1000 [ 65%]  (Sampling)
+Chain 4: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 1: Iteration: 750 / 1000 [ 75%]  (Sampling)
+Chain 3: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 2: Iteration: 700 / 1000 [ 70%]  (Sampling)
+Chain 4: Iteration: 750 / 1000 [ 75%]  (Sampling)
+Chain 1: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 3: Iteration: 750 / 1000 [ 75%]  (Sampling)
+Chain 2: Iteration: 750 / 1000 [ 75%]  (Sampling)
+Chain 4: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 1: Iteration: 850 / 1000 [ 85%]  (Sampling)
+Chain 3: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 2: Iteration: 800 / 1000 [ 80%]  (Sampling)
+Chain 4: Iteration: 850 / 1000 [ 85%]  (Sampling)
+Chain 1: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 3: Iteration: 850 / 1000 [ 85%]  (Sampling)
+Chain 2: Iteration: 850 / 1000 [ 85%]  (Sampling)
+Chain 4: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 1: Iteration: 950 / 1000 [ 95%]  (Sampling)
+Chain 3: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 2: Iteration: 900 / 1000 [ 90%]  (Sampling)
+Chain 4: Iteration: 950 / 1000 [ 95%]  (Sampling)
+Chain 1: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 4090.02 seconds (Warm-up)
+Chain 1:                2365.97 seconds (Sampling)
+Chain 1:                6455.99 seconds (Total)
+Chain 1: 
+Chain 3: Iteration: 950 / 1000 [ 95%]  (Sampling)
+Chain 2: Iteration: 950 / 1000 [ 95%]  (Sampling)
+Chain 4: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 4: 
+Chain 4:  Elapsed Time: 4181.2 seconds (Warm-up)
+Chain 4:                2363.62 seconds (Sampling)
+Chain 4:                6544.82 seconds (Total)
+Chain 4: 
+Chain 3: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 2: Iteration: 1000 / 1000 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 4335.62 seconds (Warm-up)
+Chain 2:                2352.21 seconds (Sampling)
+Chain 2:                6687.83 seconds (Total)
+Chain 2: 
+Chain 3: 
+Chain 3:  Elapsed Time: 4334.45 seconds (Warm-up)
+Chain 3:                2353.57 seconds (Sampling)
+Chain 3:                6688.02 seconds (Total)
+Chain 3: 
+elapsed: 111.5 min
+                         par   mean   2.5%    50%  97.5%    n_eff  Rhat
+                       kappa 10.665 10.162 10.664 11.143 3256.891 1.000
+      lambda[function_words]  1.000  1.000  1.000  1.000      NaN   NaN
+               lambda[nouns]  1.000  1.000  1.000  1.000      NaN   NaN
+               lambda[other]  1.000  1.000  1.000  1.000      NaN   NaN
+          lambda[predicates]  1.000  1.000  1.000  1.000      NaN   NaN
+       Delta[function_words]  0.000  0.000  0.000  0.000      NaN   NaN
+                Delta[nouns]  0.000  0.000  0.000  0.000      NaN   NaN
+                Delta[other]  0.000  0.000  0.000  0.000      NaN   NaN
+           Delta[predicates]  0.000  0.000  0.000  0.000      NaN   NaN
+   age_slope[function_words] 10.665 10.162 10.664 11.143 3256.891 1.000
+            age_slope[nouns] 10.665 10.162 10.664 11.143 3256.891 1.000
+            age_slope[other] 10.665 10.162 10.664 11.143 3256.891 1.000
+       age_slope[predicates] 10.665 10.162 10.664 11.143 3256.891 1.000
+ accel_ratio[function_words]  1.000  1.000  1.000  1.000      NaN   NaN
+          accel_ratio[nouns]  1.000  1.000  1.000  1.000      NaN   NaN
+          accel_ratio[other]  1.000  1.000  1.000  1.000      NaN   NaN
+     accel_ratio[predicates]  1.000  1.000  1.000  1.000      NaN   NaN
+                   sigma[xi]  1.815  1.704  1.814  1.936 3529.897 1.000
+                 sigma[zeta]  6.098  5.728  6.093  6.495 3030.137 0.999
+                         rho -0.078 -0.167 -0.079  0.008 4761.715 0.999
+                       mu_xi -2.936 -3.091 -2.934 -2.790 4475.320 0.999
+      thresh[function_words]  1.919  1.598  1.920  2.244 4614.326 0.999
+               thresh[nouns]  0.000  0.000  0.000  0.000      NaN   NaN
+               thresh[other] -0.060 -0.612 -0.064  0.518 5117.594 0.999
+          thresh[predicates]  0.659  0.471  0.656  0.844 4061.233 0.999
+        mu_c[function_words]  1.028  0.707  1.029  1.353 4614.326 0.999
+                 mu_c[nouns]  0.000  0.000  0.000  0.000      NaN   NaN
+                 mu_c[other]  0.087 -0.465  0.083  0.665 5117.594 0.999
+            mu_c[predicates]  0.325  0.136  0.321  0.509 4061.233 0.999
+       tau_c[function_words]  1.585  1.387  1.578  1.831 4359.581 0.999
+                tau_c[nouns]  1.603  1.485  1.600  1.726 5567.694 0.999
+                tau_c[other]  2.682  2.302  2.667  3.130 6242.400 0.999
+           tau_c[predicates]  1.190  1.067  1.187  1.329 4373.796 0.999
+divergences 0 | max treedepth hits 0 | max rhat 1.000 | min n_eff 3030

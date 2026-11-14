@@ -1,0 +1,43 @@
+Warning message:
+package ‘StanHeaders’ was built under R version 4.6.1 
+fit | both | children 3105 | administrations 7329 | words 681 | responses 4253076
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 3).
+
+SAMPLING FOR MODEL '
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN anon_model' NOW (CHAIN 2).
+4).
+Chain 4: 
+Chain 4: Gradient evaluation took 0.561866 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 5618.66 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4: 
+Chain 4: 
+Chain 1: 
+Chain 1: Gradient evaluation took 0.589952 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 5899.52 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+Chain 2: 
+Chain 2: Gradient evaluation took 0.614432 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 6144.32 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 3: 
+Chain 3: Gradient evaluation took 0.710221 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 7102.21 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3: 
+Chain 3: 
+Chain 1: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 4: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 2: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 3: Iteration:   1 / 1000 [  0%]  (Warmup)
+Chain 4: Iteration:  50 / 1000 [  5%]  (Warmup)
+Chain 2: Iteration:  50 / 1000 [  5%]  (Warmup)
+Chain 1: Iteration:  50 / 1000 [  5%]  (Warmup)
+Chain 3: Iteration:  50 / 1000 [  5%]  (Warmup)
